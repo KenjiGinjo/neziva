@@ -3,6 +3,7 @@ import { FormImage } from './image'
 import { Input } from './input'
 import { InputStep } from './input-step'
 import { Radio } from './radio'
+import { Select } from './select'
 import { Submit } from './submit'
 import { Switch } from './switch'
 import { Tags } from './tags'
@@ -18,6 +19,7 @@ export const Form = {
   Input,
   InputStep,
   Radio,
+  Select,
   Tags,
   Textarea,
   Switch,

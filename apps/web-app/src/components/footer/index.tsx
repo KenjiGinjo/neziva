@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react'
+import { Github, Mail, Twitter } from 'lucide-react'
 import { Link } from 'wouter'
 
 interface FooterLink {
@@ -30,7 +30,6 @@ const companyLinks: FooterLink[] = [
 const socialLinks = [
   { icon: Github, href: 'https://github.com', label: 'GitHub' },
   { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
   { icon: Mail, href: 'mailto:support@example.com', label: 'Email' },
 ]
 
