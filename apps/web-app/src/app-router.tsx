@@ -1,12 +1,17 @@
 import { Route, Switch } from 'wouter'
+import { PageAbout } from './pages/about'
 import { PageAuthLogin } from './pages/auth-login'
 import { PageAuthSignup } from './pages/auth-signup'
 import { PageBilling } from './pages/billing'
+import { PageBlog } from './pages/blog'
+import { PageContact } from './pages/contact'
 import { PageDashboard } from './pages/dashboard'
 import { PageDocs } from './pages/docs'
 import { PageHelp } from './pages/help'
 import { PageHome } from './pages/home'
 import { PageNotFound } from './pages/not-found'
+import { PagePortfolio } from './pages/portfolio'
+import { PageServices } from './pages/services'
 import { PageSettings } from './pages/settings'
 import { PageSettingsApiKeys } from './pages/settings-api-keys'
 import { PageSettingsNotifications } from './pages/settings-notifications'
@@ -22,6 +27,13 @@ export function AppRouter() {
     <Switch>
       {/* 首页 */}
       <Route path="/" component={PageHome} />
+
+      {/* 营销页面 */}
+      <Route path="/services" component={PageServices} />
+      <Route path="/portfolio" component={PagePortfolio} />
+      <Route path="/about" component={PageAbout} />
+      <Route path="/contact" component={PageContact} />
+      <Route path="/blog" component={PageBlog} />
 
       {/* 认证相关 */}
       <Route path="/auth/signup" component={PageAuthSignup} />
