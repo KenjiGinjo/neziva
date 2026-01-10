@@ -1,4 +1,4 @@
-import { DEFAULT_IMAGE_LIMIT_SIZE, DEFAULT_IMAGE_LIMIT_TYPE } from '@haole/constants'
+import { DEFAULT_IMAGE_LIMIT_SIZE, DEFAULT_IMAGE_LIMIT_TYPE } from '@neziva/constants'
 import { Loader2, Upload, X } from 'lucide-react'
 import { useCallback, useRef, useState } from 'react'
 import { toast } from 'sonner'

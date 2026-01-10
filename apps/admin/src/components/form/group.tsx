@@ -1,4 +1,4 @@
-import { Exception } from '@haole/tools/exception'
+import { Exception } from '@neziva/tools/exception'
 import { toast } from 'sonner'
 import { ZodError } from 'zod'
 import { checkAuth, showModalAuth } from '@/lib/auth'

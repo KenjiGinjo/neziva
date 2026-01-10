@@ -1,5 +1,5 @@
 import type { MiddlewareHandler } from 'hono'
-import { vIp } from '@haole/validations'
+import { vIp } from '@neziva/validations'
 import { getConnInfo } from 'hono/bun'
 
 export interface Ip {

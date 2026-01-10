@@ -1,6 +1,6 @@
 import type { ModelUser } from 'db'
 import type { MiddlewareHandler } from 'hono'
-import { EnumUserStatus } from '@haole/enums'
+import { EnumUserStatus } from '@neziva/enums'
 import { db } from 'db'
 import { ENV } from '../env'
 import { isTokenStored, jwtExtractSub, jwtExtractToken } from '../utils'

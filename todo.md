@@ -289,20 +289,27 @@
 
 ## 网站功能特性
 
-### 必须功能
-1. **响应式设计** - 适配桌面、平板、手机
-2. **联系表单** - 收集潜在客户信息
+### 必须功能（MVP 阶段）
+1. **响应式设计** - 适配桌面、平板、手机（320px-1920px+）
+2. **联系表单 + 后端 API** - 收集潜在客户信息，存储数据，发送邮件通知
 3. **Calendly集成** - 在线预约功能
-4. **AI互动Demo** - 聊天机器人展示
-5. **案例展示** - 成功案例展示
-6. **服务详情页** - 每个服务的详细介绍
+4. **案例展示** - 展示3个个人项目作为案例（静态内容）
+5. **服务详情页** - 每个服务的详细介绍（静态内容）
+6. **基础SEO** - Meta标签、sitemap、robots.txt
 
-### 可选功能
-1. **博客系统** - 内容营销和SEO
-2. **客户评价/Testimonials** - 社会证明
-3. **FAQ页面** - 常见问题解答
-4. **资源下载** - 白皮书、指南等
-5. **多语言支持** - 如果目标市场包括中文用户
+### 推荐功能（第二阶段）
+1. **AI互动Demo** - 聊天机器人展示（可以先 mockup，后续升级）
+2. **博客系统 + 后端 API** - 内容营销和SEO（可选但强烈推荐）
+3. **Newsletter订阅 + 后端 API** - 邮件营销（如果实现博客系统）
+
+### 可选功能（后期优化）
+1. **客户评价/Testimonials** - 社会证明
+2. **FAQ页面** - 常见问题解答
+3. **资源下载** - 白皮书、指南等
+4. **管理后台** - 管理联系表单记录、博客文章（如果博客系统）
+5. **多语言支持（i18n）** - 如果目标市场包括中文用户
+6. **深色模式** - 提升用户体验
+7. **评论系统** - 博客文章评论（如果实现博客系统）
 
 ---
 
@@ -383,11 +390,36 @@
 
 ## 下一步行动
 
+### 关键决策（优先级：高）
+1. ⬜ **选择技术栈**
+   - 前端：React + Next.js / Vite + React / 其他
+   - 后端：Next.js API Routes / Express / NestJS / 其他
+   - 数据库：PostgreSQL / MongoDB / Supabase / 其他
+   - ORM：Prisma / TypeORM / Mongoose / 其他
+2. ⬜ **选择部署方案**
+   - 前端部署：Vercel / Netlify / Cloudflare Pages / AWS
+   - 后端/数据库：Vercel + Supabase / AWS / Railway / Fly.io / 其他
+   - CDN：Cloudflare / Vercel Edge Network / 其他
+3. ⬜ **选择邮件服务**
+   - SendGrid / Resend / Postmark / AWS SES / 其他
+4. ⬜ **确定 SEO 方案** ✅ 已选择：预渲染方案
+   - ✅ 方案：预渲染（Prerendering）+ 动态 Meta 标签
+   - ✅ 工具：vite-plugin-prerender + react-helmet-async + vite-plugin-sitemap
+   - ✅ 适用页面：营销页面（首页、服务、案例、关于、联系、博客）
+   - ✅ 优点：实现简单，无需重构，保持 SPA 架构，SEO 友好
+   - 参考：docs/spa-seo-best-practices.md
+5. ⬜ **确定项目范围优先级**
+   - 第一阶段（MVP）：首页、服务页、联系页、联系表单 API
+   - 第二阶段：案例页、关于页、AI Demo（简单版）
+   - 第三阶段：博客系统（如果实现）
+
 ### 基础设施准备
-1. ✅ 购买域名 neziva.com
-2. ⬜ 配置DNS解析
-3. ⬜ 设置邮箱服务（Google Workspace / Zoho Mail）
-4. ⬜ 配置邮箱：hello@neziva.com
+6. ✅ 购买域名 neziva.com
+7. ⬜ 配置 DNS 解析（A 记录、CNAME 等）
+8. ⬜ 设置邮箱服务（Google Workspace / Zoho Mail / Cloudflare Email）
+9. ⬜ 配置邮箱：hello@neziva.com
+10. ⬜ 配置云服务提供商账户和资源
+11. ⬜ 配置数据库服务账户和实例
 
 ### 网站开发准备
 5. ✅ 完成网站方案规划（当前）
@@ -398,15 +430,159 @@
    - 智能数据分析工具
    - AI内容生成助手
 
-### 网站开发
-9. ⬜ 开发网站
-10. ⬜ 集成Calendly和联系表单
-11. ⬜ 开发AI互动Demo
-12. ⬜ 测试和优化
-13. ⬜ 部署上线（neziva.com）
+### 技术架构规划
+12. ⬜ 选择技术栈（前端框架、后端框架、数据库）
+13. ⬜ 确定部署方案（Vercel/AWS/其他）
+14. ⬜ 设计数据库结构
+15. ⬜ 设计 API 接口规范
+
+### 后端开发（数据库和 API）
+16. ⬜ 设置数据库（PostgreSQL/MongoDB/其他）
+17. ⬜ 创建联系表单数据表（name, company, email, phone, project_type, description, budget）
+18. ⬜ 开发联系表单提交 API
+    - POST /api/contact/submit
+    - 表单验证（客户端 + 服务端）
+    - 数据存储到数据库
+    - 发送邮件通知到 hello@neziva.com
+19. ⬜ 集成邮件服务（SendGrid/Resend/其他）
+20. ⬜ 实现反垃圾邮件机制（rate limiting, CAPTCHA/Honeypot）
+21. ⬜ 创建博客文章数据表（title, content, category, tags, author, date, read_time）
+22. ⬜ 开发博客 API
+    - GET /api/blog/posts（支持分页、分类、标签过滤）
+    - GET /api/blog/posts/:id（文章详情）
+    - GET /api/blog/search?q=keyword（搜索功能）
+    - GET /api/blog/related/:id（相关文章推荐）
+23. ⬜ 创建 Newsletter 订阅数据表（email, subscribed_at, status）
+24. ⬜ 开发 Newsletter 订阅 API
+    - POST /api/newsletter/subscribe
+    - 邮箱验证
+    - 防止重复订阅
+25. ⬜ API 错误处理和日志记录
+26. ⬜ API 文档编写（可选：Swagger/OpenAPI）
+
+### 前端开发
+27. ⬜ 开发网站前端页面（首页、服务、案例、关于、联系）
+28. ⬜ 集成 Calendly 组件
+29. ⬜ 开发联系表单组件（前端验证 + API 调用）
+30. ⬜ 开发博客列表页和详情页（如果实现博客系统）
+31. ⬜ 开发博客搜索和过滤功能（如果实现博客系统）
+32. ⬜ 开发 Newsletter 订阅组件
+33. ⬜ 开发 AI 互动 Demo
+    - 选项 A：先用静态 mockup（简单问答）
+    - 选项 B：集成第三方聊天机器人服务（ChatGPT API / Claude API / 其他）
+    - 选项 C：开发简单的问答系统（基于预设问题和答案）
+    - 需要收集访客信息和需求（可选）
+34. ⬜ 实现响应式设计（移动端适配：320px-767px, 768px-1024px, 1920px+）
+35. ⬜ 添加加载状态和骨架屏（Skeleton Loading）
+36. ⬜ 错误页面（404、500 错误页）
+37. ⬜ 实现无障碍访问（a11y）
+    - 键盘导航支持
+    - 屏幕阅读器友好
+    - 足够的颜色对比度（WCAG AA）
+    - 有意义的 alt 文本
+    - Focus 状态清晰可见
+38. ⬜ 实现平滑滚动和动画效果（符合设计文档要求）
+39. ⬜ 图片懒加载和优化（WebP 格式，响应式图片）
+40. ⬜ 实现深色模式支持（可选）
+41. ⬜ SEO 优化实施（预渲染方案）⭐ 重要
+    **方案选择**：预渲染（Prerendering）+ 动态 Meta 标签
+    **适用页面**：营销页面（首页、服务、案例、关于、联系、博客）
+
+    **步骤 1：安装依赖**
+    - 安装 react-helmet-async（动态 Meta 标签管理）
+    - 安装 vite-plugin-prerender（预渲染营销页面）
+    - 安装 vite-plugin-sitemap（生成 sitemap.xml）
+
+    **步骤 2：配置预渲染**
+    - 在 vite.config.ts 中配置 vite-plugin-prerender
+    - 设置需要预渲染的路由：/, /services, /portfolio, /about, /contact, /blog
+    - 配置渲染触发器（renderAfterDocumentEvent: 'render-event'）
+
+    **步骤 3：创建 SEO 组件**
+    - 创建 SeoHead 组件（统一管理 SEO meta 标签）
+    - 创建 JsonLd 组件（结构化数据）
+    - 在 main.tsx 中集成 HelmetProvider
+    - 在应用加载完成后触发 'render-event' 事件
+
+    **步骤 4：为页面添加 SEO**
+    - 首页：添加 SEO 组件（title, description, keywords）
+    - 服务页：添加 SEO 组件（包含 Service 结构化数据）
+    - 案例页：添加 SEO 组件（包含 ItemList 结构化数据）
+    - 关于页：添加 SEO 组件（包含 Organization 结构化数据）
+    - 联系页：添加 SEO 组件
+    - 博客页：添加 SEO 组件（如果有博客系统）
+
+    **步骤 5：生成 SEO 文件**
+    - 配置 vite-plugin-sitemap 生成 sitemap.xml
+    - 创建 public/robots.txt（允许爬虫访问营销页面，禁止访问 /dashboard, /settings, /workflow, /auth）
+
+    **步骤 6：优化和验证**
+    - 添加 Open Graph 和 Twitter Card meta 标签（社交媒体分享优化）
+    - 添加结构化数据（JSON-LD Schema）
+    - 验证预渲染效果（运行 build，检查 dist 目录中的 HTML 是否包含完整内容）
+    - 使用 Lighthouse 进行 SEO 审计
+    - 提交 sitemap 到 Google Search Console
+
+    **参考文档**：docs/spa-seo-best-practices.md
+
+### 测试和部署
+42. ⬜ 前端单元测试（可选）
+43. ⬜ API 测试（Postman/Bruno）
+44. ⬜ 端到端测试（表单提交、邮件发送等）
+45. ⬜ 性能优化（图片优化、代码分割、缓存）
+46. ⬜ 配置环境变量（API keys、数据库连接等）
+47. ⬜ 部署上线（neziva.com）
+48. ⬜ 配置 SSL 证书（HTTPS）
+49. ⬜ 设置监控和错误追踪（Sentry/其他）
+
+### 内容管理和管理后台
+50. ⬜ 开发管理后台（可选但推荐）
+    - 查看联系表单提交记录
+    - 管理博客文章（CRUD）
+    - 查看 Newsletter 订阅列表
+    - 基本的统计分析
+51. ⬜ 博客内容管理系统
+    - 文章编辑器（Markdown 或富文本）
+    - 图片上传功能（可选：集成 Cloudinary/其他）
+    - 分类和标签管理
+    - 草稿和发布状态
+52. ⬜ 设计邮件模板
+    - 联系表单提交确认邮件（发送给用户，感谢咨询）
+    - 新联系表单通知邮件（发送给 hello@neziva.com，包含表单详情）
+    - Newsletter 欢迎邮件（订阅确认，如果使用 double opt-in）
+    - Newsletter 确认邮件（验证邮箱地址，double opt-in）
+53. ⬜ 实现图片优化和 CDN（如果博客需要图片）
+
+### 安全和合规
+54. ⬜ 实现 GDPR/隐私合规
+    - 隐私政策页面
+    - Cookie 同意提示（如果使用分析工具）
+    - 数据删除功能（用户可以请求删除数据）
+55. ⬜ 表单安全措施
+    - CSRF 保护
+    - XSS 防护
+    - SQL 注入防护
+    - Rate limiting（防止滥用）
+56. ⬜ 数据备份策略（定期备份数据库）
+
+### 分析和监控
+57. ⬜ 集成网站分析（Google Analytics / Plausible）
+58. ⬜ 设置网站性能监控（Core Web Vitals）
+59. ⬜ 设置 Uptime 监控（确保网站可用性）
+60. ⬜ SEO 监控和优化
+    - 设置 Google Search Console（提交 sitemap，监控索引状态）
+    - 定期检查搜索排名和点击率
+    - 使用 Google Rich Results Test 验证结构化数据
+    - 使用 PageSpeed Insights 监控性能
+    - 定期运行 Lighthouse SEO 审计
 
 ### 营销和运营
-14. ⬜ SEO优化和内容营销
-15. ⬜ 在GitHub开源三个项目
-16. ⬜ 写技术博客文章展示项目
-17. ⬜ 在LinkedIn/社交媒体分享项目
+61. ⬜ SEO优化和内容营销
+    - 关键词研究
+    - 内容优化
+    - 内链建设
+    - 外链建设策略
+62. ⬜ 在GitHub开源三个案例项目
+63. ⬜ 写技术博客文章展示项目
+64. ⬜ 在LinkedIn/社交媒体分享项目
+65. ⬜ 准备博客内容（至少 3-5 篇初始文章）

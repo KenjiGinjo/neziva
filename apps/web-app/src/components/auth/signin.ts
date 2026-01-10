@@ -1,4 +1,4 @@
-import { STORAGE_KEY } from '@haole/constants'
+import { STORAGE_KEY } from '@neziva/constants'
 import { get } from 'radash'
 import { $state } from './state'
 

@@ -1,4 +1,4 @@
-import { EnumErrorLogType } from '@haole/enums'
+import { EnumErrorLogType } from '@neziva/enums'
 import { BaseTable } from './_base'
 
 export class TableErrorLog extends BaseTable {

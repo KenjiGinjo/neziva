@@ -1,5 +1,5 @@
-import { THEME } from '@haole/constants'
-import { IconGroup } from '@haole/svg'
+import { THEME } from '@neziva/constants'
+import { IconGroup } from '@neziva/svg'
 import { navigate } from 'wouter/use-browser-location'
 import { config } from '@/config'
 import { Button } from '../ui/button'

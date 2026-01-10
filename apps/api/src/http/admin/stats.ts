@@ -1,4 +1,4 @@
-import type { ResAdminStats } from '@haole/interfaces'
+import type { ResAdminStats } from '@neziva/interfaces'
 import type { HonoResponse } from '../../types'
 import { endOfDay, startOfDay } from 'date-fns'
 import { db } from 'db'

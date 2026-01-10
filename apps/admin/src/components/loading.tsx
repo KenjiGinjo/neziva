@@ -1,5 +1,5 @@
-import { IconErrorWarningFill } from '@haole/svg'
-import { Exception } from '@haole/tools/exception'
+import { IconErrorWarningFill } from '@neziva/svg'
+import { Exception } from '@neziva/tools/exception'
 import { Loader2Icon } from 'lucide-react'
 import { Empty } from './empty'
 import { AuthSection } from './guard/auth-section'

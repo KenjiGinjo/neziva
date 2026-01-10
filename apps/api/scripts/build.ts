@@ -9,7 +9,7 @@ const SERVER_CONFIG = {
   host: process.env.SERVER_IP,
   username: process.env.SERVER_USERNAME,
   password: process.env.SERVER_PASSWORD,
-  remotePath: '/www/wwwroot/haole-api',
+  remotePath: '/www/wwwroot/neziva-api',
 }
 
 // 确保远程目录存在

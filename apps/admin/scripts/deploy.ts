@@ -5,7 +5,7 @@ const SERVER_CONFIG = {
   host: process.env.SERVER_IP,
   username: process.env.SERVER_USERNAME,
   password: process.env.SERVER_PASSWORD,
-  remotePath: '/www/wwwroot/haole-admin',
+  remotePath: '/www/wwwroot/neziva-admin',
 }
 
 // 确保远程目录存在

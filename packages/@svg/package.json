@@ -1,5 +1,5 @@
 {
-  "name": "@haole/svg",
+  "name": "@neziva/svg",
   "private": true,
   "exports": {
     ".": "./src/icons/index.ts"

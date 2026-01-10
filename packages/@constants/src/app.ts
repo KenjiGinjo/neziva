@@ -1,5 +1,5 @@
 export const APP = {
-  appName: 'haole',
+  appName: 'neziva',
   appStartDate: '2025-07-30',
   defaultTZ: '+08:00',
   currency: 'USD',

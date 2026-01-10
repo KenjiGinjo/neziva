@@ -1,4 +1,4 @@
-import { EnumSubscriptionPlan } from '@haole/enums'
+import { EnumSubscriptionPlan } from '@neziva/enums'
 
 import { Check } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'

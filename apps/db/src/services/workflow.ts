@@ -1,4 +1,4 @@
-import { Exception } from '@haole/tools/exception'
+import { Exception } from '@neziva/tools/exception'
 import { db } from '../tables'
 
 export const workflow = {

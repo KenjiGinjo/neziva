@@ -1,4 +1,4 @@
-import { ERROR_CODE } from '@haole/constants'
+import { ERROR_CODE } from '@neziva/constants'
 import { BaseException } from './base'
 
 class UnauthorizedException extends BaseException {

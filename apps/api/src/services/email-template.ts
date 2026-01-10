@@ -2,7 +2,7 @@
  * 邮件模板
  *
  * 包含所有邮件模板函数，用于生成 HTML 和纯文本格式的邮件内容。
- * 所有模板使用一致的样式，符合 haole 品牌风格。
+ * 所有模板使用一致的样式，符合 neziva 品牌风格。
  */
 
 interface EmailTemplateResult {
@@ -37,7 +37,7 @@ export function verificationCodeTemplate(code: string): EmailTemplateResult {
         <p style="font-size: 16px; color: #333;">If you did not request this code, please ignore this email.</p>
         <div style="margin-top: 25px;">
           <p style="font-size: 16px; color: #333;">Best regards,<br>
-          <strong>haole Team</strong></p>
+          <strong>neziva Team</strong></p>
         </div>
       </div>
     </body>
@@ -85,7 +85,7 @@ export function emailVerificationTemplate(verifyUrl: string, userName?: string):
         </div>
         <div style="margin-top: 25px;">
           <p style="font-size: 16px; color: #333;">Best regards,<br>
-          <strong>haole Team</strong></p>
+          <strong>neziva Team</strong></p>
         </div>
       </div>
     </body>
@@ -133,7 +133,7 @@ export function passwordResetTemplate(resetUrl: string, userName?: string): Emai
         </div>
         <div style="margin-top: 25px;">
           <p style="font-size: 16px; color: #333;">Best regards,<br>
-          <strong>haole Team</strong></p>
+          <strong>neziva Team</strong></p>
         </div>
       </div>
     </body>
@@ -165,25 +165,25 @@ export function welcomeEmailTemplate(userName: string): EmailTemplateResult {
     </head>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; margin: 0; padding: 0;">
       <div style="max-width: 600px; margin: 20px auto; padding: 30px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-        <h2 style="color: #333; margin-top: 0;">Welcome to haole!</h2>
+        <h2 style="color: #333; margin-top: 0;">Welcome to neziva!</h2>
         <p style="font-size: 16px; color: #333;">Dear ${userName},</p>
-        <p style="font-size: 16px; color: #333;">Thank you for joining haole! We're excited to have you on board.</p>
+        <p style="font-size: 16px; color: #333;">Thank you for joining neziva! We're excited to have you on board.</p>
         <p style="font-size: 16px; color: #333;">Your account has been successfully created. You can now start exploring all the features we have to offer.</p>
         <div style="margin-top: 25px;">
           <p style="font-size: 16px; color: #333;">Best regards,<br>
-          <strong>haole Team</strong></p>
+          <strong>neziva Team</strong></p>
         </div>
       </div>
     </body>
     </html>
   `
 
-  const text = `Welcome to haole!\n\nDear ${userName},\n\nThank you for joining haole! We're excited to have you on board.\n\nYour account has been successfully created. You can now start exploring all the features we have to offer.`
+  const text = `Welcome to neziva!\n\nDear ${userName},\n\nThank you for joining neziva! We're excited to have you on board.\n\nYour account has been successfully created. You can now start exploring all the features we have to offer.`
 
   return {
     html,
     text,
-    subject: 'Welcome to haole!',
+    subject: 'Welcome to neziva!',
   }
 }
 
@@ -250,7 +250,7 @@ export function contactUsTemplate(
         </div>
         ${imagesSection}
         <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #ddd;">
-          <p style="font-size: 14px; color: #666;">This is an automated message from haole Contact Form.</p>
+          <p style="font-size: 14px; color: #666;">This is an automated message from neziva Contact Form.</p>
         </div>
       </div>
     </body>
@@ -262,6 +262,6 @@ export function contactUsTemplate(
   return {
     html,
     text,
-    subject: `[haole Contact] ${typeLabel.en} - ${displayName}`,
+    subject: `[neziva Contact] ${typeLabel.en} - ${displayName}`,
   }
 }

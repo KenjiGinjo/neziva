@@ -1,4 +1,4 @@
-import { EnumWorkflowStatus } from '@haole/enums'
+import { EnumWorkflowStatus } from '@neziva/enums'
 
 import { Copy, ExternalLink, Star } from 'lucide-react'
 import { Link } from 'wouter'

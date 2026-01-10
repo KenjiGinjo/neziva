@@ -114,7 +114,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar {...props}>
       <SidebarHeader>
         <Link href="/" className="flex flex-col gap-0.5 leading-none text-center py-4 cursor-pointer">
-          <span className="font-semibold">管理后台(haole)</span>
+          <span className="font-semibold">管理后台(neziva)</span>
         </Link>
       </SidebarHeader>
       <SidebarContent className="gap-0">

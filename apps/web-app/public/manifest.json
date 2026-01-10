@@ -1,7 +1,7 @@
 {
-  "name": "haole",
-  "short_name": "haole",
-  "description": "haole is a professional platform specializing in figure crowdfunding. It aims to transform outstanding works by talented artists into physical figures through user participation, embracing creations of diverse styles and from various artists, and turning every piece of passion into tangible collectibles.",
+  "name": "neziva",
+  "short_name": "neziva",
+  "description": "neziva is a professional platform specializing in figure crowdfunding. It aims to transform outstanding works by talented artists into physical figures through user participation, embracing creations of diverse styles and from various artists, and turning every piece of passion into tangible collectibles.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff",

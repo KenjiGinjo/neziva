@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process'
-import { dotenvLoad } from '@haole/tools/extend'
+import { dotenvLoad } from '@neziva/tools/extend'
 import { $ } from 'bun'
 import chokidar from 'chokidar'
 

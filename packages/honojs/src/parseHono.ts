@@ -90,8 +90,8 @@ function getImports(
     namedImports.forEach((namedImport: ImportSpecifier) => {
       // 获取import的名称
       const name: string = namedImport.getName()
-      // 判断是否是@haole开头的import
-      if (moduleSpecifier.startsWith('@haole')) {
+      // 判断是否是@neziva开头的import
+      if (moduleSpecifier.startsWith('@neziva')) {
         // 如果imports[moduleSpecifier]不存在则创建一个新的set
         if (!imports[moduleSpecifier]) {
           imports[moduleSpecifier] = new Set()

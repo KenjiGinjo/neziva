@@ -1,6 +1,6 @@
-import type { ResAdminSettings } from '@haole/interfaces'
+import type { ResAdminSettings } from '@neziva/interfaces'
 import type { HonoResponse } from '../../types'
-import { vUpdateSettings } from '@haole/validations'
+import { vUpdateSettings } from '@neziva/validations'
 import { db } from 'db'
 import { Hono } from 'hono'
 import { authAd } from '../../middleware/authAd'

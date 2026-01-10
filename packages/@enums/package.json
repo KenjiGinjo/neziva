@@ -1,5 +1,5 @@
 {
-  "name": "@haole/enums",
+  "name": "@neziva/enums",
   "private": true,
   "exports": {
     ".": "./src/index.ts"

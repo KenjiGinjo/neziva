@@ -1,6 +1,6 @@
-import type { ResAdminExecutionList } from '@haole/interfaces'
+import type { ResAdminExecutionList } from '@neziva/interfaces'
 import type { HonoResponse } from '../../types'
-import { Exception } from '@haole/tools/exception'
+import { Exception } from '@neziva/tools/exception'
 import { db } from 'db'
 import { Hono } from 'hono'
 import { authAd } from '../../middleware/authAd'

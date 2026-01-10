@@ -1,7 +1,7 @@
-import { PLAN_LIMITS } from '@haole/constants'
-import { EnumUserStatus } from '@haole/enums'
-import { verifyPassword } from '@haole/tools/crypto'
-import { Exception } from '@haole/tools/exception'
+import { PLAN_LIMITS } from '@neziva/constants'
+import { EnumUserStatus } from '@neziva/enums'
+import { verifyPassword } from '@neziva/tools/crypto'
+import { Exception } from '@neziva/tools/exception'
 import { describe, expect, test } from 'bun:test'
 import { db, ds } from '../../src'
 

@@ -1,6 +1,6 @@
 'use client'
 
-import type { ResAdminAuthState } from '@haole/interfaces'
+import type { ResAdminAuthState } from '@neziva/interfaces'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'

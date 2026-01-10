@@ -11,8 +11,8 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@haole/constants": "workspace:*",
-    "@haole/tools": "workspace:*",
+    "@neziva/constants": "workspace:*",
+    "@neziva/tools": "workspace:*",
     "axios": "^1.9.0",
     "radash": "^12.1.0"
   }

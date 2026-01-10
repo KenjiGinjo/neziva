@@ -1,5 +1,5 @@
 import type { OrchidOrmInternalError } from 'orchid-orm'
-import { ERROR_CODE } from '@haole/constants'
+import { ERROR_CODE } from '@neziva/constants'
 import { MoreThanOneRowError, QueryError } from 'orchid-orm'
 
 export const du = {

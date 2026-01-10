@@ -1,6 +1,6 @@
-import type { PlanType } from '@haole/constants'
-import { PLAN_LIMITS } from '@haole/constants'
-import { Exception } from '@haole/tools/exception'
+import type { PlanType } from '@neziva/constants'
+import { PLAN_LIMITS } from '@neziva/constants'
+import { Exception } from '@neziva/tools/exception'
 import { db } from '../tables'
 
 export const subscription = {

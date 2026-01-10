@@ -1,6 +1,6 @@
-import type { ResCancelSubscription, ResCreateSubscription, ResInvoices, ResSubscription, ResUsage } from '@haole/interfaces'
+import type { ResCancelSubscription, ResCreateSubscription, ResInvoices, ResSubscription, ResUsage } from '@neziva/interfaces'
 import type { HonoResponse } from '../types'
-import { vCreateSubscription } from '@haole/validations'
+import { vCreateSubscription } from '@neziva/validations'
 import { addMonths } from 'date-fns'
 import { db, ds } from 'db'
 import { Hono } from 'hono'

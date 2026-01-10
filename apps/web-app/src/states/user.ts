@@ -1,4 +1,4 @@
-import type { ResUserProfile } from '@haole/interfaces'
+import type { ResUserProfile } from '@neziva/interfaces'
 import { observable } from '@legendapp/state'
 
 interface UserState {

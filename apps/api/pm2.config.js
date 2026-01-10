@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'haole_api',
+  name: 'neziva_api',
   script: 'app.js',
   interpreter: 'bun',
   env: {

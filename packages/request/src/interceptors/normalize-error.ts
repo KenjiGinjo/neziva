@@ -1,5 +1,5 @@
 import type { AxiosError, AxiosResponse } from 'axios'
-import { Exception } from '@haole/tools/exception'
+import { Exception } from '@neziva/tools/exception'
 import { get } from 'radash'
 
 function getErrors(response: AxiosResponse<unknown, any>, defaultValue: string): string {

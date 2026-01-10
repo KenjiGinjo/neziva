@@ -1,5 +1,5 @@
 import type { InternalAxiosRequestConfig } from 'axios'
-import { STORAGE_KEY } from '@haole/constants'
+import { STORAGE_KEY } from '@neziva/constants'
 import axios from 'axios'
 import { methodSpoofing } from './interceptors/method-spoofing'
 import { normalizeError } from './interceptors/normalize-error'

@@ -1,4 +1,4 @@
-import { IconCloseLine } from '@haole/svg'
+import { IconCloseLine } from '@neziva/svg'
 import * as React from 'react'
 import { createPortal } from 'react-dom'
 import { cn } from '@/lib/utils'

@@ -1,6 +1,6 @@
 'use client'
 
-import { IconEye, IconEyeOff, IconPassword } from '@haole/svg'
+import { IconEye, IconEyeOff, IconPassword } from '@neziva/svg'
 import React from 'react'
 import { Input } from './input'
 

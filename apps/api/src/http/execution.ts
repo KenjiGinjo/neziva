@@ -1,4 +1,4 @@
-import type { ResExecutionLogs } from '@haole/interfaces'
+import type { ResExecutionLogs } from '@neziva/interfaces'
 import type { HonoResponse } from '../types'
 import { ds } from 'db'
 import { Hono } from 'hono'

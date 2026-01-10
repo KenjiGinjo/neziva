@@ -1,5 +1,5 @@
-import { APP } from '@haole/constants'
-import { vAuthLoginByPassword } from '@haole/validations'
+import { APP } from '@neziva/constants'
+import { vAuthLoginByPassword } from '@neziva/validations'
 import { get } from 'radash'
 import React from 'react'
 import { navigate } from 'wouter/use-browser-location'

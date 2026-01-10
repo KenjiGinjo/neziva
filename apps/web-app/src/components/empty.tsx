@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { IconEmptyBoxFill } from '@haole/svg'
+import { IconEmptyBoxFill } from '@neziva/svg'
 
 export const Empty = {
   Text: ({ message, dash = true }: { message: string, dash?: boolean }) => {

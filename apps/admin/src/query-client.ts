@@ -1,4 +1,4 @@
-import { contract } from '@haole/contracts'
+import { contract } from '@neziva/contracts'
 import { createRequest } from '@packages/request'
 import { initQueryClient } from '@packages/ts-rest-react-query'
 import { config } from './config'

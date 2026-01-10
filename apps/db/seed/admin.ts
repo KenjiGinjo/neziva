@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { hashPassword } from '@haole/tools/crypto'
+import { hashPassword } from '@neziva/tools/crypto'
 import { db } from '../src'
 
 export async function initAdmin() {

@@ -1,4 +1,4 @@
-import { EnumUserStatus } from '@haole/enums'
+import { EnumUserStatus } from '@neziva/enums'
 import { BaseTable } from './_base'
 import { TableApiCall } from './api-call'
 import { TableExecution } from './execution'

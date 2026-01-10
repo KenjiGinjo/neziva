@@ -48,25 +48,25 @@ importers:
       '@dnd-kit/utilities':
         specifier: 3.2.2
         version: 3.2.2(react@19.1.1)
-      '@haole/constants':
+      '@neziva/constants':
         specifier: workspace:*
         version: link:../../packages/@constants
-      '@haole/contracts':
+      '@neziva/contracts':
         specifier: workspace:*
         version: link:../../packages/@contracts
-      '@haole/enums':
+      '@neziva/enums':
         specifier: workspace:*
         version: link:../../packages/@enums
-      '@haole/interfaces':
+      '@neziva/interfaces':
         specifier: workspace:*
         version: link:../../packages/@interfaces
-      '@haole/svg':
+      '@neziva/svg':
         specifier: workspace:*
         version: link:../../packages/@svg
-      '@haole/tools':
+      '@neziva/tools':
         specifier: workspace:*
         version: link:../../packages/@tools
-      '@haole/validations':
+      '@neziva/validations':
         specifier: workspace:*
         version: link:../../packages/@validations
       '@hookform/resolvers':
@@ -292,19 +292,19 @@ importers:
       '@faker-js/faker':
         specifier: ^9.3.0
         version: 9.9.0
-      '@haole/constants':
+      '@neziva/constants':
         specifier: workspace:*
         version: link:../../packages/@constants
-      '@haole/enums':
+      '@neziva/enums':
         specifier: workspace:*
         version: link:../../packages/@enums
-      '@haole/interfaces':
+      '@neziva/interfaces':
         specifier: workspace:*
         version: link:../../packages/@interfaces
-      '@haole/tools':
+      '@neziva/tools':
         specifier: workspace:*
         version: link:../../packages/@tools
-      '@haole/validations':
+      '@neziva/validations':
         specifier: workspace:*
         version: link:../../packages/@validations
       '@hono/zod-validator':
@@ -355,19 +355,19 @@ importers:
       '@faker-js/faker':
         specifier: ^9.3.0
         version: 9.9.0
-      '@haole/constants':
+      '@neziva/constants':
         specifier: workspace:*
         version: link:../../packages/@constants
-      '@haole/enums':
+      '@neziva/enums':
         specifier: workspace:*
         version: link:../../packages/@enums
-      '@haole/interfaces':
+      '@neziva/interfaces':
         specifier: workspace:*
         version: link:../../packages/@interfaces
-      '@haole/tools':
+      '@neziva/tools':
         specifier: workspace:*
         version: link:../../packages/@tools
-      '@haole/validations':
+      '@neziva/validations':
         specifier: workspace:*
         version: link:../../packages/@validations
       '@paralleldrive/cuid2':
@@ -410,25 +410,25 @@ importers:
       '@dnd-kit/utilities':
         specifier: 3.2.2
         version: 3.2.2(react@19.1.1)
-      '@haole/constants':
+      '@neziva/constants':
         specifier: workspace:*
         version: link:../../packages/@constants
-      '@haole/contracts':
+      '@neziva/contracts':
         specifier: workspace:*
         version: link:../../packages/@contracts
-      '@haole/enums':
+      '@neziva/enums':
         specifier: workspace:*
         version: link:../../packages/@enums
-      '@haole/interfaces':
+      '@neziva/interfaces':
         specifier: workspace:*
         version: link:../../packages/@interfaces
-      '@haole/svg':
+      '@neziva/svg':
         specifier: workspace:*
         version: link:../../packages/@svg
-      '@haole/tools':
+      '@neziva/tools':
         specifier: workspace:*
         version: link:../../packages/@tools
-      '@haole/validations':
+      '@neziva/validations':
         specifier: workspace:*
         version: link:../../packages/@validations
       '@hookform/resolvers':
@@ -633,13 +633,13 @@ importers:
 
   packages/@constants:
     dependencies:
-      '@haole/enums':
+      '@neziva/enums':
         specifier: workspace:*
         version: link:../@enums
 
   packages/@contracts:
     dependencies:
-      '@haole/validations':
+      '@neziva/validations':
         specifier: workspace:*
         version: link:../@validations
       '@packages/ts-rest-react-query':
@@ -652,7 +652,7 @@ importers:
         specifier: 3.23.8
         version: 3.23.8
     devDependencies:
-      '@haole/interfaces':
+      '@neziva/interfaces':
         specifier: workspace:*
         version: link:../@interfaces
 
@@ -660,7 +660,7 @@ importers:
 
   packages/@interfaces:
     dependencies:
-      '@haole/enums':
+      '@neziva/enums':
         specifier: workspace:*
         version: link:../@enums
 
@@ -675,13 +675,13 @@ importers:
 
   packages/@tools:
     dependencies:
-      '@haole/constants':
+      '@neziva/constants':
         specifier: workspace:*
         version: link:../@constants
-      '@haole/enums':
+      '@neziva/enums':
         specifier: workspace:*
         version: link:../@enums
-      '@haole/interfaces':
+      '@neziva/interfaces':
         specifier: workspace:*
         version: link:../@interfaces
       date-fns:
@@ -702,7 +702,7 @@ importers:
 
   packages/@validations:
     dependencies:
-      '@haole/enums':
+      '@neziva/enums':
         specifier: workspace:*
         version: link:../@enums
       zod:
@@ -724,10 +724,10 @@ importers:
 
   packages/request:
     dependencies:
-      '@haole/constants':
+      '@neziva/constants':
         specifier: workspace:*
         version: link:../@constants
-      '@haole/tools':
+      '@neziva/tools':
         specifier: workspace:*
         version: link:../@tools
       axios:

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import type { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement } from 'react'
 import type { LoadingProps } from '../loading'
-import { Exception } from '@haole/tools/exception'
+import { Exception } from '@neziva/tools/exception'
 import { observer } from '@legendapp/state/react'
 import { get } from 'radash'
 import { cloneElement, isValidElement, useState } from 'react'

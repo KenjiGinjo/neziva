@@ -30,7 +30,7 @@ import type {
   ResUserProfile,
   ResWorkflowExecutions,
   ResWorkflowList,
-} from '@haole/interfaces'
+} from '@neziva/interfaces'
 import type {
   vAdminLogin,
   vAuthChangePassword,
@@ -47,7 +47,7 @@ import type {
   vUpdateSettings,
   vUpdateUser,
   vUpdateWorkflow,
-} from '@haole/validations'
+} from '@neziva/validations'
 import { initContract } from '@packages/ts-rest-react-query/ts-rest-core'
 
 const c = initContract()

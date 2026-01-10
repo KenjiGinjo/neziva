@@ -1,6 +1,6 @@
 import type { MiddlewareHandler } from 'hono'
-import { EnumAdminStatus } from '@haole/enums'
-import { Exception } from '@haole/tools/exception'
+import { EnumAdminStatus } from '@neziva/enums'
+import { Exception } from '@neziva/tools/exception'
 import { db } from 'db'
 import { ENV } from '../env'
 import { isTokenStored, jwtExtractSub, jwtExtractToken } from '../utils'

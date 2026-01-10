@@ -1,6 +1,6 @@
-import type { ResAdminWorkflowList, ResAdminWorkflowStats } from '@haole/interfaces'
+import type { ResAdminWorkflowList, ResAdminWorkflowStats } from '@neziva/interfaces'
 import type { HonoResponse } from '../../types'
-import { Exception } from '@haole/tools/exception'
+import { Exception } from '@neziva/tools/exception'
 import { subDays } from 'date-fns'
 import { db } from 'db'
 import { Hono } from 'hono'

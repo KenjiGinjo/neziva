@@ -1,5 +1,5 @@
 import type { WrapperProps } from './base'
-import { IconCloseLine } from '@haole/svg'
+import { IconCloseLine } from '@neziva/svg'
 import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { FormControl, FormField, FormItem, FormMessage } from '../ui/form'

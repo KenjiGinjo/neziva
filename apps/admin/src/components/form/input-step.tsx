@@ -1,5 +1,5 @@
 import type { WrapperProps } from './base'
-import { IconAddLine, IconSubtractLine } from '@haole/svg'
+import { IconAddLine, IconSubtractLine } from '@neziva/svg'
 import { useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input as InputBase } from '@/components/ui/input'

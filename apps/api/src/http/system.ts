@@ -1,4 +1,4 @@
-import type { ResSystemSetting } from '@haole/interfaces'
+import type { ResSystemSetting } from '@neziva/interfaces'
 import type { HonoResponse } from '../types'
 import { Hono } from 'hono'
 

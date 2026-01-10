@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table'
 
-import { EnumExecutionStatus } from '@haole/enums'
+import { EnumExecutionStatus } from '@neziva/enums'
 import { formatDistanceToNow } from 'date-fns'
 import { Link } from 'wouter'
 import { Badge } from '@/components/ui/badge'
