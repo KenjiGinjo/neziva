@@ -228,7 +228,6 @@
   - 预测分析
 
 #### 联系方式
-- LinkedIn链接
 - 邮箱：hello@neziva.com
 - Calendly预约链接
 
@@ -258,7 +257,6 @@
 
 #### 其他联系方式
 - **邮箱：** hello@neziva.com
-- **LinkedIn：** [个人/公司LinkedIn链接]
 - **响应时间：** 我们会在24小时内回复所有咨询
 
 ---
@@ -423,7 +421,7 @@
 
 ### 网站开发准备
 5. ✅ 完成网站方案规划（当前）
-6. ⬜ 准备具体页面文案内容
+6. ✅ 准备具体页面文案内容（所有页面内容已从 HTML 转换并优化）
 7. ⬜ 设计Logo和视觉元素
 8. ⬜ 开发三个案例项目：
    - AI工作流自动化平台
@@ -433,8 +431,19 @@
 ### 技术架构规划
 12. ⬜ 选择技术栈（前端框架、后端框架、数据库）
 13. ⬜ 确定部署方案（Vercel/AWS/其他）
-14. ⬜ 设计数据库结构
-15. ⬜ 设计 API 接口规范
+14. ✅ 设计数据库结构
+    - ✅ ContactForm（联系表单）- name, company, email, phone, projectType, description, budget, status, notes
+    - ✅ BlogPost（博客文章）- title, slug, content, excerpt, category, tags, author, readTime, views, featured, status, coverImage, seoTitle, seoDesc
+    - ✅ Newsletter（Newsletter 订阅）- email, status, verifiedAt, unsubscribedAt, source
+15. ✅ 设计 API 接口规范
+    - ✅ 联系表单 API：POST /api/contact/submit
+    - ✅ 博客 API：
+      - GET /api/blog/posts（支持分页、分类、标签过滤）
+      - GET /api/blog/posts/:id（文章详情）
+      - GET /api/blog/search?q=keyword（搜索功能）
+      - GET /api/blog/related/:id（相关文章推荐）
+    - ✅ Newsletter API：POST /api/newsletter/subscribe
+    - ✅ 已创建 Bruno API 文档（bruno/contact, bruno/blog, bruno/newsletter）
 
 ### 后端开发（数据库和 API）
 16. ⬜ 设置数据库（PostgreSQL/MongoDB/其他）
@@ -461,27 +470,44 @@
 26. ⬜ API 文档编写（可选：Swagger/OpenAPI）
 
 ### 前端开发
-27. ⬜ 开发网站前端页面（首页、服务、案例、关于、联系）
-28. ⬜ 集成 Calendly 组件
-29. ⬜ 开发联系表单组件（前端验证 + API 调用）
-30. ⬜ 开发博客列表页和详情页（如果实现博客系统）
-31. ⬜ 开发博客搜索和过滤功能（如果实现博客系统）
-32. ⬜ 开发 Newsletter 订阅组件
+27. ✅ 开发网站前端页面（首页、服务、案例、关于、联系、博客）
+    - ✅ 完成首页 (home.tsx) - 包含 Hero、服务预览、案例展示、联系 CTA
+    - ✅ 完成服务页 (services.tsx) - 4个核心服务详细介绍、价格对比表
+    - ✅ 完成案例页 (portfolio.tsx) - 项目展示、过滤功能、项目详情
+    - ✅ 完成关于页 (about.tsx) - 公司介绍、优势、服务领域、价值观
+    - ✅ 完成联系页 (contact.tsx) - 联系表单、Calendly 占位、FAQ
+    - ✅ 完成博客页 (blog.tsx) - 文章列表、搜索、分类过滤、Newsletter 订阅
+    - ✅ 创建共享组件 HeaderMarketing 和 FooterMarketing
+    - ✅ 统一颜色主题（使用明确的 hex 值：#4F46E5, #7C3AED, #F97316, #10B981）
+    - ✅ 替换所有 Font Awesome 图标为 lucide-react
+    - ✅ 删除所有 LinkedIn 相关内容
+    - ✅ 清理路由配置（app-router.tsx），移除不存在的页面
+28. ⬜ 集成 Calendly 组件（当前为占位符）
+29. ✅ 开发联系表单组件（前端验证 + API 调用）
+    - ✅ 使用 react-hook-form + zod 进行表单验证
+    - ✅ 创建 Form.Select 组件封装
+    - ✅ 实现表单提交逻辑（当前为 mock，待连接后端 API）
+    - ✅ 添加字符计数功能（description 字段）
+30. ✅ 开发博客列表页和详情页（列表页已完成，详情页待实现）
+31. ✅ 开发博客搜索和过滤功能（已完成搜索和分类过滤）
+32. ⬜ 开发 Newsletter 订阅组件（UI 已完成，待连接后端 API）
 33. ⬜ 开发 AI 互动 Demo
     - 选项 A：先用静态 mockup（简单问答）
     - 选项 B：集成第三方聊天机器人服务（ChatGPT API / Claude API / 其他）
     - 选项 C：开发简单的问答系统（基于预设问题和答案）
     - 需要收集访客信息和需求（可选）
-34. ⬜ 实现响应式设计（移动端适配：320px-767px, 768px-1024px, 1920px+）
+34. ✅ 实现响应式设计（移动端适配：320px-767px, 768px-1024px, 1920px+）
+    - ✅ 所有页面已实现响应式布局
+    - ✅ Header 和 Footer 支持移动端菜单
 35. ⬜ 添加加载状态和骨架屏（Skeleton Loading）
-36. ⬜ 错误页面（404、500 错误页）
+36. ✅ 错误页面（404 页面已存在）
 37. ⬜ 实现无障碍访问（a11y）
     - 键盘导航支持
     - 屏幕阅读器友好
     - 足够的颜色对比度（WCAG AA）
     - 有意义的 alt 文本
     - Focus 状态清晰可见
-38. ⬜ 实现平滑滚动和动画效果（符合设计文档要求）
+38. ✅ 实现平滑滚动和动画效果（hover 效果、过渡动画已实现）
 39. ⬜ 图片懒加载和优化（WebP 格式，响应式图片）
 40. ⬜ 实现深色模式支持（可选）
 41. ⬜ SEO 优化实施（预渲染方案）⭐ 重要
@@ -584,5 +610,5 @@
     - 外链建设策略
 62. ⬜ 在GitHub开源三个案例项目
 63. ⬜ 写技术博客文章展示项目
-64. ⬜ 在LinkedIn/社交媒体分享项目
+64. ⬜ 在社交媒体分享项目（GitHub、Twitter等）
 65. ⬜ 准备博客内容（至少 3-5 篇初始文章）

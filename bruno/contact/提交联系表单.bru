@@ -1,0 +1,38 @@
+meta {
+  name: 提交联系表单
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{API_URL}}/api/contact/submit
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John Doe",
+    "company": "Example Corp",
+    "email": "john@example.com",
+    "phone": "+1 (555) 123-4567",
+    "projectType": "strategy",
+    "description": "We are looking for AI consulting services to help automate our customer service processes.",
+    "budget": "5k-15k"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+
+  test("Response contains success message", function() {
+    expect(res.body).to.have.property('success');
+    expect(res.body.success).to.equal(true);
+  });
+
+  test("Response contains message", function() {
+    expect(res.body).to.have.property('message');
+  });
+}

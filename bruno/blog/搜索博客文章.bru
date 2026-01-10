@@ -1,0 +1,33 @@
+meta {
+  name: 搜索博客文章
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{API_URL}}/api/blog/search
+  body: none
+  auth: none
+}
+
+params:query {
+  q: AI
+  page: 1
+  limit: 10
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+
+  test("Response contains search results", function() {
+    expect(res.body).to.have.property('data');
+    expect(res.body.data).to.be.an('array');
+  });
+
+  test("Response contains query info", function() {
+    expect(res.body).to.have.property('query');
+    expect(res.body.query).to.equal('AI');
+  });
+}

@@ -1,0 +1,33 @@
+meta {
+  name: 订阅Newsletter
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{API_URL}}/api/newsletter/subscribe
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "user@example.com",
+    "source": "homepage"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+
+  test("Response contains success message", function() {
+    expect(res.body).to.have.property('success');
+    expect(res.body.success).to.equal(true);
+  });
+
+  test("Response contains message", function() {
+    expect(res.body).to.have.property('message');
+  });
+}

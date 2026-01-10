@@ -1,0 +1,29 @@
+meta {
+  name: 获取博客文章详情
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{API_URL}}/api/blog/posts/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: clx1234567890
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+
+  test("Response contains post data", function() {
+    expect(res.body).to.have.property('data');
+    expect(res.body.data).to.have.property('id');
+    expect(res.body.data).to.have.property('title');
+    expect(res.body.data).to.have.property('content');
+    expect(res.body.data).to.have.property('category');
+  });
+}
