@@ -1,0 +1,21 @@
+meta {
+  name: 获取执行列表
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{ADMIN_URL}}/executions?page=1&pageSize=20&status=completed&workflowId=&userId=&startDate=&endDate&sortBy=startedAt&order=desc
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{ADMIN_TOKEN}}
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

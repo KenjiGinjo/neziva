@@ -1,0 +1,22 @@
+{
+  "name": "haole",
+  "short_name": "haole",
+  "description": "haole is a professional platform specializing in figure crowdfunding. It aims to transform outstanding works by talented artists into physical figures through user participation, embracing creations of diverse styles and from various artists, and turning every piece of passion into tangible collectibles.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#fff",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

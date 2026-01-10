@@ -1,0 +1,33 @@
+meta {
+  name: 更新用户信息
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{ADMIN_URL}}/users/{{USER_ID}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{ADMIN_TOKEN}}
+}
+
+body:json {
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "nickname": "johndoe",
+    "email": "test@example.com",
+    "status": "active",
+    "subscriptionPlan": "pro",
+    "apiCallsLimit": 1000
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

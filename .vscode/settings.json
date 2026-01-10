@@ -1,0 +1,234 @@
+{
+  "search.followSymlinks": false,
+  "css.validate": false,
+  "stylelint.enable": true,
+  "editor.autoClosingQuotes": "always",
+  "editor.linkedEditing": true,
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "javascript"
+  },
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+  // Auto fix
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+  // Silent the stylistic rules in you IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    {
+      "rule": "style/*",
+      "severity": "off"
+    },
+    {
+      "rule": "format/*",
+      "severity": "off"
+    },
+    {
+      "rule": "*-indent",
+      "severity": "off"
+    },
+    {
+      "rule": "*-spacing",
+      "severity": "off"
+    },
+    {
+      "rule": "*-spaces",
+      "severity": "off"
+    },
+    {
+      "rule": "*-order",
+      "severity": "off"
+    },
+    {
+      "rule": "*-dangle",
+      "severity": "off"
+    },
+    {
+      "rule": "*-newline",
+      "severity": "off"
+    },
+    {
+      "rule": "*quotes",
+      "severity": "off"
+    },
+    {
+      "rule": "*semi",
+      "severity": "off"
+    }
+  ],
+  // Enable eslint for all supported languages
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
+  ],
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "package-lock.json": true,
+    "pnpm-lock.yaml": true,
+    "yarn.lock": true
+  },
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "cSpell.words": [
+    "adcode",
+    "adname",
+    "afplay",
+    "agentid",
+    "aiomysql",
+    "ALAW",
+    "alibabacloud",
+    "AMAP",
+    "antfu",
+    "Apim",
+    "appkey",
+    "Arpabet",
+    "ASWIR",
+    "bodyparser",
+    "bunx",
+    "BYCLICK",
+    "citycode",
+    "cityname",
+    "cognitiveservices",
+    "cstring",
+    "cuid",
+    "curtime",
+    "datasource",
+    "Decryptor",
+    "dipa",
+    "djcloud",
+    "dogecloud",
+    "Doubao",
+    "doujinshi",
+    "douyin",
+    "dpos",
+    "dpron",
+    "duoji",
+    "echostr",
+    "Elipssis",
+    "endoftext",
+    "executemany",
+    "executetask",
+    "FLAC",
+    "flushall",
+    "fnames",
+    "getwxacodeunlimit",
+    "happydom",
+    "Hasher",
+    "hgetall",
+    "hookform",
+    "hset",
+    "huigou",
+    "immer",
+    "Kaldi",
+    "kbitrate",
+    "Kfid",
+    "KHTML",
+    "languagedetector",
+    "lastrowid",
+    "libvosk",
+    "Lngs",
+    "longspan",
+    "lpush",
+    "lrange",
+    "lucide",
+    "malagu",
+    "metas",
+    "miniapp",
+    "msgtype",
+    "MULAW",
+    "myqcloud",
+    "navback",
+    "nums",
+    "oklch",
+    "orderno",
+    "PAMP",
+    "paralleldrive",
+    "partialize",
+    "PATP",
+    "pcode",
+    "PINI",
+    "PITPB",
+    "placedetails",
+    "planrec",
+    "pname",
+    "qiandai",
+    "redpacket",
+    "regeo",
+    "regeocode",
+    "Registrator",
+    "RFPD",
+    "rpush",
+    "samplerate",
+    "sapi",
+    "SIGBY",
+    "sonner",
+    "ssml",
+    "SSTPP",
+    "sswir",
+    "svgr",
+    "timestamptz",
+    "TINYINT",
+    "tousername",
+    "tujian",
+    "Umor",
+    "Unreceive",
+    "usecount",
+    "utran",
+    "utrangpt",
+    "uuidgen",
+    "UVTI",
+    "vaul",
+    "venv",
+    "vercel",
+    "VITE",
+    "vocalace",
+    "vosk",
+    "Wavesurfer",
+    "wecom",
+    "wesvg",
+    "wexin",
+    "wouter",
+    "wxlogin",
+    "xmlparser",
+    "youdao",
+    "yuncode",
+    "Zhixuan",
+    "zustand"
+  ],
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+  "prisma.pinToPrisma6": true
+}

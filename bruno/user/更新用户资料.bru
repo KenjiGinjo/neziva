@@ -1,0 +1,30 @@
+meta {
+  name: 更新用户资料
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{API_URL}}/user/profile
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{USER_TOKEN}}
+}
+
+body:json {
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "nickname": "johndoe",
+    "avatarUrl": "https://example.com/avatar.jpg"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

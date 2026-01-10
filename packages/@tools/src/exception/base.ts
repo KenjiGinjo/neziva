@@ -1,0 +1,43 @@
+import { get, snake, title as Title } from 'radash'
+
+export class BaseException extends Error {
+  public title: string
+  public status: number
+  public code: string
+  public override message: string
+
+  /** @internal */
+  private _messages: unknown
+
+  public constructor(
+    status: number,
+    messages: unknown,
+    code: string,
+    title: string,
+  ) {
+    super()
+    this.title = title
+    this.status = status
+
+    const normalizedCode = Title(code.replace(/Exception$/, ''))
+    this.code = snake(`E ${normalizedCode}`).toUpperCase()
+    this._messages = messages ?? normalizedCode
+    this.message = this.getFirstMessage()
+  }
+
+  public getFirstMessage(): string {
+    const messages = this._messages
+
+    if (typeof messages === 'string') {
+      return messages
+    }
+
+    if (Array.isArray(messages) && messages.length > 0) {
+      return typeof messages[0] === 'string'
+        ? messages[0]
+        : get(messages[0], 'message', '')
+    }
+
+    return ''
+  }
+}

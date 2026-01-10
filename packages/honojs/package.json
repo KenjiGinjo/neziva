@@ -1,0 +1,20 @@
+{
+  "name": "@packages/honojs",
+  "type": "module",
+  "version": "1.5.1",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "lodash.merge": "^4.6.2",
+    "ts-morph": "^26.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash.merge": "^4.6.9"
+  }
+}

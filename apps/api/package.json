@@ -1,0 +1,39 @@
+{
+  "name": "api",
+  "private": true,
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "check-types": "tsc --noEmit",
+    "build": "bun run ./scripts/build.ts",
+    "dev": "bun run ./scripts/dev.ts",
+    "gen:contract": "bun run scripts/gen-contract.ts",
+    "cron": "bun run ./scripts/cron-task.ts",
+    "test:paypal": "bun run scripts/test-paypal.ts",
+    "test:paypal:info": "bun run scripts/test-paypal.ts info",
+    "test:paypal:connection": "bun run scripts/test-paypal.ts connection",
+    "test:paypal:webhook": "bun run scripts/test-paypal.ts webhook"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.3.0",
+    "@haole/constants": "workspace:*",
+    "@haole/enums": "workspace:*",
+    "@haole/interfaces": "workspace:*",
+    "@haole/tools": "workspace:*",
+    "@haole/validations": "workspace:*",
+    "@hono/zod-validator": "^0.4.2",
+    "@packages/honojs": "workspace:*",
+    "@paralleldrive/cuid2": "2.2.2",
+    "@paypal/paypal-server-sdk": "1.1.0",
+    "chokidar": "~3.6.0",
+    "date-fns": "3.6.0",
+    "db": "workspace:*",
+    "google-auth-library": "10.3.0",
+    "hono": "^4.8.3",
+    "resend": "6.6.0",
+    "stripe": "18.5.0",
+    "ufo": "^1.5.4",
+    "znv": "^0.4.0",
+    "zod": "3.23.8"
+  }
+}

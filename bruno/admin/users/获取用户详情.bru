@@ -1,0 +1,21 @@
+meta {
+  name: 获取用户详情
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{ADMIN_URL}}/users/{{USER_ID}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{ADMIN_TOKEN}}
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

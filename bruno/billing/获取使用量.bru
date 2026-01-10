@@ -1,0 +1,21 @@
+meta {
+  name: 获取使用量
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{API_URL}}/billing/usage
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{USER_TOKEN}}
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

@@ -1,0 +1,35 @@
+meta {
+  name: 登录
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{API_URL}}/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "kenjiginjo@gmail.com",
+    "password": "password123"
+  }
+}
+
+script:post-response {
+  const data = res.getBody();
+  if (data.data && data.data.token) {
+    bru.setEnvVar("USER_TOKEN", data.data.token);
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains token", function() {
+    expect(res.body.data).to.have.property('token');
+  });
+}

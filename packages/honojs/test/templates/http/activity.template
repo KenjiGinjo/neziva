@@ -1,0 +1,11 @@
+import type { ActivityA } from '@acme/interface';
+import type { ValidA, ValidD, vIds } from '@acme/validation';
+import type { Hono, Wrong, H, validate, auth } from '@skip';
+
+export const activity = new Hono()
+  .basePath('/activity')
+  .get('/a', validate('query', vIds('aId')),  (): { d: ActivityA[] } => {})
+  .patch('/b/:bId', auth(), validate('param', vIds('bId')), validate('json', ValidA),() => {})
+  .put('/c', auth({ vip: true }), () => {})
+  .post( '/d', auth({ vip: true }), validate('json', ValidD), () => {})
+  .delete('/e/:eId', auth(), validate('param', vIds('eId')), () => {});

@@ -1,0 +1,21 @@
+meta {
+  name: 获取执行日志
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{API_URL}}/executions/{{EXECUTION_ID}}/logs
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{USER_TOKEN}}
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

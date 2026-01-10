@@ -1,0 +1,38 @@
+meta {
+  name: 注册
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{API_URL}}/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "kenjiginjo@gmail.com",
+    "password": "password123",
+    "confirmPassword": "password123"
+  }
+}
+
+script:post-response {
+  const data = res.getBody();
+  if (data.data && data.data.token) {
+    bru.setEnvVar("USER_TOKEN", data.data.token);
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains token", function() {
+    expect(res.body.data).to.have.property('token');
+  });
+}

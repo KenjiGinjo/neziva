@@ -1,0 +1,23 @@
+meta {
+  name: 忘记密码
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{API_URL}}/auth/forgot-password
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "kenjiginjo@gmail.com"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

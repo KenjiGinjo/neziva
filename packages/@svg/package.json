@@ -1,0 +1,17 @@
+{
+  "name": "@haole/svg",
+  "private": true,
+  "exports": {
+    ".": "./src/icons/index.ts"
+  },
+  "scripts": {
+    "svg": "bunx --bun @svgr/cli --typescript --jsx-runtime automatic --out-dir src/icons --index-template src/svg/index-template.js -- src/svg"
+  },
+  "peerDependencies": {
+    "react": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "react": "^19.1.0"
+  }
+}

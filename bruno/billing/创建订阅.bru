@@ -1,0 +1,28 @@
+meta {
+  name: 创建订阅
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{API_URL}}/billing/subscribe
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{USER_TOKEN}}
+}
+
+body:json {
+  {
+    "plan": "pro",
+    "paymentMethod": "paypal"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

@@ -1,0 +1,25 @@
+meta {
+  name: 重置密码
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{API_URL}}/auth/reset-password
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "token": "reset_token_here",
+    "newPassword": "newpassword123",
+    "confirmPassword": "newpassword123"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

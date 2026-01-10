@@ -1,0 +1,15 @@
+{
+  "name": "@haole/validations",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@haole/enums": "workspace:*",
+    "zod": "3.23.8"
+  }
+}

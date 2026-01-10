@@ -1,0 +1,8 @@
+import type { City } from '@acme/interface';
+import type { Hono, Wrong, H } from '@skip';
+
+export const city = new Hono()
+  .basePath('/city')
+  .get('/a',(c): { data: City[] } => { return {d: '123'}})
+  .get('/b',async (): H<{ meta: City[] }> => {})
+  .get('/c',(): Promise<H<{ other: City[] }>> => {});

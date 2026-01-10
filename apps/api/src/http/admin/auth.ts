@@ -1,0 +1,79 @@
+import type { ResAdminAuthStateResponse, ResAdminLogin, ResAuthMessage } from '@haole/interfaces'
+import type { HonoResponse } from '../../types'
+import { verifyPassword } from '@haole/tools/crypto'
+import { Exception } from '@haole/tools/exception'
+import { vAdminLogin } from '@haole/validations'
+import { db } from 'db'
+import { Hono } from 'hono'
+import { ENV } from '../../env'
+import { authAd } from '../../middleware/authAd'
+import { generateToken, jwtExtractToken, jwtResponse, removeToken, validate } from '../../utils'
+
+export const authRoute = new Hono()
+  .basePath('/auth')
+
+  /** 管理员登录 */
+  .post('/login', validate('json', vAdminLogin), async (c): Promise<HonoResponse<{ data: ResAdminLogin }>> => {
+    const { username, password } = c.req.valid('json')
+
+    const admin = await db.admin.where({ username }).takeOptional()
+
+    if (!admin) {
+      throw new Exception.UnauthorizedException('Invalid credentials')
+    }
+
+    const isValid = await verifyPassword(password, admin.password)
+    if (!isValid) {
+      throw new Exception.UnauthorizedException('Invalid credentials')
+    }
+
+    // 生成并存储 token（管理员 token）
+    const token = await generateToken({
+      secret: ENV.JWT_SECRET_ADMIN,
+      sub: admin.id,
+      exp: 3600 * 24 * ENV.JWT_EXPIRES_IN_DAYS,
+      isAdmin: true,
+    })
+
+    return c.json({
+      data: jwtResponse({ token }),
+    })
+  })
+
+  /** 管理员登出 */
+  .post('/logout', authAd(), async (c): Promise<HonoResponse<{ data: ResAuthMessage }>> => {
+    const token = jwtExtractToken(c)
+    if (token) {
+      await removeToken(token, true)
+    }
+
+    return c.json({
+      data: { message: 'Logged out successfully' },
+    })
+  })
+
+  /** 获取管理员状态 */
+  .get('/state', authAd(), async (c): Promise<HonoResponse<{ data: ResAdminAuthStateResponse }>> => {
+    const authId = c.get('authId')
+    const admin = await db.admin.findOptional(authId)
+
+    if (!admin) {
+      return c.json({
+        data: {
+          isAuthenticated: false,
+        },
+      })
+    }
+
+    return c.json({
+      data: {
+        isAuthenticated: true,
+        admin: {
+          id: admin.id,
+          username: admin.username,
+          nickname: admin.nickname,
+          role: admin.role as string[],
+        },
+      },
+    })
+  })

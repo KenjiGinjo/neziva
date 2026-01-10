@@ -1,0 +1,26 @@
+{
+  "name": "@packages/ts-rest-react-query",
+  "type": "module",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./src/index.ts",
+    "./ts-rest-core": "./src/_re-exports/ts-rest-core.ts",
+    "./tanstack-react-query": "./src/_re-exports/tanstack-react-query.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "check-types": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.1.0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "~4.36.1",
+    "@ts-rest/core": "3.30.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "react": "^19.1.0"
+  }
+}

@@ -1,0 +1,29 @@
+meta {
+  name: 修改密码
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{API_URL}}/user/password
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{USER_TOKEN}}
+}
+
+body:json {
+  {
+    "oldPassword": "password123",
+    "newPassword": "newpassword123",
+    "confirmPassword": "newpassword123"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

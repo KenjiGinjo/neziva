@@ -1,0 +1,21 @@
+{
+  "name": "@haole/contracts",
+  "private": true,
+  "exports": {
+    ".": "./src/contract.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@haole/validations": "workspace:*",
+    "@packages/ts-rest-react-query": "workspace:*",
+    "@ts-rest/core": "3.51.0",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@haole/interfaces": "workspace:*"
+  }
+}

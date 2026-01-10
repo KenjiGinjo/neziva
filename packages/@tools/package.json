@@ -1,0 +1,30 @@
+{
+  "name": "@haole/tools",
+  "version": "0.0.1",
+  "private": true,
+  "exports": {
+    "./exception": "./src/exception/index.ts",
+    "./both": "./src/both/index.ts",
+    "./extend": "./src/extend.ts",
+    "./crypto": "./src/crypto/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "check-types": "tsc --noEmit",
+
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@haole/constants": "workspace:*",
+    "@haole/enums": "workspace:*",
+    "@haole/interfaces": "workspace:*",
+    "date-fns": "3.6.0",
+    "dotenv": "^16.4.5",
+    "dotenv-cli": "^7.4.2",
+    "dotenv-expand": "~11.0.6",
+    "radash": "^12.1.0"
+  },
+  "devDependencies": {
+  }
+}

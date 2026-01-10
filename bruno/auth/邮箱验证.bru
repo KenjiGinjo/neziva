@@ -1,0 +1,25 @@
+meta {
+  name: 邮箱验证
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{API_URL}}/auth/verify-email?token=rebb0kaef2bbtdh52r9qur20
+  body: none
+  auth: none
+}
+
+params:query {
+  token: rebb0kaef2bbtdh52r9qur20
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Email verification successful", function() {
+    expect(res.body.data).to.have.property('message');
+  });
+}

@@ -1,0 +1,256 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cache {
+  key       String    @id @db.VarChar
+  value     String    @db.Text
+  expiresAt DateTime? @map("expires_at") @db.Timestamp
+
+  @@map("__cache")
+}
+
+model Admin {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  username String  @unique @db.VarChar
+  password String  @db.VarChar
+  nickname String? @db.VarChar
+  avatar   String? @db.VarChar
+  phone    String? @db.VarChar
+  email    String? @db.VarChar
+  status   Int     @default(0) @db.SmallInt
+
+  role Json @default("[]") @db.Json
+
+  @@map("admin")
+}
+
+model User {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  username String? @db.VarChar
+  password String? @db.VarChar
+
+  email           String?   @unique @db.VarChar
+  emailVerifiedAt DateTime? @map("email_verified_at")
+  phone           String?   @unique @db.VarChar
+  phoneVerifiedAt DateTime? @map("phone_verified_at")
+
+  googleId String? @unique @map("google_id") @db.VarChar
+  githubId String? @unique @map("github_id") @db.VarChar
+
+  firstName String? @map("first_name") @db.VarChar
+  lastName  String? @map("last_name") @db.VarChar
+
+  nickname  String? @db.VarChar
+  avatarUrl String? @map("avatar_url") @db.VarChar
+
+  subscriptionPlan   String @default("free") @map("subscription_plan") @db.VarChar // free, starter, pro, business
+  subscriptionStatus String @default("active") @map("subscription_status") @db.VarChar // active, canceled, expired
+  apiCallsUsed       Int    @default(0) @map("api_calls_used") @db.Integer
+  apiCallsLimit      Int    @default(100) @map("api_calls_limit") @db.Integer
+
+  lastLoginAt DateTime? @map("last_login_at") @db.Timestamp
+
+  status Int @default(1) @db.SmallInt
+
+  // Relations
+  workflows     Workflow[]
+  executions    Execution[]
+  subscriptions Subscription[]
+  invoices      Invoice[]
+  apiCalls      ApiCall[]
+  systemLogs    SystemLog[]
+
+  @@map("user")
+}
+
+model Workflow {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  userId String @map("user_id") @db.VarChar
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name        String  @db.VarChar
+  description String? @db.Text
+
+  workflowData Json @map("workflow_data") @db.JsonB // { nodes: Node[], edges: Edge[] }
+
+  status String @default("draft") @db.VarChar // draft, active, paused, error
+
+  executionCount Int @default(0) @map("execution_count") @db.Integer
+  successCount   Int @default(0) @map("success_count") @db.Integer
+  errorCount     Int @default(0) @map("error_count") @db.Integer
+
+  lastExecutedAt DateTime? @map("last_executed_at") @db.Timestamp
+
+  // Relations
+  executions Execution[]
+  apiCalls   ApiCall[]
+  systemLogs SystemLog[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([lastExecutedAt])
+  @@map("workflow")
+}
+
+model Execution {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+
+  workflowId String   @map("workflow_id") @db.VarChar
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  userId String @map("user_id") @db.VarChar
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  status String @default("pending") @db.VarChar // pending, running, completed, failed, canceled
+
+  startedAt   DateTime  @map("started_at") @db.Timestamp
+  completedAt DateTime? @map("completed_at") @db.Timestamp
+  durationMs  Int?      @map("duration_ms") @db.Integer
+
+  inputData  Json? @map("input_data") @db.JsonB
+  outputData Json? @map("output_data") @db.JsonB
+
+  errorMessage String? @map("error_message") @db.Text
+  logs         String? @db.Text
+
+  // Relations
+  apiCalls ApiCall[]
+
+  @@index([workflowId])
+  @@index([userId])
+  @@index([status])
+  @@index([startedAt])
+  @@map("execution")
+}
+
+model Subscription {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  userId String @map("user_id") @db.VarChar
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Payment provider subscription ID (PayPal, Stripe, etc.)
+  subscriptionId String? @unique @map("subscription_id") @db.VarChar
+
+  plan   String @db.VarChar // starter, pro, business
+  status String @default("active") @db.VarChar // active, canceled, expired, past_due
+
+  currentPeriodStart DateTime @map("current_period_start") @db.Timestamp
+  currentPeriodEnd   DateTime @map("current_period_end") @db.Timestamp
+  cancelAtPeriodEnd  Boolean  @default(false) @map("cancel_at_period_end") @db.Boolean
+
+  @@index([userId])
+  @@index([status])
+  @@map("subscription")
+}
+
+model Invoice {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+
+  userId String @map("user_id") @db.VarChar
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  subscriptionId String? @map("subscription_id") @db.VarChar
+
+  amount   Decimal @db.Decimal(10, 2)
+  currency String  @default("USD") @db.VarChar(3)
+
+  status String @default("pending") @db.VarChar // paid, pending, failed
+
+  downloadUrl String? @map("download_url") @db.VarChar
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("invoice")
+}
+
+model SystemLog {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+
+  level   String @db.VarChar // info, warning, error
+  message String @db.Text
+
+  context Json? @db.JsonB
+
+  userId String? @map("user_id") @db.VarChar
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  workflowId String?   @map("workflow_id") @db.VarChar
+  workflow   Workflow? @relation(fields: [workflowId], references: [id], onDelete: SetNull)
+
+  @@index([level])
+  @@index([userId])
+  @@index([workflowId])
+  @@index([createdAt])
+  @@map("system_log")
+}
+
+model ApiCall {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+
+  userId String @map("user_id") @db.VarChar
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  workflowId String?   @map("workflow_id") @db.VarChar
+  workflow   Workflow? @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  executionId String?    @map("execution_id") @db.VarChar
+  execution   Execution? @relation(fields: [executionId], references: [id], onDelete: Cascade)
+
+  provider String @db.VarChar // openai, anthropic, google
+  model    String @db.VarChar
+
+  promptTokens     Int?     @map("prompt_tokens") @db.Integer
+  completionTokens Int?     @map("completion_tokens") @db.Integer
+  costUsd          Decimal? @map("cost_usd") @db.Decimal(10, 6)
+
+  status       String  @default("success") @db.VarChar // success, error
+  errorMessage String? @map("error_message") @db.Text
+
+  @@index([userId])
+  @@index([workflowId])
+  @@index([executionId])
+  @@index([provider])
+  @@index([createdAt])
+  @@map("api_call")
+}
+
+
+model ErrorLog {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+  type      Int      @db.SmallInt
+  code      String   @db.Text
+  detail    String   @db.Text
+  path      String?  @db.Text
+  method    String?  @db.Text
+  query     Json?    @db.Json
+  body      Json?    @db.Json
+  headers   Json?    @db.Json
+  stack     String?  @db.Text
+
+  @@map("error_log")
+}

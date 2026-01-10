@@ -1,0 +1,25 @@
+meta {
+  name: 登出
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{ADMIN_URL}}/auth/logout
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{ADMIN_TOKEN}}
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains success message", function() {
+    expect(res.body.data).to.have.property('message');
+  });
+}
