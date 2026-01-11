@@ -85,7 +85,7 @@ model BlogPost {
   content     String    @db.Text
   excerpt     String?   @db.Text // 摘要
   category    String    @db.VarChar(100)
-  tags        String[]  @default([]) // 标签数组
+  tags        Json      @default("[]") @db.Json // 标签数组
   author      String    @db.VarChar(100)
   readTime    Int       @default(0) @map("read_time") @db.SmallInt // 阅读时长（分钟）
   views       Int       @default(0) @db.Integer // 浏览次数
