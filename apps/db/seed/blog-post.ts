@@ -228,7 +228,7 @@ Key takeaways from this project...`,
   for (const post of posts) {
     const created = await db.blogPost.create(post)
     createdPosts.push(created)
-    console.log(`  ✅ Created blog post: ${post.title}`)
+    console.warn(`  ✅ Created blog post: ${post.title}`)
   }
 
   return createdPosts

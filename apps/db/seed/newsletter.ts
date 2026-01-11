@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker'
 import { db } from '../src'
 
 export async function initNewsletter() {
@@ -35,28 +34,17 @@ export async function initNewsletter() {
     },
   ]
 
-  // 生成一些随机订阅者
-  for (let i = 0; i < 10; i++) {
-    subscribers.push({
-      email: faker.internet.email(),
-      status: faker.helpers.arrayElement([0, 1, 2]),
-      source: faker.helpers.arrayElement(['homepage', 'blog', 'contact']),
-      verifiedAt: faker.helpers.maybe(() => new Date(faker.date.past()), { probability: 0.7 }),
-      unsubscribedAt: faker.helpers.maybe(() => new Date(faker.date.past()), { probability: 0.2 }),
-    })
-  }
-
   const createdSubscribers = []
   for (const subscriber of subscribers) {
     try {
       const created = await db.newsletter.create(subscriber)
       createdSubscribers.push(created)
-      console.log(`  ✅ Created newsletter subscriber: ${subscriber.email}`)
+      console.warn(`  ✅ Created newsletter subscriber: ${subscriber.email}`)
     }
     catch (error: any) {
       // 如果邮箱已存在，跳过
       if (error?.message?.includes('unique') || error?.message?.includes('duplicate')) {
-        console.log(`  ⚠️  Skipped duplicate email: ${subscriber.email}`)
+        console.warn(`  ⚠️  Skipped duplicate email: ${subscriber.email}`)
       }
       else {
         throw error

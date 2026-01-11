@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker'
 import { db } from '../src'
 
 export async function initContactForms() {
@@ -58,7 +57,7 @@ export async function initContactForms() {
   for (const form of forms) {
     const created = await db.contactForm.create(form)
     createdForms.push(created)
-    console.log(`  ✅ Created contact form: ${form.name} (${form.email})`)
+    console.warn(`  ✅ Created contact form: ${form.name} (${form.email})`)
   }
 
   return createdForms
