@@ -1,0 +1,32 @@
+meta {
+  name: 更新订阅状态
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/newsletter/subscribers/:id/status
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+body:json {
+  {
+    "status": 2
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Subscriber status is updated", function() {
+    expect(res.body.data).to.have.property('status');
+    expect(res.body.data.status).to.equal(2);
+  });
+}

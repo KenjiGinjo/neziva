@@ -1,0 +1,41 @@
+meta {
+  name: 创建博客文章
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{ADMIN_URL}}/api/admin/blog/posts
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "title": "从零到一：如何构建你的第一个AI应用",
+    "slug": "how-to-build-first-ai-app",
+    "content": "# 从零到一：如何构建你的第一个AI应用\n\n这是一篇完整的教程...",
+    "excerpt": "A comprehensive step-by-step guide for beginners to build their first AI application.",
+    "category": "Technical Insights",
+    "tags": ["AI Development", "Tutorial", "Beginner"],
+    "author": "neziva",
+    "readTime": 12,
+    "featured": false,
+    "status": 0,
+    "coverImage": "https://example.com/cover.jpg",
+    "seoTitle": "从零到一：如何构建你的第一个AI应用 | neziva",
+    "seoDesc": "Learn how to build your first AI application with this comprehensive guide."
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains created post", function() {
+    expect(res.body).to.have.property('data');
+    expect(res.body.data).to.have.property('id');
+    expect(res.body.data).to.have.property('title');
+  });
+}

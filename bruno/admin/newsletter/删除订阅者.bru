@@ -1,0 +1,26 @@
+meta {
+  name: 删除订阅者
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{ADMIN_URL}}/api/admin/newsletter/subscribers/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains success message", function() {
+    expect(res.body).to.have.property('success');
+    expect(res.body.success).to.equal(true);
+  });
+}

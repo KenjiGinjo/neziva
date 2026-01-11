@@ -1,0 +1,36 @@
+meta {
+  name: 更新博客文章
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/blog/posts/:id
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+body:json {
+  {
+    "title": "从零到一：如何构建你的第一个AI应用（更新版）",
+    "content": "# 从零到一：如何构建你的第一个AI应用\n\n这是更新后的内容...",
+    "category": "Technical Insights",
+    "tags": ["AI Development", "Tutorial", "Beginner", "Updated"],
+    "status": 1
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains updated post", function() {
+    expect(res.body).to.have.property('data');
+    expect(res.body.data).to.have.property('id');
+  });
+}

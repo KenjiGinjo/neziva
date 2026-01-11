@@ -1,0 +1,28 @@
+meta {
+  name: 获取联系表单详情
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains form data", function() {
+    expect(res.body).to.have.property('data');
+    expect(res.body.data).to.have.property('id');
+    expect(res.body.data).to.have.property('name');
+    expect(res.body.data).to.have.property('email');
+  });
+}

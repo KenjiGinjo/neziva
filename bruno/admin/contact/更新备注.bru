@@ -1,0 +1,31 @@
+meta {
+  name: 更新备注
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/:id/notes
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+body:json {
+  {
+    "notes": "已联系客户，等待回复"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Form notes is updated", function() {
+    expect(res.body.data).to.have.property('notes');
+  });
+}

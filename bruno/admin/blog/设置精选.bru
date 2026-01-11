@@ -1,0 +1,32 @@
+meta {
+  name: 设置精选
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/blog/posts/:id/feature
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+body:json {
+  {
+    "featured": true
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Post featured status is updated", function() {
+    expect(res.body.data).to.have.property('featured');
+    expect(res.body.data.featured).to.equal(true);
+  });
+}

@@ -436,38 +436,78 @@
     - ✅ BlogPost（博客文章）- title, slug, content, excerpt, category, tags, author, readTime, views, featured, status, coverImage, seoTitle, seoDesc
     - ✅ Newsletter（Newsletter 订阅）- email, status, verifiedAt, unsubscribedAt, source
 15. ✅ 设计 API 接口规范
-    - ✅ 联系表单 API：POST /api/contact/submit
-    - ✅ 博客 API：
-      - GET /api/blog/posts（支持分页、分类、标签过滤）
-      - GET /api/blog/posts/:id（文章详情）
-      - GET /api/blog/search?q=keyword（搜索功能）
-      - GET /api/blog/related/:id（相关文章推荐）
-    - ✅ Newsletter API：POST /api/newsletter/subscribe
-    - ✅ 已创建 Bruno API 文档（bruno/contact, bruno/blog, bruno/newsletter）
+    - ✅ 前端 API（公开访问）：
+      - ✅ 联系表单 API：POST /api/contact/submit
+      - ✅ 博客 API：
+        - GET /api/blog/posts（支持分页、分类、标签过滤）
+        - GET /api/blog/posts/:id（文章详情）
+        - GET /api/blog/search?q=keyword（搜索功能）
+        - GET /api/blog/related/:id（相关文章推荐）
+      - ✅ Newsletter API：POST /api/newsletter/subscribe
+    - ✅ 管理后台 API（需要认证）：
+      - ✅ 博客管理 API：
+        - POST /api/admin/blog/posts（创建文章）
+        - PUT /api/admin/blog/posts/:id（更新文章）
+        - DELETE /api/admin/blog/posts/:id（删除文章）
+        - GET /api/admin/blog/posts（管理后台列表）
+        - PUT /api/admin/blog/posts/:id/publish（发布/取消发布）
+        - PUT /api/admin/blog/posts/:id/feature（设置/取消精选）
+      - ✅ 联系表单管理 API：
+        - GET /api/admin/contact/forms（获取表单列表）
+        - GET /api/admin/contact/forms/:id（获取表单详情）
+        - PUT /api/admin/contact/forms/:id/status（更新处理状态）
+        - PUT /api/admin/contact/forms/:id/notes（更新备注）
+        - DELETE /api/admin/contact/forms/:id（删除表单记录）
+      - ✅ Newsletter 管理 API：
+        - GET /api/admin/newsletter/subscribers（订阅者列表）
+        - PUT /api/admin/newsletter/subscribers/:id/status（更新订阅状态）
+        - DELETE /api/admin/newsletter/subscribers/:id（删除订阅者）
+    - ✅ 已创建 Bruno API 文档（bruno/contact, bruno/blog, bruno/newsletter, bruno/admin/*）
 
 ### 后端开发（数据库和 API）
 16. ⬜ 设置数据库（PostgreSQL/MongoDB/其他）
-17. ⬜ 创建联系表单数据表（name, company, email, phone, project_type, description, budget）
-18. ⬜ 开发联系表单提交 API
-    - POST /api/contact/submit
-    - 表单验证（客户端 + 服务端）
-    - 数据存储到数据库
-    - 发送邮件通知到 hello@neziva.com
+17. ✅ 创建联系表单数据表（name, company, email, phone, project_type, description, budget）
+    - ✅ 已在 schema.prisma 中定义 ContactForm 模型
+18. ✅ 开发联系表单提交 API（前端提交）
+    - ✅ POST /api/contact/submit - Bruno 文档已创建
+    - ⬜ 表单验证（客户端 + 服务端）
+    - ⬜ 数据存储到数据库
+    - ⬜ 发送邮件通知到 hello@neziva.com
+18.1. ⬜ 开发联系表单管理 API（后台管理）
+    - GET /api/admin/contact/forms（获取表单列表，支持筛选和分页）
+    - GET /api/admin/contact/forms/:id（获取表单详情）
+    - PUT /api/admin/contact/forms/:id/status（更新处理状态）
+    - PUT /api/admin/contact/forms/:id/notes（更新备注）
+    - DELETE /api/admin/contact/forms/:id（删除表单记录）
 19. ⬜ 集成邮件服务（SendGrid/Resend/其他）
 20. ⬜ 实现反垃圾邮件机制（rate limiting, CAPTCHA/Honeypot）
-21. ⬜ 创建博客文章数据表（title, content, category, tags, author, date, read_time）
-22. ⬜ 开发博客 API
-    - GET /api/blog/posts（支持分页、分类、标签过滤）
-    - GET /api/blog/posts/:id（文章详情）
-    - GET /api/blog/search?q=keyword（搜索功能）
-    - GET /api/blog/related/:id（相关文章推荐）
-23. ⬜ 创建 Newsletter 订阅数据表（email, subscribed_at, status）
-24. ⬜ 开发 Newsletter 订阅 API
-    - POST /api/newsletter/subscribe
-    - 邮箱验证
-    - 防止重复订阅
+21. ✅ 创建博客文章数据表（title, content, category, tags, author, date, read_time）
+    - ✅ 已在 schema.prisma 中定义 BlogPost 模型
+22. ✅ 开发博客 API（前端读取）
+    - ✅ GET /api/blog/posts（支持分页、分类、标签过滤）- Bruno 文档已创建
+    - ✅ GET /api/blog/posts/:id（文章详情）- Bruno 文档已创建
+    - ✅ GET /api/blog/search?q=keyword（搜索功能）- Bruno 文档已创建
+    - ✅ GET /api/blog/related/:id（相关文章推荐）- Bruno 文档已创建
+22.1. ⬜ 开发博客管理 API（后台管理）
+    - POST /api/admin/blog/posts（创建文章）
+    - PUT /api/admin/blog/posts/:id（更新文章）
+    - DELETE /api/admin/blog/posts/:id（删除文章）
+    - GET /api/admin/blog/posts（管理后台列表，支持筛选和搜索）
+    - PUT /api/admin/blog/posts/:id/publish（发布/取消发布）
+    - PUT /api/admin/blog/posts/:id/feature（设置/取消精选）
+23. ✅ 创建 Newsletter 订阅数据表（email, subscribed_at, status）
+    - ✅ 已在 schema.prisma 中定义 Newsletter 模型
+24. ✅ 开发 Newsletter 订阅 API（前端订阅）
+    - ✅ POST /api/newsletter/subscribe - Bruno 文档已创建
+    - ⬜ 邮箱验证（发送验证邮件）
+    - ⬜ 防止重复订阅
+24.1. ⬜ 开发 Newsletter 管理 API（后台管理）
+    - GET /api/admin/newsletter/subscribers（订阅者列表）
+    - PUT /api/admin/newsletter/subscribers/:id/status（更新订阅状态）
+    - DELETE /api/admin/newsletter/subscribers/:id（删除订阅者）
+    - POST /api/admin/newsletter/send（发送 Newsletter）
 25. ⬜ API 错误处理和日志记录
-26. ⬜ API 文档编写（可选：Swagger/OpenAPI）
+26. ✅ API 文档编写（Bruno API 文档已创建）
 
 ### 前端开发
 27. ✅ 开发网站前端页面（首页、服务、案例、关于、联系、博客）
@@ -562,16 +602,45 @@
 49. ⬜ 设置监控和错误追踪（Sentry/其他）
 
 ### 内容管理和管理后台
-50. ⬜ 开发管理后台（可选但推荐）
-    - 查看联系表单提交记录
-    - 管理博客文章（CRUD）
-    - 查看 Newsletter 订阅列表
-    - 基本的统计分析
-51. ⬜ 博客内容管理系统
-    - 文章编辑器（Markdown 或富文本）
-    - 图片上传功能（可选：集成 Cloudinary/其他）
-    - 分类和标签管理
-    - 草稿和发布状态
+50. ⬜ 开发管理后台（在 apps/admin 中添加营销内容管理模块）
+    - ⬜ 联系表单管理页面
+      - 查看联系表单提交记录列表（表格展示）
+      - 筛选和搜索功能（按状态、日期、项目类型）
+      - 查看表单详情
+      - 更新处理状态（未处理/已处理/已回复）
+      - 添加管理员备注
+      - 导出数据（CSV/Excel）
+    - ⬜ 博客管理页面
+      - 博客文章列表（支持筛选：状态、分类、标签）
+      - 创建/编辑博客文章（Markdown 编辑器）
+      - 文章预览功能
+      - 发布/取消发布
+      - 设置/取消精选
+      - 删除文章
+      - 图片上传功能（可选：集成 Cloudinary/其他）
+      - 分类和标签管理
+      - SEO 设置（title, description）
+      - 阅读时长自动计算
+    - ⬜ Newsletter 管理页面
+      - 订阅者列表（支持筛选：状态、来源）
+      - 查看订阅详情
+      - 更新订阅状态
+      - 删除订阅者
+      - 发送 Newsletter 功能（可选）
+      - 导出订阅者列表
+    - ⬜ 营销内容统计
+      - 联系表单提交统计（按日期、项目类型）
+      - 博客文章统计（浏览量、分类分布）
+      - Newsletter 订阅统计（增长趋势、来源分析）
+51. ⬜ 博客内容管理系统（前端界面）
+    - ⬜ 文章编辑器（Markdown 编辑器，推荐：react-markdown-editor-lite 或 tiptap）
+    - ⬜ 实时预览功能
+    - ⬜ 图片上传功能（可选：集成 Cloudinary/其他）
+    - ⬜ 分类和标签管理（下拉选择 + 创建新分类/标签）
+    - ⬜ 草稿和发布状态切换
+    - ⬜ SEO 设置表单（seoTitle, seoDesc）
+    - ⬜ 封面图片上传
+    - ⬜ 阅读时长自动计算（基于内容长度）
 52. ⬜ 设计邮件模板
     - 联系表单提交确认邮件（发送给用户，感谢咨询）
     - 新联系表单通知邮件（发送给 hello@neziva.com，包含表单详情）
