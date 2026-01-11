@@ -1,4 +1,4 @@
 import { createRepo } from 'orchid-orm'
 import { db } from '../tables'
 
-export const subscription = createRepo(db.subscription, {})
+export const contactForm = createRepo(db.contactForm, {})
