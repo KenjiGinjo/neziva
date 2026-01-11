@@ -1,11 +1,8 @@
 /* eslint-disable no-console */
 import { initAdmin } from './admin'
-import { initExecutions } from './executions'
-import { initInvoices } from './invoices'
-import { initSubscriptions } from './subscriptions'
-import { initSystemLogs } from './system-logs'
-import { initUsers } from './users'
-import { initWorkflows } from './workflows'
+import { initBlogPosts } from './blog-post'
+import { initContactForms } from './contact-form'
+import { initNewsletter } from './newsletter'
 
 async function main() {
   console.log('🚀 Starting database seeding...\n')
@@ -15,38 +12,23 @@ async function main() {
     await initAdmin()
     console.log()
 
-    // 初始化用户
-    const users = await initUsers()
+    // 初始化博客文章
+    const blogPosts = await initBlogPosts()
     console.log()
 
-    // 初始化订阅
-    const subscriptions = await initSubscriptions(users)
+    // 初始化联系表单
+    const contactForms = await initContactForms()
     console.log()
 
-    // 初始化发票
-    const invoices = await initInvoices(users, subscriptions)
-    console.log()
-
-    // 初始化工作流
-    const workflows = await initWorkflows(users)
-    console.log()
-
-    // 初始化执行记录
-    const executions = await initExecutions(workflows)
-    console.log()
-
-    // 初始化系统日志
-    const systemLogs = await initSystemLogs(users, workflows)
+    // 初始化 Newsletter 订阅
+    const newsletterSubscribers = await initNewsletter()
     console.log()
 
     console.log('✨ Database seeding completed successfully!')
     console.log(`\n📊 Summary:`)
-    console.log(`   - Users: ${users.length}`)
-    console.log(`   - Subscriptions: ${subscriptions.length}`)
-    console.log(`   - Invoices: ${invoices.length}`)
-    console.log(`   - Workflows: ${workflows.length}`)
-    console.log(`   - Executions: ${executions.length}`)
-    console.log(`   - System Logs: ${systemLogs.length}`)
+    console.log(`   - Blog Posts: ${blogPosts.length}`)
+    console.log(`   - Contact Forms: ${contactForms.length}`)
+    console.log(`   - Newsletter Subscribers: ${newsletterSubscribers.length}`)
   }
   catch (error) {
     console.error('❌ Error seeding database:', error)
