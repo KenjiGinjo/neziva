@@ -1,15 +1,11 @@
 import { orchidORM } from 'orchid-orm'
 import { ENV } from '../env'
 import { TableAdmin } from './admin'
-import { TableApiCall } from './api-call'
+import { TableBlogPost } from './blog-post'
 import { TableCache } from './cache'
+import { TableContactForm } from './contact-form'
 import { TableErrorLog } from './error-log'
-import { TableExecution } from './execution'
-import { TableInvoice } from './invoice'
-import { TableSubscription } from './subscription'
-import { TableSystemLog } from './system-log'
-import { TableUser } from './user'
-import { TableWorkflow } from './workflow'
+import { TableNewsletter } from './newsletter'
 
 export const db = orchidORM(
   {
@@ -18,14 +14,10 @@ export const db = orchidORM(
   },
   {
     admin: TableAdmin,
-    user: TableUser,
-    workflow: TableWorkflow,
-    execution: TableExecution,
-    subscription: TableSubscription,
-    invoice: TableInvoice,
-    systemLog: TableSystemLog,
-    apiCall: TableApiCall,
-    errorLog: TableErrorLog,
     cache: TableCache,
+    errorLog: TableErrorLog,
+    contactForm: TableContactForm,
+    blogPost: TableBlogPost,
+    newsletter: TableNewsletter,
   },
 )
