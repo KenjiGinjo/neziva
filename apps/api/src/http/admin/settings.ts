@@ -12,13 +12,10 @@ const SETTINGS_KEY = 'system_settings'
 // 默认设置
 const defaultSettings = {
   maintenanceMode: false,
-  maxApiCallsPerUser: 1000,
-  maxWorkflowsPerUser: 50,
   features: {},
   emailService: {
     provider: 'smtp' as const,
   },
-  payment: {},
 }
 
 export const settings = new Hono()

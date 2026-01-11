@@ -15,24 +15,11 @@ export const logs = new Hono()
     const startDate = c.req.query('startDate')
     const endDate = c.req.query('endDate')
     const search = c.req.query('search')
-    const userId = c.req.query('userId')
-    const workflowId = c.req.query('workflowId')
+    let queryBuilder = db.errorLog
 
-    let queryBuilder = db.systemLog
-
-    // 级别筛选
+    // 类型筛选（使用 type 字段，对应 level）
     if (level) {
-      queryBuilder = queryBuilder.where({ level })
-    }
-
-    // 用户筛选
-    if (userId) {
-      queryBuilder = queryBuilder.where({ userId })
-    }
-
-    // 工作流筛选
-    if (workflowId) {
-      queryBuilder = queryBuilder.where({ workflowId })
+      queryBuilder = queryBuilder.where({ type: Number(level) })
     }
 
     // 日期范围筛选
@@ -45,9 +32,12 @@ export const logs = new Hono()
       queryBuilder = queryBuilder.where({ createdAt: dateFilter })
     }
 
-    // 搜索（在 message 中搜索）
+    // 搜索（在 detail 或 code 中搜索）
     if (search) {
-      queryBuilder = queryBuilder.where({ message: { contains: search } })
+      queryBuilder = queryBuilder.where(q => q.or([
+        { detail: { ilike: `%${search}%` } },
+        { code: { ilike: `%${search}%` } },
+      ]))
     }
 
     const [items, total] = await Promise.all([
@@ -57,11 +47,11 @@ export const logs = new Hono()
         .offset(where.offset)
         .select(
           'id',
-          'level',
-          'message',
-          'context',
-          'userId',
-          'workflowId',
+          'type',
+          'code',
+          'detail',
+          'path',
+          'method',
           'createdAt',
         ),
       queryBuilder.count(),
