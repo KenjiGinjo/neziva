@@ -1,3 +1,4 @@
+import { EnumBlogPostStatus } from '@neziva/enums'
 import { db } from '../src'
 
 export async function initBlogPosts() {
@@ -34,7 +35,7 @@ export async function initBlogPosts() {
       author: 'neziva',
       readTime: 12,
       featured: true,
-      status: 1, // 已发布
+      status: EnumBlogPostStatus.Published,
       coverImage: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/ebd9c15b5c-cd3770fcb1c7ff967822.png',
       seoTitle: '从零到一：如何构建你的第一个AI应用 | neziva',
       seoDesc: 'Learn how to build your first AI application with this comprehensive guide.',
@@ -216,7 +217,7 @@ Key takeaways from this project...`,
       author: 'neziva',
       readTime: 9,
       featured: false,
-      status: 1,
+      status: EnumBlogPostStatus.Published,
       coverImage: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/505d809bd2-f4eb0d4c975a3e4ca66d.png',
       seoTitle: 'AI in Retail: ROI Case Study | neziva',
       seoDesc: 'How a retail company achieved 30% ROI with AI.',

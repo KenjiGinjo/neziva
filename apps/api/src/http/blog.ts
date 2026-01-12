@@ -1,45 +1,35 @@
+import type { ResBlogPostList } from '@neziva/interfaces'
 import type { HonoResponse } from '../types'
+import { EnumBlogPostStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
-import { db } from 'db'
+import { vBlogPostId, vBlogPostsQuery, vBlogRelated, vBlogSearch } from '@neziva/validations'
+import { db, dr } from 'db'
 import { Hono } from 'hono'
-import { pagination } from '../utils'
+import { pagination, validate } from '../utils'
 
 export const blogRoute = new Hono()
   .basePath('/api/blog')
 
   /** 获取博客文章列表 */
-  .get('/posts', pagination(), async (c): Promise<HonoResponse<{ data: any[], pagination: any }>> => {
+  .get('/posts', pagination(), validate('query', vBlogPostsQuery), async (c): Promise<HonoResponse<{ data: ResBlogPostList[], pagination: any }>> => {
     const { where } = c.get('page')
-    const category = c.req.query('category')
-    const tag = c.req.query('tag')
-    const featured = c.req.query('featured')
-    const status = c.req.query('status') || '1' // 默认只返回已发布的
+    const { category, tag, featured } = c.req.valid('query')
 
-    let query = db.blogPost.where({ status: Number(status) })
+    const query = dr.blogPost.selectForList({
+      category,
+      tag,
+      featured: featured !== undefined ? featured === 'true' : undefined,
+      status: EnumBlogPostStatus.Published,
+    })
 
-    if (category) {
-      query = query.where({ category })
-    }
-
-    if (tag) {
-      // 查询 JSON 数组中包含指定标签的文章
-      query = query.where(q => q.sql`${q.tags}::jsonb @> ${JSON.stringify([tag])}::jsonb`)
-    }
-
-    if (featured !== undefined) {
-      query = query.where({ featured: featured === 'true' })
-    }
-
-    const [items, total] = await Promise.all([
-      query
-        .order({ publishedAt: 'DESC', createdAt: 'DESC' })
-        .limit(where.limit)
-        .offset(where.offset),
-      query.count(),
-    ])
+    const total = await query.count()
+    const data = await query
+      .order({ publishedAt: 'DESC', createdAt: 'DESC' })
+      .limit(where.limit)
+      .offset(where.offset)
 
     return c.json({
-      data: items,
+      data,
       pagination: {
         page: c.get('page').query.page,
         limit: c.get('page').query.pageSize,
@@ -50,10 +40,10 @@ export const blogRoute = new Hono()
   })
 
   /** 获取博客文章详情 */
-  .get('/posts/:id', async (c): Promise<HonoResponse<{ data: any }>> => {
-    const id = c.req.param('id')
+  .get('/posts/:id', validate('param', vBlogPostId), async (c): Promise<HonoResponse<{ data: any }>> => {
+    const { id } = c.req.valid('param')
 
-    const post = await db.blogPost.where({ id }).takeOptional()
+    const post = await dr.blogPost.selectForDefault().where({ id, status: EnumBlogPostStatus.Published }).takeOptional()
 
     if (!post) {
       throw new Exception.NotFoundException('Blog post not found')
@@ -68,32 +58,19 @@ export const blogRoute = new Hono()
   })
 
   /** 搜索博客文章 */
-  .get('/search', pagination(), async (c): Promise<HonoResponse<{ data: any[], query: string, pagination: any }>> => {
+  .get('/search', pagination(), validate('query', vBlogSearch), async (c): Promise<HonoResponse<{ data: ResBlogPostList[], query?: string, pagination: any }>> => {
     const { where } = c.get('page')
-    const keyword = c.req.query('q')
+    const { keyword } = c.req.valid('query')
 
-    if (!keyword) {
-      throw new Exception.BadRequestException('Search keyword is required')
-    }
+    const query = dr.blogPost.searchList({ keyword })
 
-    const query = db.blogPost
-      .where({ status: 1 }) // 只搜索已发布的文章
-      .where(q => q.or([
-        { title: { ilike: `%${keyword}%` } },
-        { content: { ilike: `%${keyword}%` } },
-        { excerpt: { ilike: `%${keyword}%` } },
-      ]))
-
-    const [items, total] = await Promise.all([
-      query
-        .order({ publishedAt: 'DESC' })
-        .limit(where.limit)
-        .offset(where.offset),
-      query.count(),
-    ])
+    const total = await query.count()
+    const data = await query.order({ publishedAt: 'DESC' })
+      .limit(where.limit)
+      .offset(where.offset)
 
     return c.json({
-      data: items,
+      data,
       query: keyword,
       pagination: {
         page: c.get('page').query.page,
@@ -105,27 +82,33 @@ export const blogRoute = new Hono()
   })
 
   /** 获取相关文章 */
-  .get('/related/:id', async (c): Promise<HonoResponse<{ data: any[] }>> => {
-    const id = c.req.param('id')
-    const limit = Number(c.req.query('limit')) || 5
+  .get('/related/:id', validate('param', vBlogPostId), validate('query', vBlogRelated), async (c): Promise<HonoResponse<{ data: any[] }>> => {
+    const { id } = c.req.valid('param')
+    const { limit } = c.req.valid('query')
 
-    const post = await db.blogPost.where({ id }).takeOptional()
+    const post = await dr.blogPost.selectForDefault().where({ id }).takeOptional()
 
     if (!post) {
       throw new Exception.NotFoundException('Blog post not found')
     }
 
-    const related = await db.blogPost
+    // 构建查询条件
+    const orConditions = [
+      { category: post.category },
+      ...(Array.isArray(post.tags) && post.tags.length > 0
+        ? post.tags.map(tag => ({ tags: { jsonSupersetOf: [tag] } }))
+        : []),
+    ]
+
+    const related = await dr.blogPost.selectForDefault()
       .where({
-        status: 1, // 只返回已发布的
-        id: { not: id }, // 排除当前文章
+        status: EnumBlogPostStatus.Published,
+        id: { not: id },
       })
-      .where(q => q.or([
-        { category: post.category },
-        q.sql`${q.tags}::jsonb ?| ${JSON.stringify(post.tags)}`, // 有共同标签
-      ]))
+      .where(q => q.or(orConditions as any))
       .order({ publishedAt: 'DESC' })
       .limit(limit)
+      .all()
 
     return c.json({
       data: related,

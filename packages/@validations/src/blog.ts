@@ -10,7 +10,6 @@ export const vBlogPostsQuery = z.object({
   category: z.string().optional(),
   tag: z.string().optional(),
   featured: z.string().optional(),
-  status: z.string().optional(),
 })
 export type vBlogPostsQuery = z.infer<typeof vBlogPostsQuery>
 

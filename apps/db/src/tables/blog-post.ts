@@ -1,3 +1,4 @@
+import { EnumBlogPostStatus } from '@neziva/enums'
 import { BaseTable } from './_base'
 
 export class TableBlogPost extends BaseTable {
@@ -18,7 +19,7 @@ export class TableBlogPost extends BaseTable {
     readTime: t.smallint().default(0),
     views: t.integer().default(0),
     featured: t.boolean().default(false),
-    status: t.smallint().default(0),
+    status: t.xEnum(EnumBlogPostStatus).hasDefault(),
     coverImage: t.varchar(500).nullable(),
     seoTitle: t.varchar(255).nullable(),
     seoDesc: t.text().nullable(),

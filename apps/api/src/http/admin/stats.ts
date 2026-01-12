@@ -1,5 +1,6 @@
 import type { ResAdminStats } from '@neziva/interfaces'
 import type { HonoResponse } from '../../types'
+import { EnumBlogPostStatus, EnumContactFormStatus, EnumNewsletterStatus } from '@neziva/enums'
 import { endOfDay, startOfDay } from 'date-fns'
 import { db } from 'db'
 import { Hono } from 'hono'
@@ -23,11 +24,11 @@ export const stats = new Hono()
       errorLogsToday,
     ] = await Promise.all([
       db.contactForm.count(),
-      db.contactForm.where({ status: 0 }).count(), // 0: 未处理
+      db.contactForm.where({ status: EnumContactFormStatus.Pending }).count(),
       db.blogPost.count(),
-      db.blogPost.where({ status: 1 }).count(), // 1: 已发布
+      db.blogPost.where({ status: EnumBlogPostStatus.Published }).count(),
       db.newsletter.count(),
-      db.newsletter.where({ status: 1 }).count(), // 1: 已订阅
+      db.newsletter.where({ status: EnumNewsletterStatus.Subscribed }).count(),
       db.errorLog
         .where({
           createdAt: {

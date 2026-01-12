@@ -1,4 +1,5 @@
 import type { HonoResponse } from '../types'
+import { EnumContactFormStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
 import { db } from 'db'
 import { Hono } from 'hono'
@@ -30,7 +31,7 @@ export const contactRoute = new Hono()
       projectType: dto.projectType,
       description: dto.description,
       budget: dto.budget,
-      status: 0, // 0: 未处理
+      status: EnumContactFormStatus.Pending,
     })
 
     // TODO: 发送邮件通知到 hello@neziva.com

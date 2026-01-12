@@ -1,4 +1,5 @@
 import type { HonoResponse } from '../types'
+import { EnumNewsletterStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
 import { db } from 'db'
 import { Hono } from 'hono'
@@ -21,13 +22,13 @@ export const newsletterRoute = new Hono()
     const existing = await db.newsletter.where({ email }).takeOptional()
 
     if (existing) {
-      if (existing.status === 1) {
+      if (existing.status === EnumNewsletterStatus.Subscribed) {
         throw new Exception.BadRequestException('Email already subscribed')
       }
       // 如果之前退订过，重新订阅
-      if (existing.status === 2) {
+      if (existing.status === EnumNewsletterStatus.Unsubscribed) {
         await db.newsletter.where({ email }).update({
-          status: 0, // 0: 待验证
+          status: EnumNewsletterStatus.Pending,
           unsubscribedAt: null,
           source: source || existing.source,
         })
@@ -44,7 +45,7 @@ export const newsletterRoute = new Hono()
 
     await db.newsletter.create({
       email,
-      status: 0, // 0: 待验证
+      status: EnumNewsletterStatus.Pending,
       source,
     })
 

@@ -1,24 +1,24 @@
 import type { HonoResponse } from '../../types'
+import { EnumContactFormStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
+import { vContactFormsQuery, vContactFormId, vContactFormStatus, vContactFormNotes } from '@neziva/validations'
 import { db } from 'db'
 import { Hono } from 'hono'
 import { authAd } from '../../middleware/authAd'
-import { pagination } from '../../utils'
+import { pagination, validate } from '../../utils'
 
 export const contact = new Hono()
   .basePath('/api/admin/contact')
 
   /** 获取联系表单列表 */
-  .get('/forms', authAd(), pagination(), async (c): Promise<HonoResponse<{ data: any[], pagination: any }>> => {
+  .get('/forms', authAd(), pagination(), validate('query', vContactFormsQuery), async (c): Promise<HonoResponse<{ data: any[], pagination: any }>> => {
     const { where } = c.get('page')
-    const status = c.req.query('status')
-    const projectType = c.req.query('projectType')
-    const search = c.req.query('search')
+    const { status, projectType, search } = c.req.valid('query')
 
     let query = db.contactForm
 
     if (status) {
-      query = query.where({ status: Number(status) })
+      query = query.where({ status: Number(status) as EnumContactFormStatus })
     }
 
     if (projectType) {
@@ -33,16 +33,14 @@ export const contact = new Hono()
       ]))
     }
 
-    const [items, total] = await Promise.all([
-      query
-        .order({ createdAt: 'DESC' })
-        .limit(where.limit)
-        .offset(where.offset),
-      query.count(),
-    ])
+    const total = await query.count()
+    const data = await query
+      .order({ createdAt: 'DESC' })
+      .limit(where.limit)
+      .offset(where.offset)
 
     return c.json({
-      data: items,
+      data,
       pagination: {
         page: c.get('page').query.page,
         limit: c.get('page').query.pageSize,
@@ -53,8 +51,8 @@ export const contact = new Hono()
   })
 
   /** 获取联系表单详情 */
-  .get('/forms/:id', authAd(), async (c): Promise<HonoResponse<{ data: any }>> => {
-    const id = c.req.param('id')
+  .get('/forms/:id', authAd(), validate('param', vContactFormId), async (c): Promise<HonoResponse<{ data: any }>> => {
+    const { id } = c.req.valid('param')
 
     const form = await db.contactForm.where({ id }).takeOptional()
 
@@ -68,9 +66,9 @@ export const contact = new Hono()
   })
 
   /** 更新处理状态 */
-  .put('/forms/:id/status', authAd(), async (c): Promise<HonoResponse<{ data: any }>> => {
-    const id = c.req.param('id')
-    const { status } = await c.req.json()
+  .put('/forms/:id/status', authAd(), validate('param', vContactFormId), validate('json', vContactFormStatus), async (c): Promise<HonoResponse<{ data: any }>> => {
+    const { id } = c.req.valid('param')
+    const { status } = c.req.valid('json')
 
     const form = await db.contactForm.where({ id }).takeOptional()
 
@@ -78,7 +76,10 @@ export const contact = new Hono()
       throw new Exception.NotFoundException('Contact form not found')
     }
 
-    const updated = await db.contactForm.where({ id }).update({ status: Number(status) })
+    await db.contactForm.where({ id }).update({ status: Number(status) as EnumContactFormStatus })
+
+    // 重新查询获取更新后的数据
+    const updated = await db.contactForm.where({ id }).take()
 
     return c.json({
       data: updated,
@@ -86,9 +87,9 @@ export const contact = new Hono()
   })
 
   /** 更新备注 */
-  .put('/forms/:id/notes', authAd(), async (c): Promise<HonoResponse<{ data: any }>> => {
-    const id = c.req.param('id')
-    const { notes } = await c.req.json()
+  .put('/forms/:id/notes', authAd(), validate('param', vContactFormId), validate('json', vContactFormNotes), async (c): Promise<HonoResponse<{ data: any }>> => {
+    const { id } = c.req.valid('param')
+    const { notes } = c.req.valid('json')
 
     const form = await db.contactForm.where({ id }).takeOptional()
 
@@ -96,7 +97,10 @@ export const contact = new Hono()
       throw new Exception.NotFoundException('Contact form not found')
     }
 
-    const updated = await db.contactForm.where({ id }).update({ notes })
+    await db.contactForm.where({ id }).update({ notes })
+
+    // 重新查询获取更新后的数据
+    const updated = await db.contactForm.where({ id }).take()
 
     return c.json({
       data: updated,
@@ -104,8 +108,8 @@ export const contact = new Hono()
   })
 
   /** 删除联系表单记录 */
-  .delete('/forms/:id', authAd(), async (c): Promise<HonoResponse<{ success: boolean }>> => {
-    const id = c.req.param('id')
+  .delete('/forms/:id', authAd(), validate('param', vContactFormId), async (c): Promise<HonoResponse<{ success: boolean }>> => {
+    const { id } = c.req.valid('param')
 
     const form = await db.contactForm.where({ id }).takeOptional()
 

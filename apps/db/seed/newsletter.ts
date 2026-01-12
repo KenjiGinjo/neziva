@@ -1,33 +1,34 @@
+import { EnumNewsletterStatus } from '@neziva/enums'
 import { db } from '../src'
 
 export async function initNewsletter() {
   const subscribers = [
     {
       email: 'subscriber1@example.com',
-      status: 1, // 已订阅
+      status: EnumNewsletterStatus.Subscribed,
       source: 'homepage',
       verifiedAt: new Date('2026-01-01'),
     },
     {
       email: 'subscriber2@example.com',
-      status: 1,
+      status: EnumNewsletterStatus.Subscribed,
       source: 'blog',
       verifiedAt: new Date('2026-01-02'),
     },
     {
       email: 'subscriber3@example.com',
-      status: 0, // 待验证
+      status: EnumNewsletterStatus.Pending,
       source: 'homepage',
     },
     {
       email: 'subscriber4@example.com',
-      status: 1,
+      status: EnumNewsletterStatus.Subscribed,
       source: 'blog',
       verifiedAt: new Date('2026-01-03'),
     },
     {
       email: 'subscriber5@example.com',
-      status: 2, // 已退订
+      status: EnumNewsletterStatus.Unsubscribed,
       source: 'homepage',
       verifiedAt: new Date('2026-01-01'),
       unsubscribedAt: new Date('2026-01-10'),

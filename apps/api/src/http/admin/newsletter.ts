@@ -1,24 +1,24 @@
 import type { HonoResponse } from '../../types'
+import { EnumNewsletterStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
+import { vNewsletterSubscribersQuery, vNewsletterSubscriberId, vNewsletterSubscriberStatus } from '@neziva/validations'
 import { db } from 'db'
 import { Hono } from 'hono'
 import { authAd } from '../../middleware/authAd'
-import { pagination } from '../../utils'
+import { pagination, validate } from '../../utils'
 
 export const newsletter = new Hono()
   .basePath('/api/admin/newsletter')
 
   /** 获取订阅者列表 */
-  .get('/subscribers', authAd(), pagination(), async (c): Promise<HonoResponse<{ data: any[], pagination: any }>> => {
+  .get('/subscribers', authAd(), pagination(), validate('query', vNewsletterSubscribersQuery), async (c): Promise<HonoResponse<{ data: any[], pagination: any }>> => {
     const { where } = c.get('page')
-    const status = c.req.query('status')
-    const source = c.req.query('source')
-    const search = c.req.query('search')
+    const { status, source, search } = c.req.valid('query')
 
     let query = db.newsletter
 
     if (status) {
-      query = query.where({ status: Number(status) })
+      query = query.where({ status: Number(status) as EnumNewsletterStatus })
     }
 
     if (source) {
@@ -29,16 +29,14 @@ export const newsletter = new Hono()
       query = query.where({ email: { ilike: `%${search}%` } })
     }
 
-    const [items, total] = await Promise.all([
-      query
-        .order({ createdAt: 'DESC' })
-        .limit(where.limit)
-        .offset(where.offset),
-      query.count(),
-    ])
+    const total = await query.count()
+    const data = await query
+      .order({ createdAt: 'DESC' })
+      .limit(where.limit)
+      .offset(where.offset)
 
     return c.json({
-      data: items,
+      data,
       pagination: {
         page: c.get('page').query.page,
         limit: c.get('page').query.pageSize,
@@ -49,9 +47,9 @@ export const newsletter = new Hono()
   })
 
   /** 更新订阅状态 */
-  .put('/subscribers/:id/status', authAd(), async (c): Promise<HonoResponse<{ data: any }>> => {
-    const id = c.req.param('id')
-    const { status } = await c.req.json()
+  .put('/subscribers/:id/status', authAd(), validate('param', vNewsletterSubscriberId), validate('json', vNewsletterSubscriberStatus), async (c): Promise<HonoResponse<{ data: any }>> => {
+    const { id } = c.req.valid('param')
+    const { status } = c.req.valid('json')
 
     const subscriber = await db.newsletter.where({ id }).takeOptional()
 
@@ -59,17 +57,20 @@ export const newsletter = new Hono()
       throw new Exception.NotFoundException('Newsletter subscriber not found')
     }
 
-    const updateData: any = { status: Number(status) }
+    const updateData: any = { status: Number(status) as EnumNewsletterStatus }
 
-    if (Number(status) === 1) {
+    if (Number(status) === EnumNewsletterStatus.Subscribed) {
       updateData.verifiedAt = new Date()
     }
 
-    if (Number(status) === 2) {
+    if (Number(status) === EnumNewsletterStatus.Unsubscribed) {
       updateData.unsubscribedAt = new Date()
     }
 
-    const updated = await db.newsletter.where({ id }).update(updateData)
+    await db.newsletter.where({ id }).update(updateData)
+
+    // 重新查询获取更新后的数据
+    const updated = await db.newsletter.where({ id }).take()
 
     return c.json({
       data: updated,
@@ -77,8 +78,8 @@ export const newsletter = new Hono()
   })
 
   /** 删除订阅者 */
-  .delete('/subscribers/:id', authAd(), async (c): Promise<HonoResponse<{ success: boolean }>> => {
-    const id = c.req.param('id')
+  .delete('/subscribers/:id', authAd(), validate('param', vNewsletterSubscriberId), async (c): Promise<HonoResponse<{ success: boolean }>> => {
+    const { id } = c.req.valid('param')
 
     const subscriber = await db.newsletter.where({ id }).takeOptional()
 

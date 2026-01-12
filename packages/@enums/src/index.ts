@@ -15,12 +15,6 @@ export enum EnumAdminStatus {
   Blocked = 1,
 }
 
-export enum EnumGender {
-  Male = 'male',
-  Female = 'female',
-  Other = 'other',
-}
-
 export enum EnumWorkflowStatus {
   Draft = 'draft',
   Active = 'active',
@@ -43,9 +37,20 @@ export enum EnumSubscriptionPlan {
   Business = 'business',
 }
 
-export enum EnumSubscriptionStatus {
-  Active = 'active',
-  Canceled = 'canceled',
-  Expired = 'expired',
-  PastDue = 'past_due',
+export enum EnumBlogPostStatus {
+  Draft = 0,
+  Published = 1,
+  Archived = 2,
+}
+
+export enum EnumContactFormStatus {
+  Pending = 0, // 未处理
+  Processed = 1, // 已处理
+  Replied = 2, // 已回复
+}
+
+export enum EnumNewsletterStatus {
+  Pending = 0, // 待验证
+  Subscribed = 1, // 已订阅
+  Unsubscribed = 2, // 已退订
 }
