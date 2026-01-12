@@ -14,6 +14,6 @@ export class TableAdmin extends BaseTable {
     email: t.string().nullable(),
     status: t.smallint().default(0),
 
-    role: t.json().default(() => []),
+    role: t.json<string[]>().hasDefault(),
   }))
 }

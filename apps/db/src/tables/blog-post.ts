@@ -11,16 +11,16 @@ export class TableBlogPost extends BaseTable {
     title: t.varchar(255),
     slug: t.varchar(255).unique(),
     content: t.text(),
-    excerpt: t.text().nullable(), // 摘要
+    excerpt: t.text().nullable(),
     category: t.varchar(100),
-    tags: t.json().default(() => []), // 标签数组
+    tags: t.json<string[]>().hasDefault(),
     author: t.varchar(100),
-    readTime: t.smallint().default(0), // 阅读时长（分钟）
-    views: t.integer().default(0), // 浏览次数
-    featured: t.boolean().default(false), // 是否精选
-    status: t.smallint().default(0), // 0: 草稿, 1: 已发布, 2: 已归档
-    coverImage: t.varchar(500).nullable(), // 封面图片URL
-    seoTitle: t.varchar(255).nullable(), // SEO标题
-    seoDesc: t.text().nullable(), // SEO描述
+    readTime: t.smallint().default(0),
+    views: t.integer().default(0),
+    featured: t.boolean().default(false),
+    status: t.smallint().default(0),
+    coverImage: t.varchar(500).nullable(),
+    seoTitle: t.varchar(255).nullable(),
+    seoDesc: t.text().nullable(),
   }))
 }
