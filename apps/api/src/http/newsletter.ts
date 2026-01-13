@@ -1,6 +1,5 @@
 import type { ResNewsletterSubscribe } from '@neziva/interfaces'
 import type { HonoResponse } from '../types'
-import { Exception } from '@neziva/tools/exception'
 import { vNewsletterSubscribe } from '@neziva/validations'
 import { ds } from 'db'
 import { Hono } from 'hono'
@@ -13,29 +12,20 @@ export const newsletterRoute = new Hono()
   .post('/subscribe', validate('json', vNewsletterSubscribe), async (c): Promise<HonoResponse<{ data: ResNewsletterSubscribe }>> => {
     const { email, source } = c.req.valid('json')
 
-    try {
-      const result = await ds.newsletter.subscribe({ email, source })
+    const result = await ds.newsletter.subscribe({ email, source })
 
-      // TODO: 发送验证邮件
+    // TODO: 发送验证邮件
 
-      if (result.reactivated) {
-        return c.json({
-          data: {
-            success: true,
-            message: 'Subscription reactivated. Please check your email to verify.',
-          },
-        })
-      }
+    if (result.reactivated) {
+      return c.json({
+        data: {
+          success: true,
+          message: 'Subscription reactivated. Please check your email to verify.',
+        },
+      })
+    }
 
-      if (result.alreadyExists) {
-        return c.json({
-          data: {
-            success: true,
-            message: 'Please check your email to verify your subscription.',
-          },
-        })
-      }
-
+    if (result.alreadyExists) {
       return c.json({
         data: {
           success: true,
@@ -43,10 +33,11 @@ export const newsletterRoute = new Hono()
         },
       })
     }
-    catch (error) {
-      if (error instanceof Error && error.message === 'Email already subscribed') {
-        throw new Exception.BadRequestException('Email already subscribed')
-      }
-      throw error
-    }
+
+    return c.json({
+      data: {
+        success: true,
+        message: 'Please check your email to verify your subscription.',
+      },
+    })
   })
