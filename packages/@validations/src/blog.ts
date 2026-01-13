@@ -40,3 +40,23 @@ export const vBlogAdminPostsQuery = z.object({
   search: z.string().optional(),
 })
 export type vBlogAdminPostsQuery = z.infer<typeof vBlogAdminPostsQuery>
+
+export const vBlogCreate = z.object({
+  title: z.string().min(1),
+  slug: z.string().min(1),
+  content: z.string().min(1),
+  excerpt: z.string().optional(),
+  category: z.string().min(1),
+  tags: z.array(z.string()).optional(),
+  author: z.string().min(1),
+  readTime: z.number().optional(),
+  featured: z.boolean().optional(),
+  status: z.number().optional(),
+  coverImage: z.string().optional(),
+  seoTitle: z.string().optional(),
+  seoDesc: z.string().optional(),
+})
+export type vBlogCreate = z.infer<typeof vBlogCreate>
+
+export const vBlogUpdate = vBlogCreate.partial()
+export type vBlogUpdate = z.infer<typeof vBlogUpdate>

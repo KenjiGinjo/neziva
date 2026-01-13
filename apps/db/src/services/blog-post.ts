@@ -124,4 +124,176 @@ export const blogPost = {
 
     return true
   },
+
+  /**
+   * 获取文章列表（管理后台）
+   */
+  getListForAdmin: async (options: {
+    status?: EnumBlogPostStatus
+    category?: string
+    tag?: string
+    search?: string
+    limit: number
+    offset: number
+  }) => {
+    const { status, category, tag, search, limit, offset } = options
+
+    let query = db.blogPost
+
+    if (status !== undefined) {
+      query = query.where({ status })
+    }
+
+    if (category) {
+      query = query.where({ category })
+    }
+
+    if (tag) {
+      query = query.where({ tags: { has: tag } })
+    }
+
+    if (search) {
+      query = query.where(q => q.or([
+        { title: { ilike: `%${search}%` } },
+        { content: { ilike: `%${search}%` } },
+        { excerpt: { ilike: `%${search}%` } },
+      ]))
+    }
+
+    const total = await query.count()
+    const data = await query
+      .order({ createdAt: 'DESC' })
+      .limit(limit)
+      .offset(offset)
+
+    return { data, total }
+  },
+
+  /**
+   * 获取文章详情（管理后台）
+   */
+  getByIdForAdmin: async (id: string) => {
+    return await db.blogPost.where({ id }).takeOptional()
+  },
+
+  /**
+   * 创建文章
+   */
+  create: async (data: {
+    title: string
+    slug: string
+    content: string
+    excerpt?: string
+    category: string
+    tags?: string[]
+    author: string
+    readTime?: number
+    featured?: boolean
+    status?: EnumBlogPostStatus
+    coverImage?: string
+    seoTitle?: string
+    seoDesc?: string
+  }) => {
+    // 检查 slug 是否已存在
+    const existing = await db.blogPost.where({ slug: data.slug }).takeOptional()
+    if (existing) {
+      throw new Error('Slug already exists')
+    }
+
+    return await db.blogPost.create({
+      title: data.title,
+      slug: data.slug,
+      content: data.content,
+      excerpt: data.excerpt,
+      category: data.category,
+      tags: data.tags || [],
+      author: data.author,
+      readTime: data.readTime || 0,
+      featured: data.featured || false,
+      status: data.status || EnumBlogPostStatus.Draft,
+      coverImage: data.coverImage,
+      seoTitle: data.seoTitle,
+      seoDesc: data.seoDesc,
+    })
+  },
+
+  /**
+   * 更新文章
+   */
+  update: async (id: string, data: {
+    title?: string
+    slug?: string
+    content?: string
+    excerpt?: string
+    category?: string
+    tags?: string[]
+    author?: string
+    readTime?: number
+    featured?: boolean
+    status?: EnumBlogPostStatus
+    coverImage?: string
+    seoTitle?: string
+    seoDesc?: string
+  }) => {
+    const post = await db.blogPost.where({ id }).takeOptional()
+
+    if (!post) {
+      throw new Error('Blog post not found')
+    }
+
+    // 如果更新 slug，检查是否已存在
+    if (data.slug && data.slug !== post.slug) {
+      const existing = await db.blogPost.where({ slug: data.slug }).takeOptional()
+      if (existing) {
+        throw new Error('Slug already exists')
+      }
+    }
+
+    await db.blogPost.where({ id }).update(data)
+
+    return await db.blogPost.where({ id }).take()
+  },
+
+  /**
+   * 删除文章
+   */
+  delete: async (id: string) => {
+    await db.blogPost.where({ id }).delete()
+  },
+
+  /**
+   * 发布/取消发布文章
+   */
+  publish: async (id: string, status: EnumBlogPostStatus) => {
+    const post = await db.blogPost.where({ id }).takeOptional()
+
+    if (!post) {
+      throw new Error('Blog post not found')
+    }
+
+    const updateData: any = { status }
+
+    if (status === EnumBlogPostStatus.Published && !post.publishedAt) {
+      updateData.publishedAt = new Date()
+    }
+
+    await db.blogPost.where({ id }).update(updateData)
+
+    return await db.blogPost.where({ id }).take()
+  },
+
+  /**
+   * 设置/取消精选
+   */
+  setFeatured: async (id: string, featured: boolean) => {
+    const post = await db.blogPost.where({ id }).takeOptional()
+
+    if (!post) {
+      throw new Error('Blog post not found')
+    }
+
+    await db.blogPost.where({ id }).update({ featured })
+
+    return await db.blogPost.where({ id }).take()
+  },
 }

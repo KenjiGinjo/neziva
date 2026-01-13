@@ -1,6 +1,7 @@
 export * from './admin'
 export * from './auth'
 export * from './blog'
+export * from './contact'
 export * from './image'
 export * from './system'
 export * from './user'
