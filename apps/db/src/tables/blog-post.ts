@@ -14,7 +14,7 @@ export class TableBlogPost extends BaseTable {
     content: t.text(),
     excerpt: t.text().nullable(),
     category: t.varchar(100),
-    tags: t.json<string[]>().hasDefault(),
+    tags: t.array(t.text()),
     author: t.varchar(100),
     readTime: t.smallint().default(0),
     views: t.integer().default(0),

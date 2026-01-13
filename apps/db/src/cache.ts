@@ -1,6 +1,6 @@
 import { BentoCache, bentostore } from 'bentocache'
 import { orchidDriver } from 'bentocache/drivers/orchid'
-import { createDb } from 'orchid-orm'
+import { createDb } from 'orchid-orm/postgres-js'
 import { ENV } from './env'
 
 export const Cache = new BentoCache({

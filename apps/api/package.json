@@ -16,12 +16,12 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.3.0",
+    "@hono/zod-validator": "^0.4.2",
     "@neziva/constants": "workspace:*",
     "@neziva/enums": "workspace:*",
     "@neziva/interfaces": "workspace:*",
     "@neziva/tools": "workspace:*",
     "@neziva/validations": "workspace:*",
-    "@hono/zod-validator": "^0.4.2",
     "@packages/honojs": "workspace:*",
     "@paralleldrive/cuid2": "2.2.2",
     "@paypal/paypal-server-sdk": "1.1.0",

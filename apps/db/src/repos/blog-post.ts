@@ -35,7 +35,7 @@ export const blogPost = createRepo(db.blogPost, {
       }
 
       if (tag) {
-        query = query.where({ tags: { jsonSupersetOf: [tag] } })
+        query = query.where({ tags: { has: tag } })
       }
 
       if (featured !== undefined) {

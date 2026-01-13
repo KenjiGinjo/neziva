@@ -1,4 +1,4 @@
-import { orchidORM } from 'orchid-orm'
+import { orchidORM } from 'orchid-orm/postgres-js'
 import { ENV } from '../env'
 import { TableAdmin } from './admin'
 import { TableBlogPost } from './blog-post'

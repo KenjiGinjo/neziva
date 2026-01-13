@@ -76,12 +76,11 @@ export const blogPost = {
       status: EnumBlogPostStatus.Published,
       id: { not: id },
     }
-    const orTags = tags.map(tag => ({ ...defaultWhere, tags: { jsonSupersetOf: [tag] } }))
+    const orTags = tags.map(tag => ({ ...defaultWhere, tags: { has: tag } }))
     const orConditions = [
       { ...defaultWhere, category },
       ...orTags,
     ]
-
     const related = await dr.blogPost.selectForDefault()
       .orWhere(...orConditions)
       .order({ publishedAt: 'DESC' })

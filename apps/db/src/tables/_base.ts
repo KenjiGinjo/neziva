@@ -51,7 +51,7 @@ export const BaseTable = createBaseTable({
       }),
 
     xTimestamp: () => t.timestamp().asDate(),
-    xJsonb: () => t.json(),
+    xJsonb: <T = any>() => t.type('jsonb').as(t.json<T>()),
     createdAt: createdAt(t),
     updatedAt: updatedAt(t),
     cuid: cuid(t),
