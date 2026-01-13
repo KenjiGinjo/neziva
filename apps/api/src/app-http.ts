@@ -4,14 +4,14 @@ import { showRoutes } from 'hono/dev'
 import { logger } from 'hono/logger'
 import { setupUploadRoutes } from './app.upload'
 import { ENV } from './env'
-import { route } from './http'
+import { routes } from './http'
 import { cronService } from './services/cron'
 import { errorHandler } from './utils'
 
 const app = new Hono()
 
 app.use('/*', cors())
-app.route('/', route)
+app.route('/', routes)
 
 app.get('/', (c) => {
   console.warn('Hello World')
@@ -46,7 +46,6 @@ if (ENV.APP_STAGE === 'dev') {
 }
 
 export const App = app
-export type AppType = typeof route
 
 // cronService.start()
 

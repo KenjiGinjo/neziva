@@ -6,7 +6,7 @@ import { newsletterRoute } from './newsletter'
 import { systemRoute } from './system'
 import { uploadRoute } from './upload'
 
-export const route = new Hono()
+export const routes = new Hono()
   .route('/', admin)
   .route('/', systemRoute)
   .route('/', uploadRoute)

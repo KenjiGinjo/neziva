@@ -9,7 +9,7 @@ export const contactRoute = new Hono()
   .basePath('/api/contact')
 
   /** 提交联系表单 */
-  .post('/submit', validate('json', vContactSubmit), async (c): Promise<HonoResponse<ResContactSubmit>> => {
+  .post('/submit', validate('json', vContactSubmit), async (c): Promise<HonoResponse<{ data: ResContactSubmit }>> => {
     const dto = c.req.valid('json')
 
     await ds.contactForm.submit({
@@ -25,7 +25,9 @@ export const contactRoute = new Hono()
     // TODO: 发送邮件通知到 hello@neziva.com
 
     return c.json({
-      success: true,
-      message: 'Thank you! We\'ll get back to you within 24 hours.',
+      data: {
+        success: true,
+        message: 'Thank you! We\'ll get back to you within 24 hours.',
+      },
     })
   })
