@@ -9,7 +9,7 @@ export type vBlogSearch = z.infer<typeof vBlogSearch>
 export const vBlogPostsQuery = z.object({
   category: z.string().optional(),
   tag: z.string().optional(),
-  featured: z.string().optional(),
+  featured: z.coerce.boolean().optional(),
 })
 export type vBlogPostsQuery = z.infer<typeof vBlogPostsQuery>
 

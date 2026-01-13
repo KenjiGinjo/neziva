@@ -1,10 +1,10 @@
 import type { ResBlogPostList } from '@neziva/interfaces'
 import type { HonoResponse } from '../types'
-import { EnumBlogPostStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
 import { vBlogPostId, vBlogPostsQuery, vBlogRelated, vBlogSearch } from '@neziva/validations'
-import { db, dr } from 'db'
+import { dr, ds } from 'db'
 import { Hono } from 'hono'
+import { ip } from '../middleware'
 import { pagination, validate } from '../utils'
 
 export const blogRoute = new Hono()
@@ -15,18 +15,13 @@ export const blogRoute = new Hono()
     const { where } = c.get('page')
     const { category, tag, featured } = c.req.valid('query')
 
-    const query = dr.blogPost.selectForList({
+    const { data, total } = await ds.blogPost.getList({
       category,
       tag,
-      featured: featured !== undefined ? featured === 'true' : undefined,
-      status: EnumBlogPostStatus.Published,
+      featured,
+      limit: where.limit,
+      offset: where.offset,
     })
-
-    const total = await query.count()
-    const data = await query
-      .order({ publishedAt: 'DESC', createdAt: 'DESC' })
-      .limit(where.limit)
-      .offset(where.offset)
 
     return c.json({
       data,
@@ -40,17 +35,18 @@ export const blogRoute = new Hono()
   })
 
   /** 获取博客文章详情 */
-  .get('/posts/:id', validate('param', vBlogPostId), async (c): Promise<HonoResponse<{ data: any }>> => {
+  .get('/posts/:id', ip(), validate('param', vBlogPostId), async (c): Promise<HonoResponse<{ data: any }>> => {
     const { id } = c.req.valid('param')
+    const ipAddress = c.get('ipAddress')
 
-    const post = await dr.blogPost.selectForDefault().where({ id, status: EnumBlogPostStatus.Published }).takeOptional()
+    const post = await ds.blogPost.getById(id)
 
     if (!post) {
       throw new Exception.NotFoundException('Blog post not found')
     }
 
-    // 增加浏览量
-    await db.blogPost.where({ id }).increment({ views: 1 })
+    // 记录浏览量（基于 IP 去重）
+    await ds.blogPost.recordView(id, ipAddress)
 
     return c.json({
       data: post,
@@ -62,12 +58,11 @@ export const blogRoute = new Hono()
     const { where } = c.get('page')
     const { keyword } = c.req.valid('query')
 
-    const query = dr.blogPost.searchList({ keyword })
-
-    const total = await query.count()
-    const data = await query.order({ publishedAt: 'DESC' })
-      .limit(where.limit)
-      .offset(where.offset)
+    const { data, total } = await ds.blogPost.search({
+      keyword,
+      limit: where.limit,
+      offset: where.offset,
+    })
 
     return c.json({
       data,
@@ -92,23 +87,12 @@ export const blogRoute = new Hono()
       throw new Exception.NotFoundException('Blog post not found')
     }
 
-    // 构建查询条件
-    const orConditions = [
-      { category: post.category },
-      ...(Array.isArray(post.tags) && post.tags.length > 0
-        ? post.tags.map(tag => ({ tags: { jsonSupersetOf: [tag] } }))
-        : []),
-    ]
-
-    const related = await dr.blogPost.selectForDefault()
-      .where({
-        status: EnumBlogPostStatus.Published,
-        id: { not: id },
-      })
-      .where(q => q.or(orConditions as any))
-      .order({ publishedAt: 'DESC' })
-      .limit(limit)
-      .all()
+    const related = await ds.blogPost.getRelated({
+      id,
+      category: post.category,
+      tags: Array.isArray(post.tags) ? post.tags : [],
+      limit,
+    })
 
     return c.json({
       data: related,
