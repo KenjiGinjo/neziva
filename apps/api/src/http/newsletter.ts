@@ -1,58 +1,52 @@
+import type { ResNewsletterSubscribe } from '@neziva/interfaces'
 import type { HonoResponse } from '../types'
-import { EnumNewsletterStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
-import { db } from 'db'
+import { vNewsletterSubscribe } from '@neziva/validations'
+import { ds } from 'db'
 import { Hono } from 'hono'
-import { z } from 'zod'
 import { validate } from '../utils'
-
-const vNewsletterSubscribe = z.object({
-  email: z.string().email('Invalid email address'),
-  source: z.string().optional(),
-})
 
 export const newsletterRoute = new Hono()
   .basePath('/api/newsletter')
 
   /** 订阅 Newsletter */
-  .post('/subscribe', validate('json', vNewsletterSubscribe), async (c): Promise<HonoResponse<{ success: boolean, message: string }>> => {
+  .post('/subscribe', validate('json', vNewsletterSubscribe), async (c): Promise<HonoResponse<{ data: ResNewsletterSubscribe }>> => {
     const { email, source } = c.req.valid('json')
 
-    // 检查是否已订阅
-    const existing = await db.newsletter.where({ email }).takeOptional()
+    try {
+      const result = await ds.newsletter.subscribe({ email, source })
 
-    if (existing) {
-      if (existing.status === EnumNewsletterStatus.Subscribed) {
-        throw new Exception.BadRequestException('Email already subscribed')
-      }
-      // 如果之前退订过，重新订阅
-      if (existing.status === EnumNewsletterStatus.Unsubscribed) {
-        await db.newsletter.where({ email }).update({
-          status: EnumNewsletterStatus.Pending,
-          unsubscribedAt: null,
-          source: source || existing.source,
-        })
+      // TODO: 发送验证邮件
+
+      if (result.reactivated) {
         return c.json({
-          success: true,
-          message: 'Subscription reactivated. Please check your email to verify.',
+          data: {
+            success: true,
+            message: 'Subscription reactivated. Please check your email to verify.',
+          },
         })
       }
+
+      if (result.alreadyExists) {
+        return c.json({
+          data: {
+            success: true,
+            message: 'Please check your email to verify your subscription.',
+          },
+        })
+      }
+
       return c.json({
-        success: true,
-        message: 'Please check your email to verify your subscription.',
+        data: {
+          success: true,
+          message: 'Please check your email to verify your subscription.',
+        },
       })
     }
-
-    await db.newsletter.create({
-      email,
-      status: EnumNewsletterStatus.Pending,
-      source,
-    })
-
-    // TODO: 发送验证邮件
-
-    return c.json({
-      success: true,
-      message: 'Please check your email to verify your subscription.',
-    })
+    catch (error) {
+      if (error instanceof Error && error.message === 'Email already subscribed') {
+        throw new Exception.BadRequestException('Email already subscribed')
+      }
+      throw error
+    }
   })

@@ -2,7 +2,7 @@ import type { HonoResponse } from '../../types'
 import { EnumContactFormStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
 import { vContactFormsQuery, vContactFormId, vContactFormStatus, vContactFormNotes } from '@neziva/validations'
-import { db } from 'db'
+import { ds } from 'db'
 import { Hono } from 'hono'
 import { authAd } from '../../middleware/authAd'
 import { pagination, validate } from '../../utils'
@@ -15,29 +15,13 @@ export const contact = new Hono()
     const { where } = c.get('page')
     const { status, projectType, search } = c.req.valid('query')
 
-    let query = db.contactForm
-
-    if (status) {
-      query = query.where({ status: Number(status) as EnumContactFormStatus })
-    }
-
-    if (projectType) {
-      query = query.where({ projectType })
-    }
-
-    if (search) {
-      query = query.where(q => q.or([
-        { name: { ilike: `%${search}%` } },
-        { email: { ilike: `%${search}%` } },
-        { company: { ilike: `%${search}%` } },
-      ]))
-    }
-
-    const total = await query.count()
-    const data = await query
-      .order({ createdAt: 'DESC' })
-      .limit(where.limit)
-      .offset(where.offset)
+    const { data, total } = await ds.contactForm.getList({
+      status: status ? Number(status) as EnumContactFormStatus : undefined,
+      projectType,
+      search,
+      limit: where.limit,
+      offset: where.offset,
+    })
 
     return c.json({
       data,
@@ -54,7 +38,7 @@ export const contact = new Hono()
   .get('/forms/:id', authAd(), validate('param', vContactFormId), async (c): Promise<HonoResponse<{ data: any }>> => {
     const { id } = c.req.valid('param')
 
-    const form = await db.contactForm.where({ id }).takeOptional()
+    const form = await ds.contactForm.getById(id)
 
     if (!form) {
       throw new Exception.NotFoundException('Contact form not found')
@@ -70,16 +54,13 @@ export const contact = new Hono()
     const { id } = c.req.valid('param')
     const { status } = c.req.valid('json')
 
-    const form = await db.contactForm.where({ id }).takeOptional()
+    const form = await ds.contactForm.getById(id)
 
     if (!form) {
       throw new Exception.NotFoundException('Contact form not found')
     }
 
-    await db.contactForm.where({ id }).update({ status: Number(status) as EnumContactFormStatus })
-
-    // 重新查询获取更新后的数据
-    const updated = await db.contactForm.where({ id }).take()
+    const updated = await ds.contactForm.updateStatus(id, Number(status) as EnumContactFormStatus)
 
     return c.json({
       data: updated,
@@ -91,16 +72,13 @@ export const contact = new Hono()
     const { id } = c.req.valid('param')
     const { notes } = c.req.valid('json')
 
-    const form = await db.contactForm.where({ id }).takeOptional()
+    const form = await ds.contactForm.getById(id)
 
     if (!form) {
       throw new Exception.NotFoundException('Contact form not found')
     }
 
-    await db.contactForm.where({ id }).update({ notes })
-
-    // 重新查询获取更新后的数据
-    const updated = await db.contactForm.where({ id }).take()
+    const updated = await ds.contactForm.updateNotes(id, notes || '')
 
     return c.json({
       data: updated,
@@ -111,13 +89,13 @@ export const contact = new Hono()
   .delete('/forms/:id', authAd(), validate('param', vContactFormId), async (c): Promise<HonoResponse<{ success: boolean }>> => {
     const { id } = c.req.valid('param')
 
-    const form = await db.contactForm.where({ id }).takeOptional()
+    const form = await ds.contactForm.getById(id)
 
     if (!form) {
       throw new Exception.NotFoundException('Contact form not found')
     }
 
-    await db.contactForm.where({ id }).delete()
+    await ds.contactForm.delete(id)
 
     return c.json({
       success: true,

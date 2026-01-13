@@ -1,92 +1,83 @@
 import type { HonoResponse } from '../../types'
 import { EnumBlogPostStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
-import { vBlogAdminPostsQuery, vBlogPostId, vBlogPublish, vBlogFeature } from '@neziva/validations'
-import { db } from 'db'
+import { vBlogAdminPostsQuery, vBlogPostId, vBlogPublish, vBlogFeature, vBlogCreate, vBlogUpdate } from '@neziva/validations'
+import { ds } from 'db'
 import { Hono } from 'hono'
-import { z } from 'zod'
 import { authAd } from '../../middleware/authAd'
 import { pagination, validate } from '../../utils'
-
-const vCreateBlogPost = z.object({
-  title: z.string().min(1),
-  slug: z.string().min(1),
-  content: z.string().min(1),
-  excerpt: z.string().optional(),
-  category: z.string().min(1),
-  tags: z.array(z.string()).optional(),
-  author: z.string().min(1),
-  readTime: z.number().optional(),
-  featured: z.boolean().optional(),
-  status: z.number().optional(),
-  coverImage: z.string().optional(),
-  seoTitle: z.string().optional(),
-  seoDesc: z.string().optional(),
-})
-
-const vUpdateBlogPost = vCreateBlogPost.partial()
 
 export const blog = new Hono()
   .basePath('/api/admin/blog')
 
   /** 创建博客文章 */
-  .post('/posts', authAd(), validate('json', vCreateBlogPost), async (c): Promise<HonoResponse<{ data: any }>> => {
+  .post('/posts', authAd(), validate('json', vBlogCreate), async (c): Promise<HonoResponse<{ data: any }>> => {
     const dto = c.req.valid('json')
 
-    // 检查 slug 是否已存在
-    const existing = await db.blogPost.where({ slug: dto.slug }).takeOptional()
-    if (existing) {
-      throw new Exception.BadRequestException('Slug already exists')
+    try {
+      const post = await ds.blogPost.create({
+        title: dto.title,
+        slug: dto.slug,
+        content: dto.content,
+        excerpt: dto.excerpt,
+        category: dto.category,
+        tags: dto.tags,
+        author: dto.author,
+        readTime: dto.readTime,
+        featured: dto.featured,
+        status: dto.status ? dto.status as EnumBlogPostStatus : undefined,
+        coverImage: dto.coverImage,
+        seoTitle: dto.seoTitle,
+        seoDesc: dto.seoDesc,
+      })
+
+      return c.json({
+        data: post,
+      })
     }
-
-    const post = await db.blogPost.create({
-      title: dto.title,
-      slug: dto.slug,
-      content: dto.content,
-      excerpt: dto.excerpt,
-      category: dto.category,
-      tags: dto.tags || [],
-      author: dto.author,
-      readTime: dto.readTime || 0,
-      featured: dto.featured || false,
-      status: dto.status || EnumBlogPostStatus.Draft,
-      coverImage: dto.coverImage,
-      seoTitle: dto.seoTitle,
-      seoDesc: dto.seoDesc,
-    })
-
-    return c.json({
-      data: post,
-    })
+    catch (error: any) {
+      if (error.message === 'Slug already exists') {
+        throw new Exception.BadRequestException('Slug already exists')
+      }
+      throw error
+    }
   })
 
   /** 更新博客文章 */
-  .put('/posts/:id', authAd(), validate('param', vBlogPostId), validate('json', vUpdateBlogPost), async (c): Promise<HonoResponse<{ data: any }>> => {
+  .put('/posts/:id', authAd(), validate('param', vBlogPostId), validate('json', vBlogUpdate), async (c): Promise<HonoResponse<{ data: any }>> => {
     const { id } = c.req.valid('param')
     const dto = c.req.valid('json')
 
-    const post = await db.blogPost.where({ id }).takeOptional()
+    try {
+      const updated = await ds.blogPost.update(id, {
+        title: dto.title,
+        slug: dto.slug,
+        content: dto.content,
+        excerpt: dto.excerpt,
+        category: dto.category,
+        tags: dto.tags,
+        author: dto.author,
+        readTime: dto.readTime,
+        featured: dto.featured,
+        status: dto.status ? dto.status as EnumBlogPostStatus : undefined,
+        coverImage: dto.coverImage,
+        seoTitle: dto.seoTitle,
+        seoDesc: dto.seoDesc,
+      })
 
-    if (!post) {
-      throw new Exception.NotFoundException('Blog post not found')
+      return c.json({
+        data: updated,
+      })
     }
-
-    // 如果更新 slug，检查是否已存在
-    if (dto.slug && dto.slug !== post.slug) {
-      const existing = await db.blogPost.where({ slug: dto.slug }).takeOptional()
-      if (existing) {
+    catch (error: any) {
+      if (error.message === 'Blog post not found') {
+        throw new Exception.NotFoundException('Blog post not found')
+      }
+      if (error.message === 'Slug already exists') {
         throw new Exception.BadRequestException('Slug already exists')
       }
+      throw error
     }
-
-    await db.blogPost.where({ id }).update(dto)
-
-    // 重新查询获取更新后的数据
-    const updated = await db.blogPost.where({ id }).take()
-
-    return c.json({
-      data: updated,
-    })
   })
 
   /** 获取博客文章列表（管理后台） */
@@ -94,34 +85,14 @@ export const blog = new Hono()
     const { where } = c.get('page')
     const { status, category, tag, search } = c.req.valid('query')
 
-    let query = db.blogPost
-
-    if (status) {
-      query = query.where({ status: Number(status) as EnumBlogPostStatus })
-    }
-
-    if (category) {
-      query = query.where({ category })
-    }
-
-    if (tag) {
-      // 查询 JSON 数组中包含指定标签的文章
-      query = query.where({ tags: { jsonSupersetOf: [tag] } })
-    }
-
-    if (search) {
-      query = query.where(q => q.or([
-        { title: { ilike: `%${search}%` } },
-        { content: { ilike: `%${search}%` } },
-        { excerpt: { ilike: `%${search}%` } },
-      ]))
-    }
-
-    const total = await query.count()
-    const data = await query
-      .order({ createdAt: 'DESC' })
-      .limit(where.limit)
-      .offset(where.offset)
+    const { data, total } = await ds.blogPost.getListForAdmin({
+      status: status ? Number(status) as EnumBlogPostStatus : undefined,
+      category,
+      tag,
+      search,
+      limit: where.limit,
+      offset: where.offset,
+    })
 
     return c.json({
       data,
@@ -138,7 +109,7 @@ export const blog = new Hono()
   .get('/posts/:id', authAd(), validate('param', vBlogPostId), async (c): Promise<HonoResponse<{ data: any }>> => {
     const { id } = c.req.valid('param')
 
-    const post = await db.blogPost.where({ id }).takeOptional()
+    const post = await ds.blogPost.getByIdForAdmin(id)
 
     if (!post) {
       throw new Exception.NotFoundException('Blog post not found')
@@ -153,13 +124,13 @@ export const blog = new Hono()
   .delete('/posts/:id', authAd(), validate('param', vBlogPostId), async (c): Promise<HonoResponse<{ success: boolean }>> => {
     const { id } = c.req.valid('param')
 
-    const post = await db.blogPost.where({ id }).takeOptional()
+    const post = await ds.blogPost.getByIdForAdmin(id)
 
     if (!post) {
       throw new Exception.NotFoundException('Blog post not found')
     }
 
-    await db.blogPost.where({ id }).delete()
+    await ds.blogPost.delete(id)
 
     return c.json({
       success: true,
@@ -171,26 +142,19 @@ export const blog = new Hono()
     const { id } = c.req.valid('param')
     const { status } = c.req.valid('json')
 
-    const post = await db.blogPost.where({ id }).takeOptional()
+    try {
+      const updated = await ds.blogPost.publish(id, Number(status) as EnumBlogPostStatus)
 
-    if (!post) {
-      throw new Exception.NotFoundException('Blog post not found')
+      return c.json({
+        data: updated,
+      })
     }
-
-    const updateData: any = { status: Number(status) as EnumBlogPostStatus }
-
-    if (Number(status) === EnumBlogPostStatus.Published && !post.publishedAt) {
-      updateData.publishedAt = new Date()
+    catch (error: any) {
+      if (error.message === 'Blog post not found') {
+        throw new Exception.NotFoundException('Blog post not found')
+      }
+      throw error
     }
-
-    await db.blogPost.where({ id }).update(updateData)
-
-    // 重新查询获取更新后的数据
-    const updated = await db.blogPost.where({ id }).take()
-
-    return c.json({
-      data: updated,
-    })
   })
 
   /** 设置/取消精选 */
@@ -198,18 +162,17 @@ export const blog = new Hono()
     const { id } = c.req.valid('param')
     const { featured } = c.req.valid('json')
 
-    const post = await db.blogPost.where({ id }).takeOptional()
+    try {
+      const updated = await ds.blogPost.setFeatured(id, Boolean(featured))
 
-    if (!post) {
-      throw new Exception.NotFoundException('Blog post not found')
+      return c.json({
+        data: updated,
+      })
     }
-
-    await db.blogPost.where({ id }).update({ featured: Boolean(featured) })
-
-    // 重新查询获取更新后的数据
-    const updated = await db.blogPost.where({ id }).take()
-
-    return c.json({
-      data: updated,
-    })
+    catch (error: any) {
+      if (error.message === 'Blog post not found') {
+        throw new Exception.NotFoundException('Blog post not found')
+      }
+      throw error
+    }
   })
