@@ -10,7 +10,7 @@ export interface ResBlogPostList {
   content: string
   excerpt: string | null
   category: string
-  tags: string[]
+  tags: string[] | null
   author: string
   readTime: number
   views: number

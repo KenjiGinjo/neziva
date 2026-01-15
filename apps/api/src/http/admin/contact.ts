@@ -1,8 +1,8 @@
+import type { EnumContactFormStatus } from '@neziva/enums'
 import type { HonoResponse } from '../../types'
-import { EnumContactFormStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
-import { vContactFormsQuery, vContactFormId, vContactFormStatus, vContactFormNotes } from '@neziva/validations'
-import { ds } from 'db'
+import { vContactFormNotes, vContactFormsQuery, vContactFormStatus, vIds } from '@neziva/validations'
+import { db, ds } from 'db'
 import { Hono } from 'hono'
 import { authAd } from '../../middleware/authAd'
 import { pagination, validate } from '../../utils'
@@ -35,10 +35,10 @@ export const contact = new Hono()
   })
 
   /** 获取联系表单详情 */
-  .get('/forms/:id', authAd(), validate('param', vContactFormId), async (c): Promise<HonoResponse<{ data: any }>> => {
+  .get('/forms/:id', authAd(), validate('param', vIds('id')), async (c): Promise<HonoResponse<{ data: any }>> => {
     const { id } = c.req.valid('param')
 
-    const form = await ds.contactForm.getById(id)
+    const form = await db.contactForm.where({ id }).takeOptional()
 
     if (!form) {
       throw new Exception.NotFoundException('Contact form not found')
@@ -50,54 +50,48 @@ export const contact = new Hono()
   })
 
   /** 更新处理状态 */
-  .put('/forms/:id/status', authAd(), validate('param', vContactFormId), validate('json', vContactFormStatus), async (c): Promise<HonoResponse<{ data: any }>> => {
+  .put('/forms/:id/status', authAd(), validate('param', vIds('id')), validate('json', vContactFormStatus), async (c) => {
     const { id } = c.req.valid('param')
     const { status } = c.req.valid('json')
 
-    const form = await ds.contactForm.getById(id)
+    const form = await db.contactForm.where({ id }).takeOptional()
 
     if (!form) {
       throw new Exception.NotFoundException('Contact form not found')
     }
 
-    const updated = await ds.contactForm.updateStatus(id, Number(status) as EnumContactFormStatus)
+    await db.contactForm.where({ id }).update({ status: Number(status) as EnumContactFormStatus })
 
-    return c.json({
-      data: updated,
-    })
+    return c.body(null, 204)
   })
 
   /** 更新备注 */
-  .put('/forms/:id/notes', authAd(), validate('param', vContactFormId), validate('json', vContactFormNotes), async (c): Promise<HonoResponse<{ data: any }>> => {
+  .put('/forms/:id/notes', authAd(), validate('param', vIds('id')), validate('json', vContactFormNotes), async (c) => {
     const { id } = c.req.valid('param')
     const { notes } = c.req.valid('json')
 
-    const form = await ds.contactForm.getById(id)
+    const form = await db.contactForm.where({ id }).takeOptional()
 
     if (!form) {
       throw new Exception.NotFoundException('Contact form not found')
     }
 
-    const updated = await ds.contactForm.updateNotes(id, notes || '')
+    await db.contactForm.where({ id }).update({ notes })
 
-    return c.json({
-      data: updated,
-    })
+    return c.body(null, 204)
   })
 
   /** 删除联系表单记录 */
-  .delete('/forms/:id', authAd(), validate('param', vContactFormId), async (c): Promise<HonoResponse<{ success: boolean }>> => {
+  .delete('/forms/:id', authAd(), validate('param', vIds('id')), async (c) => {
     const { id } = c.req.valid('param')
 
-    const form = await ds.contactForm.getById(id)
+    const form = await db.contactForm.where({ id }).takeOptional()
 
     if (!form) {
       throw new Exception.NotFoundException('Contact form not found')
     }
 
-    await ds.contactForm.delete(id)
+    await db.contactForm.where({ id }).delete()
 
-    return c.json({
-      success: true,
-    })
+    return c.body(null, 204)
   })

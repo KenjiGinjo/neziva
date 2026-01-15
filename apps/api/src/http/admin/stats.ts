@@ -1,4 +1,3 @@
-import type { ResAdminStats } from '@neziva/interfaces'
 import type { HonoResponse } from '../../types'
 import { EnumBlogPostStatus, EnumContactFormStatus, EnumNewsletterStatus } from '@neziva/enums'
 import { endOfDay, startOfDay } from 'date-fns'

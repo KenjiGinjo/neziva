@@ -1,8 +1,8 @@
 import type { HonoResponse } from '../../types'
 import { EnumNewsletterStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
-import { vNewsletterSubscribersQuery, vNewsletterSubscriberId, vNewsletterSubscriberStatus } from '@neziva/validations'
-import { ds } from 'db'
+import { vIds, vNewsletterSubscribersQuery, vNewsletterSubscriberStatus } from '@neziva/validations'
+import { db, ds } from 'db'
 import { Hono } from 'hono'
 import { authAd } from '../../middleware/authAd'
 import { pagination, validate } from '../../utils'
@@ -35,36 +35,42 @@ export const newsletter = new Hono()
   })
 
   /** 更新订阅状态 */
-  .put('/subscribers/:id/status', authAd(), validate('param', vNewsletterSubscriberId), validate('json', vNewsletterSubscriberStatus), async (c): Promise<HonoResponse<{ data: any }>> => {
+  .put('/subscribers/:id/status', authAd(), validate('param', vIds('id')), validate('json', vNewsletterSubscriberStatus), async (c) => {
     const { id } = c.req.valid('param')
     const { status } = c.req.valid('json')
 
-    const subscriber = await ds.newsletter.getById(id)
+    const subscriber = await db.newsletter.where({ id }).takeOptional()
 
     if (!subscriber) {
       throw new Exception.NotFoundException('Newsletter subscriber not found')
     }
 
-    const updated = await ds.newsletter.updateStatus(id, Number(status) as EnumNewsletterStatus)
+    const updateData: any = { status: Number(status) as EnumNewsletterStatus }
 
-    return c.json({
-      data: updated,
-    })
+    if (Number(status) === EnumNewsletterStatus.Subscribed) {
+      updateData.verifiedAt = new Date()
+    }
+
+    if (Number(status) === EnumNewsletterStatus.Unsubscribed) {
+      updateData.unsubscribedAt = new Date()
+    }
+
+    await db.newsletter.where({ id }).update(updateData)
+
+    return c.body(null, 204)
   })
 
   /** 删除订阅者 */
-  .delete('/subscribers/:id', authAd(), validate('param', vNewsletterSubscriberId), async (c): Promise<HonoResponse<{ success: boolean }>> => {
+  .delete('/subscribers/:id', authAd(), validate('param', vIds('id')), async (c) => {
     const { id } = c.req.valid('param')
 
-    const subscriber = await ds.newsletter.getById(id)
+    const subscriber = await db.newsletter.where({ id }).takeOptional()
 
     if (!subscriber) {
       throw new Exception.NotFoundException('Newsletter subscriber not found')
     }
 
-    await ds.newsletter.delete(id)
+    await db.newsletter.where({ id }).delete()
 
-    return c.json({
-      success: true,
-    })
+    return c.body(null, 204)
   })

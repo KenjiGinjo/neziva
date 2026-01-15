@@ -1,7 +1,7 @@
 import type { ResBlogPostList } from '@neziva/interfaces'
 import type { HonoResponse } from '../types'
 import { Exception } from '@neziva/tools/exception'
-import { vBlogPostId, vBlogPostsQuery, vBlogRelated, vBlogSearch } from '@neziva/validations'
+import { vBlogPostsQuery, vBlogRelated, vBlogSearch, vIds } from '@neziva/validations'
 import { dr, ds } from 'db'
 import { Hono } from 'hono'
 import { ip } from '../middleware'
@@ -35,7 +35,7 @@ export const blogRoute = new Hono()
   })
 
   /** 获取博客文章详情 */
-  .get('/posts/:id', ip(), validate('param', vBlogPostId), async (c): Promise<HonoResponse<{ data: any }>> => {
+  .get('/posts/:id', ip(), validate('param', vIds('id')), async (c): Promise<HonoResponse<{ data: any }>> => {
     const { id } = c.req.valid('param')
     const ipAddress = c.get('ipAddress')
 
@@ -77,7 +77,7 @@ export const blogRoute = new Hono()
   })
 
   /** 获取相关文章 */
-  .get('/related/:id', validate('param', vBlogPostId), validate('query', vBlogRelated), async (c): Promise<HonoResponse<{ data: any[] }>> => {
+  .get('/related/:id', validate('param', vIds('id')), validate('query', vBlogRelated), async (c): Promise<HonoResponse<{ data: any[] }>> => {
     const { id } = c.req.valid('param')
     const { limit } = c.req.valid('query')
 
