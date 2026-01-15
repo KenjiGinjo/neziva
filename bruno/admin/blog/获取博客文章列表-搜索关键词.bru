@@ -1,0 +1,26 @@
+meta {
+  name: 获取博客文章列表-搜索关键词
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/blog/posts
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 1
+  limit: 20
+  status:
+  category:
+  tag:
+  search: AI
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

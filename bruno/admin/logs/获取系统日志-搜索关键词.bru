@@ -1,0 +1,26 @@
+meta {
+  name: 获取系统日志-搜索关键词
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{ADMIN_URL}}/logs
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 1
+  limit: 20
+  level:
+  startDate:
+  endDate:
+  search: error
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

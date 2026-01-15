@@ -1,0 +1,17 @@
+meta {
+  name: 登出-无Token
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{ADMIN_URL}}/auth/logout
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 401", function() {
+    expect(res.status).to.equal(401);
+  });
+}

@@ -1,0 +1,44 @@
+meta {
+  name: 获取系统统计-正常
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{ADMIN_URL}}/stats
+  body: none
+  auth: bearer
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains statistics", function() {
+    expect(res.body).to.have.property('data');
+    expect(res.body.data).to.have.property('totalContactForms');
+    expect(res.body.data).to.have.property('pendingContactForms');
+    expect(res.body.data).to.have.property('totalBlogPosts');
+    expect(res.body.data).to.have.property('publishedBlogPosts');
+    expect(res.body.data).to.have.property('totalNewsletterSubscribers');
+    expect(res.body.data).to.have.property('activeNewsletterSubscribers');
+    expect(res.body.data).to.have.property('errorLogsToday');
+    expect(res.body.data).to.have.property('systemHealth');
+  });
+  
+  test("System health is valid", function() {
+    const health = res.body.data.systemHealth;
+    expect(['healthy', 'warning', 'error']).to.include(health);
+  });
+  
+  test("All counts are numbers", function() {
+    expect(res.body.data.totalContactForms).to.be.a('number');
+    expect(res.body.data.pendingContactForms).to.be.a('number');
+    expect(res.body.data.totalBlogPosts).to.be.a('number');
+    expect(res.body.data.publishedBlogPosts).to.be.a('number');
+    expect(res.body.data.totalNewsletterSubscribers).to.be.a('number');
+    expect(res.body.data.activeNewsletterSubscribers).to.be.a('number');
+    expect(res.body.data.errorLogsToday).to.be.a('number');
+  });
+}

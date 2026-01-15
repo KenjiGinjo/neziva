@@ -1,0 +1,25 @@
+meta {
+  name: 创建博客文章-无Token
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{ADMIN_URL}}/api/admin/blog/posts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "测试文章",
+    "slug": "test-article-no-token",
+    "content": "# 测试内容"
+  }
+}
+
+tests {
+  test("Status code is 401", function() {
+    expect(res.status).to.equal(401);
+  });
+}

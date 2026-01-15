@@ -1,0 +1,27 @@
+meta {
+  name: 更新处理状态-无效状态值
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/:id/status
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+body:json {
+  {
+    "status": 999
+  }
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+}

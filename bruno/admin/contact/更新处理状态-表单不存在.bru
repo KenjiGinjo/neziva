@@ -1,0 +1,23 @@
+meta {
+  name: 更新处理状态-表单不存在
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/non-existent-id-12345/status
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "status": 1
+  }
+}
+
+tests {
+  test("Status code is 404", function() {
+    expect(res.status).to.equal(404);
+  });
+}

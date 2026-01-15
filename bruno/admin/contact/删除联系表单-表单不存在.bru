@@ -1,0 +1,17 @@
+meta {
+  name: 删除联系表单-表单不存在
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/non-existent-id-12345
+  body: none
+  auth: bearer
+}
+
+tests {
+  test("Status code is 404", function() {
+    expect(res.status).to.equal(404);
+  });
+}

@@ -32,10 +32,10 @@ export const logs = new Hono()
 
     // 搜索（在 detail 或 code 中搜索）
     if (search) {
-      query = query.where(q => q.or([
-        { detail: { ilike: `%${search}%` } },
-        { code: { ilike: `%${search}%` } },
-      ]))
+      query = query.orWhere(
+        { detail: { contains: search } },
+        { code: { contains: search } },
+      )
     }
 
     const total = await query.count()

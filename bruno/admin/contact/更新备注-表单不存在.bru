@@ -1,0 +1,23 @@
+meta {
+  name: 更新备注-表单不存在
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/non-existent-id-12345/notes
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "notes": "这是一个备注"
+  }
+}
+
+tests {
+  test("Status code is 404", function() {
+    expect(res.status).to.equal(404);
+  });
+}

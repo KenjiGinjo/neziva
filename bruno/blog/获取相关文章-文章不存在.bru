@@ -1,0 +1,21 @@
+meta {
+  name: 获取相关文章-文章不存在
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{API_URL}}/api/blog/related/non-existent-id-12345
+  body: none
+  auth: none
+}
+
+params:query {
+  limit: 5
+}
+
+tests {
+  test("Status code is 404", function() {
+    expect(res.status).to.equal(404);
+  });
+}

@@ -1,0 +1,24 @@
+meta {
+  name: 订阅Newsletter-无效邮箱格式
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{API_URL}}/api/newsletter/subscribe
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "invalid-email-format",
+    "source": "homepage"
+  }
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+}

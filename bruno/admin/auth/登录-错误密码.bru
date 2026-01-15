@@ -1,0 +1,28 @@
+meta {
+  name: 登录-错误密码
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{ADMIN_URL}}/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "admin",
+    "password": "wrong_password"
+  }
+}
+
+tests {
+  test("Status code is 401", function() {
+    expect(res.status).to.equal(401);
+  });
+  
+  test("Response contains error message", function() {
+    expect(res.body).to.have.property('message');
+  });
+}

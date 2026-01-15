@@ -1,0 +1,27 @@
+meta {
+  name: 更新备注-长备注
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/:id/notes
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+body:json {
+  {
+    "notes": "这是一个很长的备注内容，用于测试系统是否能正确处理长文本。这个备注可能包含多行内容，也可能包含特殊字符，比如：!@#$%^&*()_+-=[]{}|;':\",./<>?"
+  }
+}
+
+tests {
+  test("Status code is 204", function() {
+    expect(res.status).to.equal(204);
+  });
+}

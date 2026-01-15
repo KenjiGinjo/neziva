@@ -1,0 +1,29 @@
+meta {
+  name: 提交联系表单-空字符串
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{API_URL}}/api/contact/submit
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "",
+    "company": "",
+    "email": "",
+    "phone": "",
+    "projectType": "",
+    "description": "",
+    "budget": ""
+  }
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+}

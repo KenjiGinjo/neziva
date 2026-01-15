@@ -1,0 +1,27 @@
+meta {
+  name: 提交联系表单-缺少必填字段
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{API_URL}}/api/contact/submit
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John Doe"
+  }
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+  
+  test("Response contains validation error", function() {
+    expect(res.body).to.have.property('message');
+  });
+}

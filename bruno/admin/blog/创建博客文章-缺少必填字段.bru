@@ -1,0 +1,27 @@
+meta {
+  name: 创建博客文章-缺少必填字段
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{ADMIN_URL}}/api/admin/blog/posts
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "title": "测试文章"
+  }
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+  
+  test("Response contains validation error", function() {
+    expect(res.body).to.have.property('message');
+  });
+}

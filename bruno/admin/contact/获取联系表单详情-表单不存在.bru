@@ -1,0 +1,21 @@
+meta {
+  name: 获取联系表单详情-表单不存在
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/non-existent-id-12345
+  body: none
+  auth: bearer
+}
+
+tests {
+  test("Status code is 404", function() {
+    expect(res.status).to.equal(404);
+  });
+  
+  test("Response contains error message", function() {
+    expect(res.body).to.have.property('message');
+  });
+}

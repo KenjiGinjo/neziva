@@ -1,0 +1,26 @@
+meta {
+  name: 获取相关文章-默认数量
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{API_URL}}/api/blog/related/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: clx1234567890
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains related posts", function() {
+    expect(res.body).to.have.property('data');
+    expect(res.body.data).to.be.an('array');
+  });
+}

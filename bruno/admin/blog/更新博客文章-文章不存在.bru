@@ -1,0 +1,27 @@
+meta {
+  name: 更新博客文章-文章不存在
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/blog/posts/non-existent-id-12345
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "title": "更新后的标题"
+  }
+}
+
+tests {
+  test("Status code is 404", function() {
+    expect(res.status).to.equal(404);
+  });
+  
+  test("Response contains error message", function() {
+    expect(res.body).to.have.property('message');
+  });
+}

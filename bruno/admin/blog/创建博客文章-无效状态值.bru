@@ -1,0 +1,35 @@
+meta {
+  name: 创建博客文章-无效状态值
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{ADMIN_URL}}/api/admin/blog/posts
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "title": "测试文章",
+    "slug": "test-article-invalid-status",
+    "content": "# 测试内容",
+    "excerpt": "测试摘要",
+    "category": "Technical Insights",
+    "tags": ["AI Development"],
+    "author": "neziva",
+    "readTime": 5,
+    "featured": false,
+    "status": 999,
+    "coverImage": "https://example.com/cover.jpg",
+    "seoTitle": "测试文章",
+    "seoDesc": "测试描述"
+  }
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+}

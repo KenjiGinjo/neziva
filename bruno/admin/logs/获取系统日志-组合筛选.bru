@@ -1,0 +1,26 @@
+meta {
+  name: 获取系统日志-组合筛选
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{ADMIN_URL}}/logs
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 1
+  limit: 20
+  level: 1
+  startDate: 2024-01-01
+  endDate: 2024-12-31
+  search: error
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

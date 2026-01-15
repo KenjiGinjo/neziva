@@ -1,0 +1,28 @@
+meta {
+  name: 搜索博客文章-分页测试
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{API_URL}}/api/blog/search
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 2
+  limit: 5
+  keyword: AI
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Pagination info is correct", function() {
+    expect(res.body.pagination).to.have.property('page', 2);
+    expect(res.body.pagination).to.have.property('limit', 5);
+  });
+}

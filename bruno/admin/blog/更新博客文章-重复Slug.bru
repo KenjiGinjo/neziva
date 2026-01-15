@@ -1,0 +1,27 @@
+meta {
+  name: 更新博客文章-重复Slug
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/blog/posts/:id
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+body:json {
+  {
+    "slug": "how-to-build-first-ai-app"
+  }
+}
+
+tests {
+  test("Status code is 400 or 409", function() {
+    expect([400, 409]).to.include(res.status);
+  });
+}

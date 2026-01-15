@@ -1,0 +1,27 @@
+meta {
+  name: 发布博客文章-发布状态
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/blog/posts/:id/publish
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+body:json {
+  {
+    "status": 1
+  }
+}
+
+tests {
+  test("Status code is 204", function() {
+    expect(res.status).to.equal(204);
+  });
+}

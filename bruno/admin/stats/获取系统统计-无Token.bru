@@ -1,0 +1,17 @@
+meta {
+  name: 获取系统统计-无Token
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{ADMIN_URL}}/stats
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 401", function() {
+    expect(res.status).to.equal(401);
+  });
+}

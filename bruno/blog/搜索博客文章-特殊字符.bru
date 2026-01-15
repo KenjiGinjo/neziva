@@ -1,0 +1,23 @@
+meta {
+  name: 搜索博客文章-特殊字符
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{API_URL}}/api/blog/search
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 1
+  limit: 10
+  keyword: !@#$%^&*()
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

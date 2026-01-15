@@ -1,0 +1,24 @@
+meta {
+  name: 登录-空字符串
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{ADMIN_URL}}/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "",
+    "password": ""
+  }
+}
+
+tests {
+  test("Status code is 400 or 401", function() {
+    expect([400, 401]).to.include(res.status);
+  });
+}

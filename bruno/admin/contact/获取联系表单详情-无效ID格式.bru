@@ -1,0 +1,17 @@
+meta {
+  name: 获取联系表单详情-无效ID格式
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/invalid-id-format
+  body: none
+  auth: bearer
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+}

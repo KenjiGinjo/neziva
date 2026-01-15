@@ -1,0 +1,30 @@
+meta {
+  name: 获取订阅者列表-分页测试
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/newsletter/subscribers
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 2
+  limit: 10
+  status:
+  source:
+  search:
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Pagination info is correct", function() {
+    expect(res.body.pagination).to.have.property('page', 2);
+    expect(res.body.pagination).to.have.property('limit', 10);
+  });
+}

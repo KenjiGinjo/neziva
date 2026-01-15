@@ -1,0 +1,29 @@
+meta {
+  name: 提交联系表单-长文本
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{API_URL}}/api/contact/submit
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John Doe",
+    "company": "Example Corp",
+    "email": "john@example.com",
+    "phone": "+1 (555) 123-4567",
+    "projectType": "strategy",
+    "description": "This is a very long description that contains a lot of text to test if the system can handle long text inputs properly. It should be able to store and process this information without any issues. The description might contain multiple paragraphs, special characters, and various formatting that needs to be handled correctly.",
+    "budget": "5k-15k"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

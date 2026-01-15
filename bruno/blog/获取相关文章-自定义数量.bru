@@ -1,0 +1,29 @@
+meta {
+  name: 获取相关文章-自定义数量
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{API_URL}}/api/blog/related/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: clx1234567890
+}
+
+params:query {
+  limit: 10
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Returns at most 10 related posts", function() {
+    expect(res.body.data.length).to.be.at.most(10);
+  });
+}

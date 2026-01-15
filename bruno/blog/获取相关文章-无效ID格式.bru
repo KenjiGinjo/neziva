@@ -1,0 +1,21 @@
+meta {
+  name: 获取相关文章-无效ID格式
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{API_URL}}/api/blog/related/invalid-id-format
+  body: none
+  auth: none
+}
+
+params:query {
+  limit: 5
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+}

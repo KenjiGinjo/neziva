@@ -1,0 +1,39 @@
+meta {
+  name: 创建博客文章-重复Slug
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{ADMIN_URL}}/api/admin/blog/posts
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "title": "测试文章",
+    "slug": "how-to-build-first-ai-app",
+    "content": "# 测试内容",
+    "excerpt": "测试摘要",
+    "category": "Technical Insights",
+    "tags": ["AI Development"],
+    "author": "neziva",
+    "readTime": 5,
+    "featured": false,
+    "status": 0,
+    "coverImage": "https://example.com/cover.jpg",
+    "seoTitle": "测试文章",
+    "seoDesc": "测试描述"
+  }
+}
+
+tests {
+  test("Status code is 400 or 409", function() {
+    expect([400, 409]).to.include(res.status);
+  });
+  
+  test("Response contains error message", function() {
+    expect(res.body).to.have.property('message');
+  });
+}

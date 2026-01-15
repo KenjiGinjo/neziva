@@ -1,0 +1,33 @@
+meta {
+  name: 获取联系表单列表-筛选待处理
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/contact/forms
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 1
+  limit: 20
+  status: 0
+  projectType:
+  search:
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("All forms are pending", function() {
+    if (res.body.data && res.body.data.length > 0) {
+      res.body.data.forEach(form => {
+        expect(form.status).to.equal(0);
+      });
+    }
+  });
+}

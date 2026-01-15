@@ -1,0 +1,35 @@
+meta {
+  name: 获取博客文章列表-分页测试
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/blog/posts
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 2
+  limit: 5
+  status:
+  category:
+  tag:
+  search:
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Pagination info is correct", function() {
+    expect(res.body.pagination).to.have.property('page', 2);
+    expect(res.body.pagination).to.have.property('limit', 5);
+  });
+  
+  test("Data length matches limit", function() {
+    expect(res.body.data.length).to.be.at.most(5);
+  });
+}

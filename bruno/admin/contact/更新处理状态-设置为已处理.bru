@@ -1,0 +1,27 @@
+meta {
+  name: 更新处理状态-设置为已处理
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/contact/forms/:id/status
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: clx1234567890
+}
+
+body:json {
+  {
+    "status": 1
+  }
+}
+
+tests {
+  test("Status code is 204", function() {
+    expect(res.status).to.equal(204);
+  });
+}

@@ -1,0 +1,30 @@
+meta {
+  name: 提交联系表单-最小字段
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{API_URL}}/api/contact/submit
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "projectType": "strategy",
+    "description": "Test description"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains success message", function() {
+    expect(res.body.data).to.have.property('success', true);
+  });
+}

@@ -1,0 +1,23 @@
+meta {
+  name: 搜索博客文章-空关键词
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{API_URL}}/api/blog/search
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 1
+  limit: 10
+  keyword:
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+}

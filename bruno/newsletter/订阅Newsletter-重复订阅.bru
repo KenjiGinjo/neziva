@@ -1,0 +1,28 @@
+meta {
+  name: 订阅Newsletter-重复订阅
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{API_URL}}/api/newsletter/subscribe
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "user@example.com",
+    "source": "homepage"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains success message", function() {
+    expect(res.body.data).to.have.property('success', true);
+  });
+}

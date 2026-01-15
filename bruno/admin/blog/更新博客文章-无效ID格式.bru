@@ -1,0 +1,23 @@
+meta {
+  name: 更新博客文章-无效ID格式
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/blog/posts/invalid-id-format
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "title": "更新后的标题"
+  }
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+}

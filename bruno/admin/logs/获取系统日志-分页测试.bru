@@ -1,0 +1,30 @@
+meta {
+  name: 获取系统日志-分页测试
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{ADMIN_URL}}/logs
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 2
+  limit: 10
+  level:
+  startDate:
+  endDate:
+  search:
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Returns at most 10 items", function() {
+    expect(res.body.data.items.length).to.be.at.most(10);
+  });
+}

@@ -1,0 +1,21 @@
+meta {
+  name: 获取博客文章详情-文章不存在
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/blog/posts/non-existent-id-12345
+  body: none
+  auth: bearer
+}
+
+tests {
+  test("Status code is 404", function() {
+    expect(res.status).to.equal(404);
+  });
+  
+  test("Response contains error message", function() {
+    expect(res.body).to.have.property('message');
+  });
+}

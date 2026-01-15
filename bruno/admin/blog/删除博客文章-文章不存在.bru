@@ -1,0 +1,17 @@
+meta {
+  name: 删除博客文章-文章不存在
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{ADMIN_URL}}/api/admin/blog/posts/non-existent-id-12345
+  body: none
+  auth: bearer
+}
+
+tests {
+  test("Status code is 404 or 204", function() {
+    expect([404, 204]).to.include(res.status);
+  });
+}

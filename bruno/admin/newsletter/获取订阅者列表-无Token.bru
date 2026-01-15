@@ -1,0 +1,17 @@
+meta {
+  name: 获取订阅者列表-无Token
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/newsletter/subscribers
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 401", function() {
+    expect(res.status).to.equal(401);
+  });
+}

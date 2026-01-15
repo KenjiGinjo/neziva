@@ -1,0 +1,17 @@
+meta {
+  name: 获取博客文章列表-无Token
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{ADMIN_URL}}/api/admin/blog/posts
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status code is 401", function() {
+    expect(res.status).to.equal(401);
+  });
+}

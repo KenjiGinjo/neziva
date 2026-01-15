@@ -1,0 +1,24 @@
+meta {
+  name: 订阅Newsletter-不同来源
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{API_URL}}/api/newsletter/subscribe
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "user2@example.com",
+    "source": "blog"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

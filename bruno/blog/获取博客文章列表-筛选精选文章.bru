@@ -1,0 +1,33 @@
+meta {
+  name: 获取博客文章列表-筛选精选文章
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{API_URL}}/api/blog/posts
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 1
+  limit: 10
+  category:
+  tag:
+  featured: true
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("All posts are featured", function() {
+    if (res.body.data && res.body.data.length > 0) {
+      res.body.data.forEach(post => {
+        expect(post.featured).to.equal(true);
+      });
+    }
+  });
+}

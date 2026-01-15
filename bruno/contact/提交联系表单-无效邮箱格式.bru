@@ -1,0 +1,29 @@
+meta {
+  name: 提交联系表单-无效邮箱格式
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{API_URL}}/api/contact/submit
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John Doe",
+    "company": "Example Corp",
+    "email": "invalid-email-format",
+    "phone": "+1 (555) 123-4567",
+    "projectType": "strategy",
+    "description": "Test description",
+    "budget": "5k-15k"
+  }
+}
+
+tests {
+  test("Status code is 400", function() {
+    expect(res.status).to.equal(400);
+  });
+}

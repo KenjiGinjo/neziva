@@ -1,0 +1,29 @@
+meta {
+  name: 提交联系表单-特殊字符
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{API_URL}}/api/contact/submit
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John O'Doe-Smith",
+    "company": "Example & Co. (Ltd.)",
+    "email": "john+test@example.com",
+    "phone": "+1 (555) 123-4567",
+    "projectType": "strategy",
+    "description": "Test with special chars: !@#$%^&*()_+-=[]{}|;':\",./<>?",
+    "budget": "5k-15k"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

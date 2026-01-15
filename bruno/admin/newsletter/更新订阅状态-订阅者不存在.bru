@@ -1,0 +1,23 @@
+meta {
+  name: 更新订阅状态-订阅者不存在
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{ADMIN_URL}}/api/admin/newsletter/subscribers/non-existent-id-12345/status
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "status": 1
+  }
+}
+
+tests {
+  test("Status code is 404", function() {
+    expect(res.status).to.equal(404);
+  });
+}
