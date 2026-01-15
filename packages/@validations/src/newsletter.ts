@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { vId } from './_utils'
 
 export const vNewsletterSubscribe = z.object({
   email: z.string().email('Invalid email address'),
@@ -13,11 +12,6 @@ export const vNewsletterSubscribersQuery = z.object({
   search: z.string().optional(),
 })
 export type vNewsletterSubscribersQuery = z.infer<typeof vNewsletterSubscribersQuery>
-
-export const vNewsletterSubscriberId = z.object({
-  id: vId,
-})
-export type vNewsletterSubscriberId = z.infer<typeof vNewsletterSubscriberId>
 
 export const vNewsletterSubscriberStatus = z.object({
   status: z.number().int().min(0).max(2),

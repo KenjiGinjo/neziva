@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { vId } from './_utils'
 
 export const vContactSubmit = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -18,11 +17,6 @@ export const vContactFormsQuery = z.object({
   search: z.string().optional(),
 })
 export type vContactFormsQuery = z.infer<typeof vContactFormsQuery>
-
-export const vContactFormId = z.object({
-  id: vId,
-})
-export type vContactFormId = z.infer<typeof vContactFormId>
 
 export const vContactFormStatus = z.object({
   status: z.number().int().min(0).max(2),

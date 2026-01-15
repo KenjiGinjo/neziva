@@ -1,8 +1,17 @@
 import { EnumBlogPostStatus } from '@neziva/enums'
+import { Exception } from '@neziva/tools/exception'
 import { dr } from '../repos'
 import { db } from '../tables'
 
 export const blogPost = {
+
+  checkSlug: async (slug: string) => {
+    const existing = await db.blogPost.where({ slug }).takeOptional()
+    if (existing) {
+      throw new Exception.BadRequestException('Slug already exists')
+    }
+  },
+
   /**
    * 获取文章列表
    */
@@ -138,27 +147,12 @@ export const blogPost = {
   }) => {
     const { status, category, tag, search, limit, offset } = options
 
-    let query = db.blogPost
-
-    if (status !== undefined) {
-      query = query.where({ status })
-    }
-
-    if (category) {
-      query = query.where({ category })
-    }
-
-    if (tag) {
-      query = query.where({ tags: { has: tag } })
-    }
-
-    if (search) {
-      query = query.where(q => q.or([
-        { title: { ilike: `%${search}%` } },
-        { content: { ilike: `%${search}%` } },
-        { excerpt: { ilike: `%${search}%` } },
-      ]))
-    }
+    const query = dr.blogPost.searchList({
+      keyword: search,
+      status,
+      category,
+      tag,
+    })
 
     const total = await query.count()
     const data = await query

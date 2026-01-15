@@ -1,5 +1,5 @@
+import { EnumBlogPostStatus } from '@neziva/enums'
 import { z } from 'zod'
-import { vId } from './_utils'
 
 export const vBlogSearch = z.object({
   keyword: z.string().optional(),
@@ -12,11 +12,6 @@ export const vBlogPostsQuery = z.object({
   featured: z.coerce.boolean().optional(),
 })
 export type vBlogPostsQuery = z.infer<typeof vBlogPostsQuery>
-
-export const vBlogPostId = z.object({
-  id: vId,
-})
-export type vBlogPostId = z.infer<typeof vBlogPostId>
 
 export const vBlogRelated = z.object({
   limit: z.string().optional().transform(val => val ? Number(val) : 5),
@@ -34,7 +29,7 @@ export const vBlogFeature = z.object({
 export type vBlogFeature = z.infer<typeof vBlogFeature>
 
 export const vBlogAdminPostsQuery = z.object({
-  status: z.string().optional(),
+  status: z.nativeEnum(EnumBlogPostStatus).optional(),
   category: z.string().optional(),
   tag: z.string().optional(),
   search: z.string().optional(),

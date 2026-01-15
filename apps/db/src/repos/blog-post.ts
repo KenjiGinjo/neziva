@@ -44,18 +44,32 @@ export const blogPost = createRepo(db.blogPost, {
 
       return query
     },
-    searchList: (q, options?: { keyword?: string, status?: EnumBlogPostStatus }) => {
-      const { keyword, status = EnumBlogPostStatus.Published } = options || {}
+    searchList: (q, options?: { keyword?: string, status?: EnumBlogPostStatus, category?: string, tag?: string }) => {
+      const { keyword, status = EnumBlogPostStatus.Published, category, tag } = options || {}
 
-      if (!keyword) {
-        return selectForDefault(q).where({ status })
+      let query = selectForDefault(q)
+
+      if (status !== undefined) {
+        query = query.where({ status })
       }
 
-      return selectForDefault(q).orWhere(
-        { status, title: { contains: keyword } },
-        { status, content: { contains: keyword } },
-        { status, excerpt: { contains: keyword } },
-      )
+      if (category) {
+        query = query.where({ category })
+      }
+
+      if (tag) {
+        query = query.where({ tags: { has: tag } })
+      }
+
+      if (keyword) {
+        query = query.orWhere(
+          { title: { contains: keyword } },
+          { content: { contains: keyword } },
+          { excerpt: { contains: keyword } },
+        )
+      }
+
+      return query
     },
 
   },
