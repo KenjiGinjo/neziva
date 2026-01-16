@@ -1,4 +1,4 @@
-import type { ResAdminLogList } from '@neziva/interfaces'
+import type { ResAdminLogList, ResPagination } from '@neziva/interfaces'
 import type { HonoResponse } from '../../types'
 import { vLogsQuery } from '@neziva/validations'
 import { db } from 'db'
@@ -10,36 +10,39 @@ export const logs = new Hono()
   .basePath('/logs')
 
   /** 获取系统日志 */
-  .get('/', authAd(), pagination(), validate('query', vLogsQuery), async (c): Promise<HonoResponse<{ data: ResAdminLogList }>> => {
+  .get('/', authAd(), pagination(), validate('query', vLogsQuery), async (c): Promise<HonoResponse<{ data: ResAdminLogList[], pagi: ResPagination }>> => {
     const { where } = c.get('page')
     const { level, startDate, endDate, search } = c.req.valid('query')
     let query = db.errorLog
 
-    // 类型筛选（使用 type 字段，对应 level）
+    // 构建基础筛选条件
+    const baseConditions: any = {}
     if (level) {
-      query = query.where({ type: Number(level) })
+      baseConditions.type = Number(level)
     }
-
-    // 日期范围筛选
     if (startDate || endDate) {
       const dateFilter: any = {}
       if (startDate)
         dateFilter.gte = new Date(startDate)
       if (endDate)
         dateFilter.lte = new Date(endDate)
-      query = query.where({ createdAt: dateFilter })
+      baseConditions.createdAt = dateFilter
     }
 
-    // 搜索（在 detail 或 code 中搜索）
+    // 如果有搜索条件，使用 orWhere 将基础条件与搜索条件组合
     if (search) {
       query = query.orWhere(
-        { detail: { contains: search } },
-        { code: { contains: search } },
+        { ...baseConditions, detail: { contains: search } },
+        { ...baseConditions, code: { contains: search } },
       )
+    }
+    else if (Object.keys(baseConditions).length > 0) {
+      // 如果没有搜索条件，但有其他筛选条件，使用 where
+      query = query.where(baseConditions)
     }
 
     const total = await query.count()
-    const items = await query
+    const data = await query
       .order({ createdAt: 'DESC' })
       .limit(where.limit)
       .offset(where.offset)
@@ -52,12 +55,12 @@ export const logs = new Hono()
         'method',
         'createdAt',
       )
-      .take()
 
     return c.json({
-      data: {
-        items,
+      data,
+      pagi: {
         total,
+        ...where,
       },
     })
   })

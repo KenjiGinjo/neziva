@@ -1,3 +1,4 @@
+import { EnumContactFormStatus } from '@neziva/enums'
 import { z } from 'zod'
 
 export const vContactSubmit = z.object({
@@ -12,14 +13,14 @@ export const vContactSubmit = z.object({
 export type vContactSubmit = z.infer<typeof vContactSubmit>
 
 export const vContactFormsQuery = z.object({
-  status: z.string().optional(),
+  status: z.nativeEnum(EnumContactFormStatus).optional(),
   projectType: z.string().optional(),
   search: z.string().optional(),
 })
 export type vContactFormsQuery = z.infer<typeof vContactFormsQuery>
 
 export const vContactFormStatus = z.object({
-  status: z.number().int().min(0).max(2),
+  status: z.nativeEnum(EnumContactFormStatus),
 })
 export type vContactFormStatus = z.infer<typeof vContactFormStatus>
 

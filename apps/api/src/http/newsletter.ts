@@ -6,7 +6,7 @@ import { Hono } from 'hono'
 import { validate } from '../utils'
 
 export const newsletterRoute = new Hono()
-  .basePath('/api/newsletter')
+  .basePath('/newsletter')
 
   /** 订阅 Newsletter */
   .post('/subscribe', validate('json', vNewsletterSubscribe), async (c): Promise<HonoResponse<{ data: ResNewsletterSubscribe }>> => {

@@ -8,7 +8,7 @@ import { ip } from '../middleware'
 import { pagination, validate } from '../utils'
 
 export const blogRoute = new Hono()
-  .basePath('/api/blog')
+  .basePath('/blog')
 
   /** 获取博客文章列表 */
   .get('/posts', pagination(), validate('query', vBlogPostsQuery), async (c): Promise<HonoResponse<{ data: ResBlogPostList[], pagination: any }>> => {

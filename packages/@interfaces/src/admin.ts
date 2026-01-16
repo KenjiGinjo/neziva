@@ -1,3 +1,5 @@
+import type { EnumBlogPostStatus, EnumContactFormStatus, EnumErrorLogType, EnumNewsletterStatus } from '@neziva/enums'
+
 export interface ResAdminUserList {
   items: any[]
   total: number
@@ -59,6 +61,57 @@ export interface ResAdminExecutionList {
 }
 
 export interface ResAdminLogList {
-  items: any[]
-  total: number
+  path: string | null
+  code: string
+  type: EnumErrorLogType
+  createdAt: string
+  id: string
+  detail: string
+  method: string | null
+}
+
+export interface ResAdminBlogPostList {
+  id: string
+  createdAt: string
+  publishedAt: string | null
+  title: string
+  slug: string
+  content: string
+  excerpt: string | null
+  category: string
+  tags: string[] | null
+  author: string
+  readTime: number
+  views: number
+  featured: boolean
+  status: EnumBlogPostStatus
+  coverImage: string | null
+  seoTitle: string | null
+  seoDesc: string | null
+}
+
+export interface ResAdminContactFormList {
+  id: string
+  createdAt: string
+  updatedAt: string
+  name: string
+  company: string | null
+  email: string
+  phone: string | null
+  projectType: string
+  description: string
+  budget: string | null
+  status: EnumContactFormStatus
+  notes: string | null
+}
+
+export interface ResAdminNewsletterList {
+  id: string
+  createdAt: string
+  updatedAt: string
+  email: string
+  status: EnumNewsletterStatus
+  verifiedAt: string | null
+  unsubscribedAt: string | null
+  source: string | null
 }

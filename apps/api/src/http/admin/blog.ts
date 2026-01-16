@@ -1,6 +1,6 @@
+import type { ResAdminBlogPostList, ResPagination } from '@neziva/interfaces'
 import type { HonoResponse } from '../../types'
 import { EnumBlogPostStatus } from '@neziva/enums'
-import { Exception } from '@neziva/tools/exception'
 import { vBlogAdminPostsQuery, vBlogCreate, vBlogFeature, vBlogPublish, vBlogUpdate, vIds } from '@neziva/validations'
 import { db, dr, ds } from 'db'
 import { Hono } from 'hono'
@@ -16,12 +16,7 @@ export const blog = new Hono()
 
     await ds.blogPost.checkSlug(dto.slug)
 
-    const post = await db.blogPost.create({
-      ...dto,
-      views: 0,
-      readTime: 0,
-      featured: false,
-    })
+    const post = await db.blogPost.create(dto)
 
     return c.json({
       data: { id: post.id },
@@ -46,7 +41,7 @@ export const blog = new Hono()
   })
 
   /** 获取博客文章列表（管理后台） */
-  .get('/posts', authAd(), pagination(), validate('query', vBlogAdminPostsQuery), async (c) => {
+  .get('/posts', authAd(), pagination(), validate('query', vBlogAdminPostsQuery), async (c): Promise<HonoResponse<{ data: ResAdminBlogPostList[], pagi: ResPagination }>> => {
     const { where } = c.get('page')
     const { status, category, tag, search } = c.req.valid('query')
 
@@ -65,11 +60,9 @@ export const blog = new Hono()
 
     return c.json({
       data,
-      pagination: {
-        page: c.get('page').query.page,
-        limit: c.get('page').query.pageSize,
+      pagi: {
         total,
-        totalPages: Math.ceil(total / where.limit),
+        ...where,
       },
     })
   })
@@ -78,15 +71,9 @@ export const blog = new Hono()
   .get('/posts/:id', authAd(), validate('param', vIds('id')), async (c): Promise<HonoResponse<{ data: any }>> => {
     const { id } = c.req.valid('param')
 
-    const post = await db.blogPost.where({ id }).takeOptional()
+    const data = await db.blogPost.where({ id }).take()
 
-    if (!post) {
-      throw new Exception.NotFoundException('Blog post not found')
-    }
-
-    return c.json({
-      data: post,
-    })
+    return c.json({ data })
   })
 
   /** 删除博客文章 */
@@ -103,11 +90,7 @@ export const blog = new Hono()
     const { id } = c.req.valid('param')
     const { status } = c.req.valid('json')
 
-    const post = await db.blogPost.where({ id }).takeOptional()
-
-    if (!post) {
-      throw new Exception.NotFoundException('Blog post not found')
-    }
+    const post = await db.blogPost.where({ id }).take()
 
     const updateData: any = { status: Number(status) as EnumBlogPostStatus }
 
@@ -124,12 +107,6 @@ export const blog = new Hono()
   .put('/posts/:id/feature', authAd(), validate('param', vIds('id')), validate('json', vBlogFeature), async (c) => {
     const { id } = c.req.valid('param')
     const { featured } = c.req.valid('json')
-
-    const post = await db.blogPost.where({ id }).takeOptional()
-
-    if (!post) {
-      throw new Exception.NotFoundException('Blog post not found')
-    }
 
     await db.blogPost.where({ id }).update({ featured: Boolean(featured) })
 

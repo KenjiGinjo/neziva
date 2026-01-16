@@ -1,35 +1,52 @@
+import type { ResAdminNewsletterList, ResPagination } from '@neziva/interfaces'
 import type { HonoResponse } from '../../types'
 import { EnumNewsletterStatus } from '@neziva/enums'
-import { Exception } from '@neziva/tools/exception'
 import { vIds, vNewsletterSubscribersQuery, vNewsletterSubscriberStatus } from '@neziva/validations'
-import { db, ds } from 'db'
+import { db } from 'db'
 import { Hono } from 'hono'
 import { authAd } from '../../middleware/authAd'
 import { pagination, validate } from '../../utils'
 
 export const newsletter = new Hono()
-  .basePath('/api/admin/newsletter')
+  .basePath('/newsletter')
 
   /** 获取订阅者列表 */
-  .get('/subscribers', authAd(), pagination(), validate('query', vNewsletterSubscribersQuery), async (c): Promise<HonoResponse<{ data: any[], pagination: any }>> => {
+  .get('/subscribers', authAd(), pagination(), validate('query', vNewsletterSubscribersQuery), async (c): Promise<HonoResponse<{ data: ResAdminNewsletterList[], pagi: ResPagination }>> => {
     const { where } = c.get('page')
     const { status, source, search } = c.req.valid('query')
+    let query = db.newsletter
 
-    const { data, total } = await ds.newsletter.getList({
-      status: status ? Number(status) as EnumNewsletterStatus : undefined,
-      source,
-      search,
-      limit: where.limit,
-      offset: where.offset,
-    })
+    // 构建基础筛选条件
+    const baseConditions: any = {}
+    if (status) {
+      baseConditions.status = Number(status) as EnumNewsletterStatus
+    }
+    if (source) {
+      baseConditions.source = source
+    }
+
+    // 如果有搜索条件，使用 orWhere 将基础条件与搜索条件组合
+    if (search) {
+      query = query.orWhere(
+        { ...baseConditions, email: { contains: search } },
+      )
+    }
+    else if (Object.keys(baseConditions).length > 0) {
+      // 如果没有搜索条件，但有其他筛选条件，使用 where
+      query = query.where(baseConditions)
+    }
+
+    const total = await query.count()
+    const data = await query
+      .order({ createdAt: 'DESC' })
+      .limit(where.limit)
+      .offset(where.offset)
 
     return c.json({
       data,
-      pagination: {
-        page: c.get('page').query.page,
-        limit: c.get('page').query.pageSize,
+      pagi: {
         total,
-        totalPages: Math.ceil(total / where.limit),
+        ...where,
       },
     })
   })
@@ -38,12 +55,6 @@ export const newsletter = new Hono()
   .put('/subscribers/:id/status', authAd(), validate('param', vIds('id')), validate('json', vNewsletterSubscriberStatus), async (c) => {
     const { id } = c.req.valid('param')
     const { status } = c.req.valid('json')
-
-    const subscriber = await db.newsletter.where({ id }).takeOptional()
-
-    if (!subscriber) {
-      throw new Exception.NotFoundException('Newsletter subscriber not found')
-    }
 
     const updateData: any = { status: Number(status) as EnumNewsletterStatus }
 
@@ -63,12 +74,6 @@ export const newsletter = new Hono()
   /** 删除订阅者 */
   .delete('/subscribers/:id', authAd(), validate('param', vIds('id')), async (c) => {
     const { id } = c.req.valid('param')
-
-    const subscriber = await db.newsletter.where({ id }).takeOptional()
-
-    if (!subscriber) {
-      throw new Exception.NotFoundException('Newsletter subscriber not found')
-    }
 
     await db.newsletter.where({ id }).delete()
 
