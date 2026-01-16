@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{API_URL}}/api/contact/submit
+  url: {{API_URL}}/contact/submit
   body: json
   auth: none
 }
@@ -23,7 +23,7 @@ body:json {
 }
 
 tests {
-  test("Status code is 200", function() {
-    expect(res.status).to.equal(200);
+  test("Status code is 204", function() {
+    expect(res.status).to.equal(204);
   });
 }

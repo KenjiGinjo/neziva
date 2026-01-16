@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{ADMIN_URL}}/logs
+  url: {{ADMIN_URL}}/admin/logs
   body: none
   auth: bearer
 }
@@ -25,8 +25,8 @@ tests {
   });
   
   test("All logs match level", function() {
-    if (res.body.data.items && res.body.data.items.length > 0) {
-      res.body.data.items.forEach(log => {
+    if (res.body.data && res.body.data.length > 0) {
+      res.body.data.forEach(log => {
         expect(log.type).to.equal(1);
       });
     }

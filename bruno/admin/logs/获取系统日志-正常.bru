@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{ADMIN_URL}}/logs
+  url: {{ADMIN_URL}}/admin/logs
   body: none
   auth: bearer
 }
@@ -26,8 +26,8 @@ tests {
   
   test("Response contains logs data", function() {
     expect(res.body).to.have.property('data');
-    expect(res.body.data).to.have.property('items');
-    expect(res.body.data).to.have.property('total');
-    expect(res.body.data.items).to.be.an('array');
+    expect(res.body).to.have.property('pagi');
+    expect(res.body.data).to.be.an('array');
+    expect(res.body.pagi).to.have.property('total');
   });
 }

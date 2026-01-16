@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{API_URL}}/api/newsletter/subscribe
+  url: {{API_URL}}/newsletter/subscribe
   body: json
   auth: none
 }
@@ -22,12 +22,12 @@ tests {
     expect(res.status).to.equal(200);
   });
 
-  test("Response contains success message", function() {
-    expect(res.body).to.have.property('success');
-    expect(res.body.success).to.equal(true);
+  test("Response contains success", function() {
+    expect(res.body.data).to.have.property('success');
+    expect(res.body.data.success).to.equal(true);
   });
 
   test("Response contains message", function() {
-    expect(res.body).to.have.property('message');
+    expect(res.body.data).to.have.property('message');
   });
 }

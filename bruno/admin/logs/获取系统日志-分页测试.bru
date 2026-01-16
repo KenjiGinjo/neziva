@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{ADMIN_URL}}/logs
+  url: {{ADMIN_URL}}/admin/logs
   body: none
   auth: bearer
 }
@@ -25,6 +25,6 @@ tests {
   });
   
   test("Returns at most 10 items", function() {
-    expect(res.body.data.items.length).to.be.at.most(10);
+    expect(res.body.data.length).to.be.at.most(10);
   });
 }

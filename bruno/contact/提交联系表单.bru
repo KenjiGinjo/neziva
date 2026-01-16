@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{API_URL}}/api/contact/submit
+  url: {{API_URL}}/contact/submit
   body: json
   auth: none
 }
@@ -23,16 +23,7 @@ body:json {
 }
 
 tests {
-  test("Status code is 200", function() {
-    expect(res.status).to.equal(200);
-  });
-
-  test("Response contains success message", function() {
-    expect(res.body).to.have.property('success');
-    expect(res.body.success).to.equal(true);
-  });
-
-  test("Response contains message", function() {
-    expect(res.body).to.have.property('message');
+  test("Status code is 204", function() {
+    expect(res.status).to.equal(204);
   });
 }
