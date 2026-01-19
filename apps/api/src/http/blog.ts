@@ -1,6 +1,6 @@
 import type { ResBlogPostList, ResPagination } from '@neziva/interfaces'
 import type { HonoResponse } from '../types'
-import { Exception } from '@neziva/tools/exception'
+import { EnumBlogPostStatus } from '@neziva/enums'
 import { vBlogPostsQuery, vBlogRelated, vBlogSearch, vIds } from '@neziva/validations'
 import { dr, ds } from 'db'
 import { Hono } from 'hono'
@@ -15,13 +15,17 @@ export const blogRoute = new Hono()
     const { where } = c.get('page')
     const { category, tag, featured } = c.req.valid('query')
 
-    const { data, total } = await ds.blogPost.getList({
+    const query = dr.blogPost.selectForList({
       category,
       tag,
       featured,
-      limit: where.limit,
-      offset: where.offset,
+      status: EnumBlogPostStatus.Published,
     })
+      .limit(where.limit)
+      .offset(where.offset)
+
+    const total = await query.count()
+    const data = await query
 
     return c.json({
       data,
@@ -38,11 +42,7 @@ export const blogRoute = new Hono()
     const { id } = c.req.valid('param')
     const ipAddress = c.get('ipAddress')
 
-    const post = await ds.blogPost.getById(id)
-
-    if (!post) {
-      throw new Exception.NotFoundException('Blog post not found')
-    }
+    const post = await dr.blogPost.where({ id, status: EnumBlogPostStatus.Published }).take()
 
     // 记录浏览量（基于 IP 去重）
     await ds.blogPost.recordView(id, ipAddress)

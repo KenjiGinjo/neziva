@@ -13,43 +13,6 @@ export const blogPost = {
   },
 
   /**
-   * 获取文章列表
-   */
-  getList: async (options: {
-    category?: string
-    tag?: string
-    featured?: boolean
-    limit: number
-    offset: number
-  }) => {
-    const { category, tag, featured, limit, offset } = options
-
-    const query = dr.blogPost.selectForList({
-      category,
-      tag,
-      featured,
-      status: EnumBlogPostStatus.Published,
-    })
-
-    const total = await query.count()
-    const data = await query
-      .order({ publishedAt: 'DESC', createdAt: 'DESC' })
-      .limit(limit)
-      .offset(offset)
-
-    return { data, total }
-  },
-
-  /**
-   * 获取文章详情
-   */
-  getById: async (id: string) => {
-    return await dr.blogPost.selectForDefault()
-      .where({ id, status: EnumBlogPostStatus.Published })
-      .takeOptional()
-  },
-
-  /**
    * 获取相关文章
    */
 
