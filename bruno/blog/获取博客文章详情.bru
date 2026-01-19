@@ -5,20 +5,16 @@ meta {
 }
 
 get {
-  url: {{API_URL}}/blog/posts/:id
+  url: {{API_URL}}/blog/posts/pl2gn3vlf7tamxnxnq3ft2mj
   body: none
   auth: none
-}
-
-params:path {
-  id: clx1234567890
 }
 
 tests {
   test("Status code is 200", function() {
     expect(res.status).to.equal(200);
   });
-
+  
   test("Response contains post data", function() {
     expect(res.body).to.have.property('data');
     expect(res.body.data).to.have.property('id');

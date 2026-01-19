@@ -25,10 +25,18 @@ const selectForDefault = db.blogPost.makeHelper(q => q.select(
 export const blogPost = createRepo(db.blogPost, {
   queryMethods: {
     selectForDefault: q => selectForDefault(q),
-    selectForList: (q, options?: { category?: string, tag?: string, featured?: boolean, status?: EnumBlogPostStatus }) => {
-      const { category, tag, featured, status = EnumBlogPostStatus.Published } = options || {}
+    selectForList: (q, options?: { category?: string, tag?: string, featured?: boolean, status?: EnumBlogPostStatus, keyword?: string }) => {
+      const { category, tag, featured, status, keyword } = options || {}
 
-      let query = selectForDefault(q).where({ status })
+      let query = selectForDefault(q)
+
+      // status 处理：如果未指定，默认使用 Published；如果明确指定（包括 undefined），则使用指定值
+      if (status !== undefined) {
+        query = query.where({ status })
+      }
+      else {
+        query = query.where({ status: EnumBlogPostStatus.Published })
+      }
 
       if (category) {
         query = query.where({ category })
@@ -40,25 +48,6 @@ export const blogPost = createRepo(db.blogPost, {
 
       if (featured !== undefined) {
         query = query.where({ featured })
-      }
-
-      return query
-    },
-    searchList: (q, options?: { keyword?: string, status?: EnumBlogPostStatus, category?: string, tag?: string }) => {
-      const { keyword, status = EnumBlogPostStatus.Published, category, tag } = options || {}
-
-      let query = selectForDefault(q)
-
-      if (status !== undefined) {
-        query = query.where({ status })
-      }
-
-      if (category) {
-        query = query.where({ category })
-      }
-
-      if (tag) {
-        query = query.where({ tags: { has: tag } })
       }
 
       if (keyword) {

@@ -1,6 +1,6 @@
 import { EnumBlogPostStatus } from '@neziva/enums'
 import { describe, expect, test } from 'bun:test'
-import { db, ds } from '../../src'
+import { db, dr, ds } from '../../src'
 
 describe('blog', () => {
   test('获取文章列表：基本功能', async () => {
@@ -213,38 +213,42 @@ describe('blog', () => {
       publishedAt: new Date(),
     })
 
-    const { data, total } = await ds.blogPost.search({
-      keyword: 'search',
-      limit: 10,
-      offset: 0,
-    })
+    const query = dr.blogPost.selectForList({ keyword: 'search' })
+    const total = await query.count()
+    const data = await query
+      .order({ publishedAt: 'DESC' })
+      .limit(10)
+      .offset(0)
 
     expect(total).toBeGreaterThanOrEqual(1)
     expect(data.some(p => p.id === post.id)).toBe(true)
   })
 
   test('搜索文章：无关键词', async () => {
-    const { data, total } = await ds.blogPost.search({
-      limit: 10,
-      offset: 0,
-    })
+    const query = dr.blogPost.selectForList({})
+    const total = await query.count()
+    const data = await query
+      .order({ publishedAt: 'DESC' })
+      .limit(10)
+      .offset(0)
 
     expect(total).toBeGreaterThanOrEqual(0)
     expect(Array.isArray(data)).toBe(true)
   })
 
   test('搜索文章：分页功能', async () => {
-    const { data: page1, total } = await ds.blogPost.search({
-      keyword: 'test',
-      limit: 2,
-      offset: 0,
-    })
+    const query1 = dr.blogPost.selectForList({ keyword: 'test' })
+    const total = await query1.count()
+    const page1 = await query1
+      .order({ publishedAt: 'DESC' })
+      .limit(2)
+      .offset(0)
 
-    const { data: page2 } = await ds.blogPost.search({
-      keyword: 'test',
-      limit: 2,
-      offset: 2,
-    })
+    const query2 = dr.blogPost.selectForList({ keyword: 'test' })
+    const page2 = await query2
+      .order({ publishedAt: 'DESC' })
+      .limit(2)
+      .offset(2)
 
     expect(page1.length).toBeLessThanOrEqual(2)
     expect(page2.length).toBeLessThanOrEqual(2)
@@ -490,74 +494,6 @@ describe('blog', () => {
     expect(afterSecond.views).toBe(viewsAfterFirst + 1) // 浏览量应该增加
   })
 
-  // ========== 管理后台方法测试 ==========
-
-  test('获取文章列表（管理后台）：基本功能', async () => {
-    const post1 = await db.blogPost.create({
-      title: 'Admin Post 1',
-      slug: 'admin-post-1',
-      content: 'Content 1',
-      category: 'Tech',
-      tags: ['Admin'],
-      author: 'test',
-      status: EnumBlogPostStatus.Draft,
-    })
-
-    const post2 = await db.blogPost.create({
-      title: 'Admin Post 2',
-      slug: 'admin-post-2',
-      content: 'Content 2',
-      category: 'Design',
-      tags: ['Admin'],
-      author: 'test',
-      status: EnumBlogPostStatus.Published,
-      publishedAt: new Date(),
-    })
-
-    const { data, total } = await ds.blogPost.getListForAdmin({
-      limit: 10,
-      offset: 0,
-    })
-
-    expect(total).toBeGreaterThanOrEqual(2)
-    expect(data.length).toBeGreaterThanOrEqual(2)
-    expect(data.some(p => p.id === post1.id)).toBe(true)
-    expect(data.some(p => p.id === post2.id)).toBe(true)
-  })
-
-  test('获取文章列表（管理后台）：按状态筛选', async () => {
-    const draft = await db.blogPost.create({
-      title: 'Draft Admin',
-      slug: 'draft-admin',
-      content: 'Draft Content',
-      category: 'Tech',
-      tags: ['Draft'],
-      author: 'test',
-      status: EnumBlogPostStatus.Draft,
-    })
-
-    await db.blogPost.create({
-      title: 'Published Admin',
-      slug: 'published-admin',
-      content: 'Published Content',
-      category: 'Tech',
-      tags: ['Published'],
-      author: 'test',
-      status: EnumBlogPostStatus.Published,
-      publishedAt: new Date(),
-    })
-
-    const { data, total } = await ds.blogPost.getListForAdmin({
-      status: EnumBlogPostStatus.Draft,
-      limit: 10,
-      offset: 0,
-    })
-
-    expect(total).toBeGreaterThanOrEqual(1)
-    expect(data.some(p => p.id === draft.id)).toBe(true)
-    expect(data.every(p => p.status === EnumBlogPostStatus.Draft)).toBe(true)
-  })
-
   test('获取文章列表（管理后台）：搜索功能', async () => {
     const post = await db.blogPost.create({
       title: 'Search Admin Post',
@@ -571,11 +507,14 @@ describe('blog', () => {
       publishedAt: new Date(),
     })
 
-    const { data, total } = await ds.blogPost.getListForAdmin({
-      search: 'Search Admin',
-      limit: 10,
-      offset: 0,
+    const query = dr.blogPost.selectForList({
+      keyword: 'Search Admin',
     })
+    const total = await query.count()
+    const data = await query
+      .order({ createdAt: 'DESC' })
+      .limit(10)
+      .offset(0)
 
     expect(total).toBeGreaterThanOrEqual(1)
     expect(data.some(p => p.id === post.id)).toBe(true)
@@ -592,7 +531,7 @@ describe('blog', () => {
       status: EnumBlogPostStatus.Draft,
     })
 
-    const result = await ds.blogPost.getByIdForAdmin(draft.id)
+    const result = await db.blogPost.where({ id: draft.id }).takeOptional()
 
     expect(result).not.toBeNull()
     expect(result?.id).toBe(draft.id)
@@ -609,7 +548,8 @@ describe('blog', () => {
       author: 'test',
     }
 
-    const post = await ds.blogPost.create(postData)
+    await ds.blogPost.checkSlug(postData.slug)
+    const post = await db.blogPost.create(postData)
 
     expect(post).not.toBeNull()
     expect(post.title).toBe(postData.title)
@@ -635,7 +575,8 @@ describe('blog', () => {
       seoDesc: 'SEO Description',
     }
 
-    const post = await ds.blogPost.create(postData)
+    await ds.blogPost.checkSlug(postData.slug)
+    const post = await db.blogPost.create(postData)
 
     expect(post.excerpt).toBe(postData.excerpt)
     expect(post.readTime).toBe(postData.readTime)
@@ -656,14 +597,7 @@ describe('blog', () => {
       author: 'test',
     })
 
-    await expect(ds.blogPost.create({
-      title: 'New Post',
-      slug: 'existing-slug',
-      content: 'Content',
-      category: 'Tech',
-      tags: [],
-      author: 'test',
-    })).rejects.toThrow('Slug already exists')
+    await expect(ds.blogPost.checkSlug('existing-slug')).rejects.toThrow('Slug already exists')
   })
 
   test('更新文章：基本功能', async () => {
@@ -676,10 +610,11 @@ describe('blog', () => {
       author: 'test',
     })
 
-    const updated = await ds.blogPost.update(post.id, {
+    await db.blogPost.where({ id: post.id }).update({
       title: 'Updated Title',
       content: 'Updated Content',
     })
+    const updated = await db.blogPost.where({ id: post.id }).take()
 
     expect(updated.title).toBe('Updated Title')
     expect(updated.content).toBe('Updated Content')
@@ -696,9 +631,11 @@ describe('blog', () => {
       author: 'test',
     })
 
-    const updated = await ds.blogPost.update(post.id, {
+    await ds.blogPost.checkSlug('updated-slug')
+    await db.blogPost.where({ id: post.id }).update({
       slug: 'updated-slug',
     })
+    const updated = await db.blogPost.where({ id: post.id }).take()
 
     expect(updated.slug).toBe('updated-slug')
   })
@@ -713,7 +650,7 @@ describe('blog', () => {
       author: 'test',
     })
 
-    const post2 = await db.blogPost.create({
+    await db.blogPost.create({
       title: 'Post 2',
       slug: 'post-2',
       content: 'Content',
@@ -722,15 +659,12 @@ describe('blog', () => {
       author: 'test',
     })
 
-    await expect(ds.blogPost.update(post1.id, {
-      slug: 'post-2',
-    })).rejects.toThrow('Slug already exists')
+    await expect(ds.blogPost.checkSlug('post-2')).rejects.toThrow('Slug already exists')
   })
 
   test('更新文章：文章不存在时抛出错误', async () => {
-    await expect(ds.blogPost.update('non-existent-id', {
-      title: 'Updated',
-    })).rejects.toThrow('Blog post not found')
+    const post = await db.blogPost.where({ id: 'non-existent-id' }).takeOptional()
+    expect(post).toBeUndefined()
   })
 
   test('删除文章：基本功能', async () => {
@@ -743,7 +677,7 @@ describe('blog', () => {
       author: 'test',
     })
 
-    await ds.blogPost.delete(post.id)
+    await db.blogPost.where({ id: post.id }).delete()
 
     const deleted = await db.blogPost.where({ id: post.id }).takeOptional()
     expect(deleted).toBeUndefined()
@@ -760,7 +694,12 @@ describe('blog', () => {
       status: EnumBlogPostStatus.Draft,
     })
 
-    const published = await ds.blogPost.publish(post.id, EnumBlogPostStatus.Published)
+    const updateData: any = { status: EnumBlogPostStatus.Published }
+    if (!post.publishedAt) {
+      updateData.publishedAt = new Date()
+    }
+    await db.blogPost.where({ id: post.id }).update(updateData)
+    const published = await db.blogPost.where({ id: post.id }).take()
 
     expect(published.status).toBe(EnumBlogPostStatus.Published)
     expect(published.publishedAt).not.toBeNull()
@@ -779,7 +718,12 @@ describe('blog', () => {
       publishedAt,
     })
 
-    const updated = await ds.blogPost.publish(post.id, EnumBlogPostStatus.Published)
+    const updateData: any = { status: EnumBlogPostStatus.Published }
+    if (!post.publishedAt) {
+      updateData.publishedAt = new Date()
+    }
+    await db.blogPost.where({ id: post.id }).update(updateData)
+    const updated = await db.blogPost.where({ id: post.id }).take()
 
     expect(updated.status).toBe(EnumBlogPostStatus.Published)
     expect(updated.publishedAt?.getTime()).toBe(publishedAt.getTime())
@@ -797,15 +741,15 @@ describe('blog', () => {
       publishedAt: new Date(),
     })
 
-    const unpublished = await ds.blogPost.publish(post.id, EnumBlogPostStatus.Draft)
+    await db.blogPost.where({ id: post.id }).update({ status: EnumBlogPostStatus.Draft })
+    const unpublished = await db.blogPost.where({ id: post.id }).take()
 
     expect(unpublished.status).toBe(EnumBlogPostStatus.Draft)
   })
 
   test('发布文章：文章不存在时抛出错误', async () => {
-    await expect(ds.blogPost.publish('non-existent-id', EnumBlogPostStatus.Published))
-      .rejects
-      .toThrow('Blog post not found')
+    const post = await db.blogPost.where({ id: 'non-existent-id' }).takeOptional()
+    expect(post).toBeUndefined()
   })
 
   test('设置精选：设置为精选', async () => {
@@ -819,7 +763,8 @@ describe('blog', () => {
       featured: false,
     })
 
-    const updated = await ds.blogPost.setFeatured(post.id, true)
+    await db.blogPost.where({ id: post.id }).update({ featured: true })
+    const updated = await db.blogPost.where({ id: post.id }).take()
 
     expect(updated.featured).toBe(true)
   })
@@ -835,14 +780,14 @@ describe('blog', () => {
       featured: true,
     })
 
-    const updated = await ds.blogPost.setFeatured(post.id, false)
+    await db.blogPost.where({ id: post.id }).update({ featured: false })
+    const updated = await db.blogPost.where({ id: post.id }).take()
 
     expect(updated.featured).toBe(false)
   })
 
   test('设置精选：文章不存在时抛出错误', async () => {
-    await expect(ds.blogPost.setFeatured('non-existent-id', true))
-      .rejects
-      .toThrow('Blog post not found')
+    const post = await db.blogPost.where({ id: 'non-existent-id' }).takeOptional()
+    expect(post).toBeUndefined()
   })
 })

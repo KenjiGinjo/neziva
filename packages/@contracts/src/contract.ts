@@ -55,7 +55,7 @@ export const contract = {
           200: c.type<{
             data: ResBlogPostList[]
             query?: string
-            pagination: any
+            pagination: ResPagination
           }>(),
         },
       },
@@ -74,7 +74,7 @@ export const contract = {
         path: 'blog/posts',
         query: c.type<vBlogPostsQuery>(),
         responses: {
-          200: c.type<{ data: ResBlogPostList[], pagination: any }>(),
+          200: c.type<{ data: ResBlogPostList[], pagination: ResPagination }>(),
         },
       },
     }),

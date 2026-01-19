@@ -45,7 +45,7 @@ export const blog = new Hono()
     const { where } = c.get('page')
     const { status, category, tag, search } = c.req.valid('query')
 
-    const query = dr.blogPost.searchList({
+    const query = dr.blogPost.selectForList({
       keyword: search,
       status,
       category,
