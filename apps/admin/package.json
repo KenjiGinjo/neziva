@@ -8,7 +8,7 @@
     "lint:fix": "eslint . --fix",
     "check-types": "tsc --noEmit",
     "deploy": "bun run ./scripts/deploy.ts",
-    "dev": "vite --port 10002 --host",
+    "dev": "vite --port 20004 --host",
     "build": "tsc -b && vite build"
   },
   "dependencies": {
@@ -16,6 +16,8 @@
     "@dnd-kit/modifiers": "9.0.0",
     "@dnd-kit/sortable": "10.0.0",
     "@dnd-kit/utilities": "3.2.2",
+    "@hookform/resolvers": "^3.10.0",
+    "@legendapp/state": "^2.1.15",
     "@neziva/constants": "workspace:*",
     "@neziva/contracts": "workspace:*",
     "@neziva/enums": "workspace:*",
@@ -23,8 +25,6 @@
     "@neziva/svg": "workspace:*",
     "@neziva/tools": "workspace:*",
     "@neziva/validations": "workspace:*",
-    "@hookform/resolvers": "^3.10.0",
-    "@legendapp/state": "^2.1.15",
     "@packages/request": "workspace:*",
     "@packages/ts-rest-react-query": "workspace:*",
     "@radix-ui/react-alert-dialog": "1.1.7",
