@@ -56,7 +56,7 @@ export const blogRoute = new Hono()
   .get('/search', pagination(), validate('query', vBlogSearch), async (c): Promise<HonoResponse<{ data: ResBlogPostList[], query?: string, pagination: ResPagination }>> => {
     const { where } = c.get('page')
     const { keyword } = c.req.valid('query')
-    const query = dr.blogPost.selectForList({ keyword })
+    const query = dr.blogPost.selectForList({ keyword: keyword || '__EMPTY__' })
 
     const total = await query.count()
     const data = await query
