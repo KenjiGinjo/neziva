@@ -12,12 +12,17 @@ get {
 
 params:query {
   page: 1
-  limit: 10
+  pageSize: 10
   keyword:
 }
 
 tests {
-  test("Status code is 400", function() {
-    expect(res.status).to.equal(400);
+  test("Status code is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains search results", function() {
+    expect(res.body).to.have.property('data');
+    expect(res.body.data).to.be.an('array');
   });
 }

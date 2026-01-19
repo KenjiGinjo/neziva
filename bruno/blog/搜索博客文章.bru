@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{API_URL}}/blog/search?keyword=sldklksdj&page=1&limit=10
+  url: {{API_URL}}/blog/search
   body: none
   auth: none
 }
@@ -13,21 +13,28 @@ get {
 params:query {
   keyword: sldklksdj
   page: 1
-  limit: 10
+  pageSize: 10
 }
 
 tests {
   test("Status code is 200", function() {
     expect(res.status).to.equal(200);
   });
-  
+
   test("Response contains search results", function() {
     expect(res.body).to.have.property('data');
     expect(res.body.data).to.be.an('array');
   });
-  
+
   test("Response contains query info", function() {
     expect(res.body).to.have.property('query');
-    expect(res.body.query).to.equal('AI');
+    expect(res.body.query).to.equal('sldklksdj');
+  });
+
+  test("Response contains pagination info", function() {
+    expect(res.body).to.have.property('pagination');
+    expect(res.body.pagination).to.have.property('limit');
+    expect(res.body.pagination).to.have.property('offset');
+    expect(res.body.pagination).to.have.property('total');
   });
 }

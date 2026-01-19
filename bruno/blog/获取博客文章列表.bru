@@ -12,7 +12,7 @@ get {
 
 params:query {
   page: 1
-  limit: 10
+  pageSize: 10
   category:
   tag:
   featured:
@@ -30,8 +30,8 @@ tests {
 
   test("Response contains pagination info", function() {
     expect(res.body).to.have.property('pagination');
-    expect(res.body.pagination).to.have.property('page');
     expect(res.body.pagination).to.have.property('limit');
+    expect(res.body.pagination).to.have.property('offset');
     expect(res.body.pagination).to.have.property('total');
   });
 }

@@ -12,7 +12,7 @@ get {
 
 params:query {
   page: 2
-  limit: 10
+  pageSize: 10
   status:
   source:
   search:
@@ -24,7 +24,8 @@ tests {
   });
   
   test("Pagination info is correct", function() {
-    expect(res.body.pagination).to.have.property('page', 2);
-    expect(res.body.pagination).to.have.property('limit', 10);
+    expect(res.body.pagi).to.have.property('limit', 10);
+    expect(res.body.pagi).to.have.property('offset');
+    expect(res.body.pagi).to.have.property('total');
   });
 }

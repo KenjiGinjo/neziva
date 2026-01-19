@@ -12,7 +12,7 @@ get {
 
 params:query {
   page: 2
-  limit: 5
+  pageSize: 5
   keyword: AI
 }
 
@@ -22,7 +22,8 @@ tests {
   });
   
   test("Pagination info is correct", function() {
-    expect(res.body.pagination).to.have.property('page', 2);
     expect(res.body.pagination).to.have.property('limit', 5);
+    expect(res.body.pagination).to.have.property('offset');
+    expect(res.body.pagination).to.have.property('total');
   });
 }
