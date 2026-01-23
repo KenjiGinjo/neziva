@@ -1,6 +1,6 @@
 import type { Context } from 'hono'
 import { createHash } from 'node:crypto'
-import { db } from 'db'
+import { Cache } from 'db'
 import { sign, verify } from 'hono/jwt'
 
 const ALG = 'HS256'
@@ -56,59 +56,33 @@ function getTokenCacheKey(token: string, isAdmin = false): string {
 
 export async function isTokenStored(token: string, isAdmin = false): Promise<boolean> {
   const key = getTokenCacheKey(token, isAdmin)
-  const cache = await db.cache.findOptional(key)
+  const cached = await Cache.get({ key })
 
-  if (!cache) {
-    return false
-  }
-
-  // 检查是否过期
-  if (cache.expiresAt) {
-    // expiresAt 统一转换为 Date 进行比较
-    const expiresAtDate = new Date(cache.expiresAt as unknown as string | number | Date)
-    if (new Date() > expiresAtDate) {
-      // 如果过期，删除记录
-      await db.cache.where({ key }).delete()
-      return false
-    }
-  }
-
-  return true
+  // BentoCache 会自动处理过期，如果返回 undefined 说明不存在或已过期
+  return cached !== undefined
 }
 
 export async function generateToken({ secret, sub, exp, isAdmin = false }: { secret: string, sub: string, exp: number, isAdmin?: boolean }): Promise<string> {
   // 生成 JWT token
   const token = await jwtSign({ secret, sub, exp })
 
-  // 计算过期时间（与 token 的过期时间一致）
-  const now = new Date()
-  const expirationDate = new Date(now.getTime() + exp * 1000)
+  // 计算 TTL（毫秒）
+  const ttl = exp * 1000
 
-  // 存储到 cache 表
+  // 存储到 cache
   const key = getTokenCacheKey(token, isAdmin)
 
-  // 检查是否已存在
-  const existing = await db.cache.findOptional(key)
-  if (existing) {
-    // 如果已存在，更新过期时间
-    await db.cache.where({ key }).update({
-      value: '1', // 值可以是任意值，我们只关心 key 是否存在
-      expiresAt: expirationDate,
-    })
-  }
-  else {
-    // 如果不存在，创建新记录
-    await db.cache.create({
-      key,
-      value: '1',
-      expiresAt: expirationDate,
-    })
-  }
+  // 使用 BentoCache 存储，值可以是任意值，我们只关心 key 是否存在
+  await Cache.set({
+    key,
+    value: 1,
+    ttl,
+  })
 
   return token
 }
 
 export async function removeToken(token: string, isAdmin = false): Promise<void> {
   const key = getTokenCacheKey(token, isAdmin)
-  await db.cache.where({ key }).delete()
+  await Cache.delete({ key })
 }

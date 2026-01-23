@@ -1,5 +1,6 @@
 import { EnumBlogPostStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
+import { Cache } from '../cache'
 import { dr } from '../repos'
 import { db } from '../tables'
 
@@ -54,22 +55,22 @@ export const blogPost = {
 
     // 生成缓存 key: blog_post_view:{postId}:{ipAddress}
     const cacheKey = `blog_post_view:${postId}:${ipAddress}`
-    const expiresAt = new Date(Date.now() + expireHours * 60 * 60 * 1000)
+    const ttl = expireHours * 60 * 60 * 1000 // 转换为毫秒
 
     // 检查是否已访问过
-    const existing = await db.cache.findOptional(cacheKey)
+    const existing = await Cache.get({ key: cacheKey })
 
-    if (existing) {
+    if (existing !== undefined) {
       // 已访问过，不重复统计
       return false
     }
 
     // 使用事务记录访问并增加浏览量
     await db.$transaction(async () => {
-      await db.cache.create({
+      await Cache.set({
         key: cacheKey,
-        value: '1',
-        expiresAt,
+        value: 1,
+        ttl,
       })
       await db.blogPost.where({ id: postId }).increment({ views: 1 })
     })

@@ -1,6 +1,6 @@
 import { EnumBlogPostStatus } from '@neziva/enums'
 import { describe, expect, test } from 'bun:test'
-import { db, ds } from '../../src'
+import { Cache, db, ds } from '../../src'
 
 describe('blog-post', () => {
   describe('checkSlug', () => {
@@ -295,7 +295,7 @@ describe('blog-post', () => {
 
       // 验证缓存已创建
       const cacheKey = `blog_post_view:${post.id}:${ipAddress}`
-      const cache = await db.cache.findOptional(cacheKey)
+      const cache = await Cache.get({ key: cacheKey })
       expect(cache).toBeDefined()
     })
 
