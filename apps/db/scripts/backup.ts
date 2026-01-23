@@ -27,7 +27,13 @@ async function main() {
     console.log(`✅ 备份完成: ${backupPath}`)
   }
   catch (error) {
-    console.error('❌ 备份失败:', error)
+    if (error instanceof Error) {
+      console.error('❌ 备份失败:', error.message)
+      console.error('Stack:', error.stack)
+    }
+    else {
+      console.error('❌ 备份失败:', error)
+    }
     process.exit(1)
   }
 }

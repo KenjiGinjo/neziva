@@ -67,8 +67,14 @@ export function MultipleImageUpload({
           newImages.push(base64)
         }
         catch (error) {
-          console.error('Error processing file:', error)
-          toast.error(`处理文件 ${file.name} 时出错，请重试`)
+          if (error instanceof Error) {
+            console.error('Error processing file:', error.message)
+            toast.error(`处理文件 ${file.name} 时出错: ${error.message}`)
+          }
+          else {
+            console.error('Error processing file:', error)
+            toast.error(`处理文件 ${file.name} 时出错，请重试`)
+          }
         }
       }
 
@@ -78,8 +84,14 @@ export function MultipleImageUpload({
       }
     }
     catch (error) {
-      console.error('Error processing files:', error)
-      toast.error('处理文件时出错，请重试')
+      if (error instanceof Error) {
+        console.error('Error processing files:', error.message)
+        toast.error(`处理文件时出错: ${error.message}`)
+      }
+      else {
+        console.error('Error processing files:', error)
+        toast.error('处理文件时出错，请重试')
+      }
     }
     finally {
       setIsUploading(false)

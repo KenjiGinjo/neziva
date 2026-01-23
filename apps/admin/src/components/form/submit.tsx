@@ -54,9 +54,10 @@ export function Submit<TFieldValues extends FieldValues = FieldValues>(props: Su
           }
         }
         catch (e) {
+          const errorMessage = e instanceof Error ? e.message : typeof e === 'string' ? e : 'Something went wrong, please try again.'
           showModal({
             title: 'Form Validation Error',
-            description: typeof e === 'string' ? e : 'Something went wrong, please try again.',
+            description: errorMessage,
             showCancel: false,
           })
           return false

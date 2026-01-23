@@ -106,8 +106,14 @@ function MultipleImageUpload({
       }
     }
     catch (error) {
-      console.error('Error processing files:', error)
-      toast.error('Error processing files, please try again')
+      if (error instanceof Error) {
+        console.error('Error processing files:', error.message)
+        toast.error(`处理文件失败: ${error.message}`)
+      }
+      else {
+        console.error('Error processing files:', error)
+        toast.error('Error processing files, please try again')
+      }
     }
     finally {
       setIsUploading(false)

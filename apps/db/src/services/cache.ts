@@ -1,117 +1,60 @@
-import { EnumBlogPostStatus } from '@neziva/enums'
 import { Exception } from '@neziva/tools/exception'
-import { dr } from '../repos'
 import { db } from '../tables'
 
-export const blogPost = {
-
-  checkSlug: async (slug: string) => {
-    const existing = await db.blogPost.where({ slug }).takeOptional()
-    if (existing) {
-      throw new Exception.BadRequestException('Slug already exists')
-    }
-  },
-
+export const cache = {
   /**
-   * 获取文章列表
+   * 检查并增加限流计数
+   * 使用数据库操作，BentoCache 会自动处理过期值的清理
    */
-  getList: async (options: {
-    category?: string
-    tag?: string
-    featured?: boolean
+  async checkAndIncrement({ key, limit, expiresAt, errorMessage }: {
+    key: string
     limit: number
-    offset: number
-  }) => {
-    const { category, tag, featured, limit, offset } = options
-
-    const query = dr.blogPost.selectForList({
-      category,
-      tag,
-      featured,
-      status: EnumBlogPostStatus.Published,
-    })
-
-    const total = await query.count()
-    const data = await query
-      .order({ publishedAt: 'DESC', createdAt: 'DESC' })
-      .limit(limit)
-      .offset(offset)
-
-    return { data, total }
-  },
-
-  /**
-   * 获取文章详情
-   */
-  getById: async (id: string) => {
-    return await dr.blogPost.selectForDefault()
-      .where({ id, status: EnumBlogPostStatus.Published })
-      .takeOptional()
-  },
-
-  /**
-   * 获取相关文章
-   */
-
-  getRelated: async (options: {
-    id: string
-    category: string
-    tags: string[]
-    limit: number
-  }) => {
-    const { id, category, tags, limit } = options
-
-    const defaultWhere = {
-      status: EnumBlogPostStatus.Published,
-      id: { not: id },
-    }
-    const orTags = tags.map(tag => ({ ...defaultWhere, tags: { has: tag } }))
-    const orConditions = [
-      { ...defaultWhere, category },
-      ...orTags,
-    ]
-    const related = await dr.blogPost.selectForDefault()
-      .orWhere(...orConditions)
-      .order({ publishedAt: 'DESC' })
-      .limit(limit)
-      .all()
-
-    return related
-  },
-
-  /**
-   * 记录文章浏览量（基于 IP 去重）
-   */
-  recordView: async (postId: string, ipAddress?: string, expireHours: number = 24): Promise<boolean> => {
-    // 如果没有 IP 地址，直接增加浏览量（不进行去重）
-    if (!ipAddress) {
-      await db.blogPost.where({ id: postId }).increment({ views: 1 })
-      return true
-    }
-
-    // 生成缓存 key: blog_post_view:{postId}:{ipAddress}
-    const cacheKey = `blog_post_view:${postId}:${ipAddress}`
-    const expiresAt = new Date(Date.now() + expireHours * 60 * 60 * 1000)
-
-    // 检查是否已访问过
-    const existing = await db.cache.findOptional(cacheKey)
+    expiresAt: Date
+    errorMessage?: string
+  }): Promise<number> {
+    // 检查缓存中是否已有记录
+    const existing = await db.cache.findOptional(key)
 
     if (existing) {
-      // 已访问过，不重复统计
-      return false
-    }
+      // 检查是否过期
+      if (existing.expiresAt && new Date(existing.expiresAt) <= new Date()) {
+        // 已过期，删除旧记录并重新开始
+        await db.cache.where({ key }).delete()
+        await db.cache.create({
+          key,
+          value: '1',
+          expiresAt,
+        })
+        return 1
+      }
 
-    // 使用事务记录访问并增加浏览量
-    await db.$transaction(async () => {
+      // 已存在且未过期，检查提交次数
+      const count = parseInt(existing.value || '0', 10)
+      if (count >= limit) {
+        throw new Exception.BadRequestException(
+          errorMessage
+          || `You have reached the maximum number of attempts (${limit}). Please try again later.`,
+        )
+      }
+
+      // 增加计数
+      const newCount = count + 1
+      await db.cache.where({ key }).update({
+        value: newCount.toString(),
+        expiresAt,
+      })
+
+      return newCount
+    }
+    else {
+      // 首次提交，创建新记录
       await db.cache.create({
-        key: cacheKey,
+        key,
         value: '1',
         expiresAt,
       })
-      await db.blogPost.where({ id: postId }).increment({ views: 1 })
-    })
 
-    return true
+      return 1
+    }
   },
-
 }

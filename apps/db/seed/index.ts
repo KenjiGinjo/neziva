@@ -31,7 +31,13 @@ async function main() {
     console.log(`   - Newsletter Subscribers: ${newsletterSubscribers.length}`)
   }
   catch (error) {
-    console.error('❌ Error seeding database:', error)
+    if (error instanceof Error) {
+      console.error('❌ Error seeding database:', error.message)
+      console.error('Stack:', error.stack)
+    }
+    else {
+      console.error('❌ Error seeding database:', error)
+    }
     process.exit(1)
   }
 }

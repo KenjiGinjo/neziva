@@ -27,8 +27,14 @@ export async function compressImage(
     return compressedFile
   }
   catch (error) {
-    console.error('图片压缩失败:', error)
-    throw new Error('图片压缩失败')
+    if (error instanceof Error) {
+      console.error('图片压缩失败:', error.message)
+      throw new Error(`图片压缩失败: ${error.message}`)
+    }
+    else {
+      console.error('图片压缩失败:', error)
+      throw new Error('图片压缩失败')
+    }
   }
 }
 

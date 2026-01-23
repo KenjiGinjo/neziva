@@ -42,9 +42,9 @@ export async function initNewsletter() {
       createdSubscribers.push(created)
       console.warn(`  ✅ Created newsletter subscriber: ${subscriber.email}`)
     }
-    catch (error: any) {
+    catch (error: unknown) {
       // 如果邮箱已存在，跳过
-      if (error?.message?.includes('unique') || error?.message?.includes('duplicate')) {
+      if (error instanceof Error && (error.message.includes('unique') || error.message.includes('duplicate'))) {
         console.warn(`  ⚠️  Skipped duplicate email: ${subscriber.email}`)
       }
       else {

@@ -1,3 +1,4 @@
+import { Exception } from '@neziva/tools/exception'
 import { Resend } from 'resend'
 
 import { ENV } from '../env'
@@ -51,6 +52,14 @@ async function sendEmailViaResend(options: EmailOptions): Promise<SendResult> {
     }
   }
   catch (error) {
+    if (error instanceof Exception.BaseException) {
+      console.error('Resend API error:', error)
+      return {
+        success: false,
+        error: error.message,
+      }
+    }
+
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
     console.error('Resend API error:', error)
     return {

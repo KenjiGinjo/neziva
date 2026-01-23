@@ -73,8 +73,14 @@ function ImageChooser({
       onChange?.(dataUrl)
     }
     catch (error) {
-      console.error('Error processing file:', error)
-      toast.error('Error processing file, please try again')
+      if (error instanceof Error) {
+        console.error('Error processing file:', error.message)
+        toast.error(`处理文件失败: ${error.message}`)
+      }
+      else {
+        console.error('Error processing file:', error)
+        toast.error('Error processing file, please try again')
+      }
     }
     finally {
       setIsLoading(false)
