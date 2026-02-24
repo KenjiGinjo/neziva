@@ -56,7 +56,6 @@ export const authRoute = new Hono()
   .get('/state', authAd(), async (c): Promise<HonoResponse<{ data: ResAdminAuthStateResponse }>> => {
     const authId = c.get('authId')
     const admin = await db.admin.findOptional(authId)
-
     if (!admin) {
       return c.json({
         data: {
