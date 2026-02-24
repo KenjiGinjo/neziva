@@ -4,7 +4,7 @@ import { Link, useLocation } from 'wouter'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
-export function HeaderMarketing() {
+export function Header() {
   const [location] = useLocation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 

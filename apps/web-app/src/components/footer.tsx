@@ -1,7 +1,7 @@
 import { Calendar, Github, Mail } from 'lucide-react'
 import { Link } from 'wouter'
 
-export function FooterMarketing() {
+export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
