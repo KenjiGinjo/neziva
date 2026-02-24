@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client'
 import { Router } from 'wouter'
 import { AppRouter } from './app-router.tsx'
 import { ModalProvider } from './components/extend'
+import { GoogleAnalytics } from './components/google-analytics.tsx'
 import { TailwindIndicator } from './components/tailwind-indicator.tsx'
 import { Toaster } from './components/ui/sonner.tsx'
 import { SystemSetting } from './hooks/system-setting.tsx'
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')!).render(
         <ModalProvider>
           <Router>
             <AppRouter />
+            <GoogleAnalytics />
           </Router>
           <Toaster />
           <SystemSetting />

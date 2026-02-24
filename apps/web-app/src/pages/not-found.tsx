@@ -1,5 +1,6 @@
-import { ArrowRight, Home, Search } from 'lucide-react'
+import { ArrowRight, Home } from 'lucide-react'
 import { Link } from 'wouter'
+import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 
 export function PageNotFound() {
@@ -11,8 +12,8 @@ export function PageNotFound() {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#7C3AED] rounded-full blur-3xl opacity-10" />
 
         <div className="relative max-w-3xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-[#4F46E5] to-[#7C3AED] text-white mb-8">
-            <Search className="h-12 w-12" />
+          <div className="mb-8 flex justify-center">
+            <Logo size="xl" withBox href="/" />
           </div>
 
           <h1 className="text-6xl md:text-8xl font-bold text-gray-900 mb-4">
