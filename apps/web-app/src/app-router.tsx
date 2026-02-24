@@ -41,7 +41,9 @@ export function AppRouter() {
           <PageBlog />
         </MainLayout>
       </Route>
-      <Route component={PageNotFound} />
+      <Route>
+        <PageNotFound />
+      </Route>
     </Switch>
   )
 }

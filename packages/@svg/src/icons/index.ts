@@ -33,6 +33,7 @@ export { default as IconShoppingCartFill } from "./ShoppingCartFill";
 export { default as IconDeleteBin6Line } from "./DeleteBin6Line";
 export { default as IconH2 } from "./H2";
 export { default as IconUserLine } from "./UserLine";
+export { default as IconAiGenerate3DLine } from "./AiGenerate3DLine";
 export { default as IconHonourFill } from "./HonourFill";
 export { default as IconMenLine } from "./MenLine";
 export { default as IconEdit2Line } from "./Edit2Line";
