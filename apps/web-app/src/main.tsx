@@ -8,7 +8,6 @@ import { ModalProvider } from './components/extend'
 import { TailwindIndicator } from './components/tailwind-indicator.tsx'
 import { Toaster } from './components/ui/sonner.tsx'
 import { SystemSetting } from './hooks/system-setting.tsx'
-import { UserState } from './hooks/user'
 import './style/index.css'
 
 const isDevMode = import.meta.env.DEV
@@ -35,7 +34,6 @@ createRoot(document.getElementById('root')!).render(
             <AppRouter />
           </Router>
           <Toaster />
-          <UserState />
           <SystemSetting />
           {isDevMode && <TailwindIndicator />}
         </ModalProvider>
