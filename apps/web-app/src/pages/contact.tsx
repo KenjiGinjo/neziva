@@ -15,12 +15,10 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { Link } from 'wouter'
 import { z } from 'zod'
-import { FooterMarketing } from '@/components/footer/marketing'
 import { Form } from '@/components/form'
 import { Input } from '@/components/form/input'
 import { Select as FormSelect } from '@/components/form/select'
 import { Textarea } from '@/components/form/textarea'
-import { HeaderMarketing } from '@/components/header/marketing'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 
@@ -89,8 +87,6 @@ export function PageContact() {
 
   return (
     <div className="font-sans bg-white text-gray-800">
-      <HeaderMarketing />
-
       {/* Page Header */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="max-w-7xl mx-auto px-6">
@@ -466,8 +462,6 @@ export function PageContact() {
           </div>
         </div>
       </section>
-
-      <FooterMarketing />
     </div>
   )
 }

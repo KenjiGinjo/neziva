@@ -4,7 +4,6 @@ import {
   Brain,
   Calendar,
   CheckCircle,
-  ChevronDown,
   Clock,
   Code,
   Cog,
@@ -22,15 +21,11 @@ import {
   TrendingUp,
 } from 'lucide-react'
 import { Link } from 'wouter'
-import { FooterMarketing } from '@/components/footer/marketing'
-import { HeaderMarketing } from '@/components/header/marketing'
 import { Button } from '@/components/ui/button'
 
 export function PageHome() {
   return (
     <div className="bg-white text-gray-900">
-      <HeaderMarketing />
-
       {/* Hero Section */}
       <section className="relative min-h-[700px] bg-gradient-to-br from-[#667eea] to-[#764ba2] overflow-hidden pt-20">
         <div className="absolute inset-0 opacity-10">
@@ -57,9 +52,9 @@ export function PageHome() {
                   </Button>
                 </Link>
                 <Link href="/portfolio">
-                  <Button variant="outline" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10">
+                  <Button variant="outline">
                     View Our Work
-                    <ChevronDown className="ml-2 h-5 w-5" />
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
               </div>
@@ -876,8 +871,6 @@ export function PageHome() {
           </div>
         </div>
       </section>
-
-      <FooterMarketing />
     </div>
   )
 }

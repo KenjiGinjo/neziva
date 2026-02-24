@@ -18,8 +18,6 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'wouter'
-import { FooterMarketing } from '@/components/footer/marketing'
-import { HeaderMarketing } from '@/components/header/marketing'
 import { Button } from '@/components/ui/button'
 
 export function PageBlog() {
@@ -119,8 +117,6 @@ export function PageBlog() {
 
   return (
     <div className="bg-white text-gray-900">
-      <HeaderMarketing />
-
       {/* Page Header */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="max-w-7xl mx-auto px-6">
@@ -492,8 +488,6 @@ export function PageBlog() {
           </div>
         </div>
       </section>
-
-      <FooterMarketing />
     </div>
   )
 }

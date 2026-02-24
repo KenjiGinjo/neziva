@@ -24,15 +24,11 @@ import {
 } from 'lucide-react'
 import { Link } from 'wouter'
 
-import { FooterMarketing } from '@/components/footer/marketing'
-import { HeaderMarketing } from '@/components/header/marketing'
 import { Button } from '@/components/ui/button'
 
 export function PageAbout() {
   return (
     <div className="bg-white text-gray-900">
-      <HeaderMarketing />
-
       {/* Page Header */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-blue-50 via-purple-50 to-white">
         <div className="max-w-7xl mx-auto px-6">
@@ -388,8 +384,6 @@ export function PageAbout() {
           </div>
         </div>
       </section>
-
-      <FooterMarketing />
     </div>
   )
 }

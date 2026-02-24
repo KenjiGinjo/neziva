@@ -19,8 +19,6 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'wouter'
-import { FooterMarketing } from '@/components/footer/marketing'
-import { HeaderMarketing } from '@/components/header/marketing'
 import { Button } from '@/components/ui/button'
 
 export function PagePortfolio() {
@@ -72,8 +70,6 @@ export function PagePortfolio() {
 
   return (
     <div className="bg-white">
-      <HeaderMarketing />
-
       {/* Page Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-blue-50 via-purple-50 to-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
@@ -495,8 +491,6 @@ export function PagePortfolio() {
           </div>
         </div>
       </section>
-
-      <FooterMarketing />
     </div>
   )
 }
