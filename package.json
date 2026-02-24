@@ -24,6 +24,8 @@
     "globals": "^15.9.0",
     "prettier": "^3.2.5",
     "turbo": "^2.3.3",
-    "typescript": "5.4.2"
+    "typescript": "5.4.2",
+    "vite-plugin-sitemap": "0.8.2",
+    "web-app": "0.1.0"
   }
 }
