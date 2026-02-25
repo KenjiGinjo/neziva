@@ -1,18 +1,31 @@
-import { Brain, Code, Database, Link, TrendingUp } from 'lucide-react'
+import {
+  Activity,
+  Brain,
+  Cloud,
+  Code,
+  Database,
+  Layout,
+  Layers,
+  Link,
+  Package,
+  Server,
+  TrendingUp,
+  Zap,
+} from 'lucide-react'
 
 const technologies = [
   { name: 'LLMs', icon: Brain },
   { name: 'Python', icon: Code },
-  { name: 'React', icon: Code },
-  { name: 'Node.js', icon: Code },
+  { name: 'React', icon: Layout },
+  { name: 'Node.js', icon: Server },
   { name: 'PostgreSQL', icon: Database },
-  { name: 'Docker', icon: Database },
+  { name: 'Docker', icon: Package },
   { name: 'LangChain', icon: Link },
-  { name: 'Vector DBs', icon: Database },
-  { name: 'AWS', icon: Database },
+  { name: 'Vector DBs', icon: Layers },
+  { name: 'AWS', icon: Cloud },
   { name: 'TensorFlow', icon: TrendingUp },
-  { name: 'PyTorch', icon: TrendingUp },
-  { name: 'FastAPI', icon: Database },
+  { name: 'PyTorch', icon: Activity },
+  { name: 'FastAPI', icon: Zap },
 ]
 
 export function HomeTechnologies() {
