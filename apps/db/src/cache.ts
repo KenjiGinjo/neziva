@@ -1,14 +1,16 @@
 import { BentoCache, bentostore } from 'bentocache'
 import { orchidDriver } from 'bentocache/drivers/orchid'
-import { createDb } from 'orchid-orm/postgres-js'
+import { createDb } from 'orchid-orm/node-postgres'
 import { ENV } from './env'
+
+const cacheDb = createDb({ databaseURL: ENV.DATABASE_URL })
 
 export const Cache = new BentoCache({
   default: 'cache',
   stores: {
     cache: bentostore().useL2Layer(
       orchidDriver({
-        connection: createDb({ databaseURL: ENV.DATABASE_URL }),
+        connection: cacheDb,
         tableName: '__cache',
       }),
     ),
