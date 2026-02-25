@@ -50,7 +50,7 @@ export function HomeContact() {
               </p>
               <div className="flex items-center text-sm">
                 <Clock className="h-4 w-4 mr-2" />
-                <span>Monday - Friday, 9:00 AM - 6:00 PM EST</span>
+                <span>Monday - Friday, 9:00 AM - 6:00 PM (Beijing Time)</span>
               </div>
             </div>
         </div>
