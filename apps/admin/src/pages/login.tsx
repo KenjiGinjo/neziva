@@ -48,7 +48,7 @@ export function PageLogin() {
           </Form.Form>
           <Form.Submit
             form={form}
-            request={() => $qc.admin.login.password.$post.mutation({ body: dto })}
+            request={() => $qc.admin.auth.login.$post.mutation({ body: { username: dto.email, password: dto.password } })}
             onSuccess={async (res) => {
               const meta = get(res, 'body.meta', undefined)
               await signin(meta)

@@ -7,7 +7,7 @@ import { HomePortfolio } from '@/components/home-portfolio'
 import { HomeProcess } from '@/components/home-process'
 import { HomeServices } from '@/components/home-services'
 import { HomeTechnologies } from '@/components/home-technologies'
-import { HomeTestimonials } from '@/components/home-testimonials'
+// import { HomeTestimonials } from '@/components/home-testimonials'
 import { HomeWhyChoose } from '@/components/home-why-choose'
 
 export function PageHome() {
@@ -20,7 +20,7 @@ export function PageHome() {
       <HomeAIDemo />
       <HomeProcess />
       <HomeTechnologies />
-      <HomeTestimonials />
+      {/* <HomeTestimonials /> */}
       <HomeAbout />
       <HomeCTA />
       <HomeContact />

@@ -1,4 +1,4 @@
-import { Brain, Code, Database, TrendingUp } from 'lucide-react'
+import { Brain, Code, Database, Link, TrendingUp } from 'lucide-react'
 
 const technologies = [
   { name: 'LLMs', icon: Brain },
@@ -7,7 +7,7 @@ const technologies = [
   { name: 'Node.js', icon: Code },
   { name: 'PostgreSQL', icon: Database },
   { name: 'Docker', icon: Database },
-  { name: 'LangChain', icon: Brain },
+  { name: 'LangChain', icon: Link },
   { name: 'Vector DBs', icon: Database },
   { name: 'AWS', icon: Database },
   { name: 'TensorFlow', icon: TrendingUp },

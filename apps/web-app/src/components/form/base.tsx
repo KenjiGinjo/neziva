@@ -49,11 +49,12 @@ interface FormComponentProps<TFieldValues extends FieldValues = FieldValues> {
   form: UseFormReturn<TFieldValues>
   children: ReactNode
   onChange?: (values: TFieldValues) => void
+  onSubmit?: (e: React.FormEvent) => void
   className?: string
 }
 
 export function FormComponent<TFieldValues extends FieldValues = FieldValues>(props: FormComponentProps<TFieldValues>) {
-  const { form, children, onChange, className } = props
+  const { form, children, onChange, onSubmit, className } = props
 
   useEffect(() => {
     if (!onChange) {
@@ -70,7 +71,7 @@ export function FormComponent<TFieldValues extends FieldValues = FieldValues>(pr
   return (
     <FormContext.Provider value={useMemo(() => ({ form }), [form])}>
       <Form {...form}>
-        <form className={cn(className)}>
+        <form className={cn(className)} onSubmit={onSubmit}>
           {children}
         </form>
       </Form>
