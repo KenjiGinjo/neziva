@@ -12,7 +12,7 @@ export function ServicesCTA() {
           Schedule a free consultation and we'll help you choose the right solution for your business
         </p>
         <Link href="/contact">
-          <Button className="bg-white text-[#4F46E5] px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all">
+          <Button className="bg-white text-[#4F46E5] px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:shadow-2xl transition-all">
             Schedule Free Consultation
           </Button>
         </Link>

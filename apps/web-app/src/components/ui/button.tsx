@@ -5,21 +5,21 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*=\'size-\'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-50  [&_svg]:pointer-events-none [&_svg:not([class*=\'size-\'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
   {
     variants: {
       variant: {
         default:
-          'bg-pink-500 text-white shadow-sm hover:bg-pink-600 active:bg-pink-700 hover:shadow-md transition-shadow',
+          'bg-[#4F46E5] text-white shadow-sm hover:bg-[#4338CA] active:bg-[#3730A3] hover:shadow-md transition-shadow',
         destructive:
           'bg-destructive text-white shadow-sm hover:bg-destructive/90 active:bg-destructive/80 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 hover:shadow-md transition-shadow',
         outline:
-          'border-2 border-pink-500/30 bg-background text-pink-600 shadow-sm hover:bg-pink-50 hover:border-pink-500 hover:text-pink-700 active:bg-pink-100 dark:bg-input/30 dark:border-pink-500/40 dark:hover:bg-pink-500/10 dark:hover:border-pink-500/60 transition-all',
+          'border-2 border-[#4F46E5]/30 bg-background text-[#4F46E5] shadow-sm hover:bg-indigo-50 hover:border-[#4F46E5] hover:text-[#4338CA] active:bg-indigo-100 dark:bg-input/30 dark:border-[#4F46E5]/40 dark:hover:bg-[#4F46E5]/10 dark:hover:border-[#4F46E5]/60 transition-all',
         secondary:
-          'bg-pink-100 text-pink-700 shadow-sm hover:bg-pink-200 active:bg-pink-300 dark:bg-pink-900/30 dark:text-pink-300 dark:hover:bg-pink-900/40 transition-all',
+          'bg-indigo-100 text-[#4F46E5] shadow-sm hover:bg-indigo-200 active:bg-indigo-300 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/40 transition-all',
         ghost:
-          'text-pink-600 hover:bg-pink-50 hover:text-pink-700 active:bg-pink-100 dark:hover:bg-pink-900/20 dark:text-pink-400 dark:hover:text-pink-300 transition-all',
-        link: 'text-pink-500 underline-offset-4 hover:text-pink-600 hover:underline active:text-pink-700 transition-colors',
+          'text-[#4F46E5] hover:bg-indigo-50 hover:text-[#4338CA] active:bg-indigo-100 dark:hover:bg-indigo-900/20 dark:text-indigo-400 dark:hover:text-indigo-300 transition-all',
+        link: 'text-[#4F46E5] underline-offset-4 hover:text-[#4338CA] hover:underline active:text-[#3730A3] transition-colors',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
