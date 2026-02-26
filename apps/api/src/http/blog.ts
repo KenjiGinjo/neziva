@@ -25,7 +25,7 @@ export const blogRoute = new Hono()
       .offset(where.offset)
 
     const total = await query.count()
-    const data = await query
+    const data = await query.order({ createdAt: 'DESC' })
 
     return c.json({
       data,

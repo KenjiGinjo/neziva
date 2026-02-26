@@ -12,18 +12,16 @@ export const portfolioRoute = new Hono()
   .get('/projects', pagination(), validate('query', vPortfolioProjectsQuery), async (c): Promise<HonoResponse<{ data: ResPortfolioProjectList[], pagination: ResPagination }>> => {
     const { where } = c.get('page')
     const { type, tag, featured } = c.req.valid('query')
-
     const query = dr.portfolioProject.selectForList({
       type,
       tag,
       featured,
     })
-      .order({ createdAt: 'DESC' })
       .limit(where.limit)
       .offset(where.offset)
 
     const total = await query.count()
-    const data = await query
+    const data = await query.order({ createdAt: 'DESC' })
 
     return c.json({
       data,
