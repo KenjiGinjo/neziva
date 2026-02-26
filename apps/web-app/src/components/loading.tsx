@@ -20,7 +20,7 @@ interface LoadingErrorProps {
 }
 
 export function Loading(_props: LoadingProps) {
-  return <Loader2Icon className="animate-spin size-8 text-pink-500" />
+  return <Loader2Icon className="animate-spin size-8 text-[#4F46E5]" />
 }
 
 Loading.Card = ({ className = '' }: LoadingCardProps) => {

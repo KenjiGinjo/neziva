@@ -23,7 +23,7 @@ export function HomeWhyChoose() {
             </p>
           </div>
           <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-2">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#7C3AED] to-pink-500 rounded-xl flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#7C3AED] to-[#10B981] rounded-xl flex items-center justify-center mb-6">
               <Layers className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Full-Stack Capability</h3>

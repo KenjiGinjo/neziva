@@ -6,6 +6,7 @@ import { PageContact } from './pages/contact'
 import { PageHome } from './pages/home'
 import { PageNotFound } from './pages/not-found'
 import { PagePortfolio } from './pages/portfolio'
+import { PagePortfolioDetail } from './pages/portfolio-detail'
 import { PagePrivacy } from './pages/privacy'
 import { PageServices } from './pages/services'
 
@@ -20,6 +21,11 @@ export function AppRouter() {
       <Route path="/services">
         <MainLayout>
           <PageServices />
+        </MainLayout>
+      </Route>
+      <Route path="/portfolio/:id">
+        <MainLayout>
+          <PagePortfolioDetail />
         </MainLayout>
       </Route>
       <Route path="/portfolio">

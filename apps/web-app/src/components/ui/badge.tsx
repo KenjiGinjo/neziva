@@ -10,13 +10,13 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          'border-transparent bg-pink-500 text-white shadow-sm [a&]:hover:bg-pink-600 [a&]:hover:shadow-md',
+          'border-transparent bg-[#4F46E5] text-white shadow-sm [a&]:hover:bg-[#4338CA] [a&]:hover:shadow-md',
         secondary:
-          'border-transparent bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300 [a&]:hover:bg-pink-200 dark:[a&]:hover:bg-pink-900/40',
+          'border-transparent bg-indigo-100 text-[#4F46E5] dark:bg-indigo-900/30 dark:text-indigo-300 [a&]:hover:bg-indigo-200 dark:[a&]:hover:bg-indigo-900/40',
         destructive:
           'border-transparent bg-red-500 text-white shadow-sm [a&]:hover:bg-red-600 [a&]:hover:shadow-md focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-red-600/80',
         outline:
-          'border-2 border-pink-500/40 bg-transparent text-pink-600 dark:border-pink-500/50 dark:text-pink-400 [a&]:hover:bg-pink-50 [a&]:hover:border-pink-500 dark:[a&]:hover:bg-pink-900/20',
+          'border-2 border-[#4F46E5]/40 bg-transparent text-[#4F46E5] dark:border-[#4F46E5]/50 dark:text-indigo-400 [a&]:hover:bg-indigo-50 [a&]:hover:border-[#4F46E5] dark:[a&]:hover:bg-indigo-900/20',
         success:
           'border-transparent bg-emerald-500 text-white shadow-sm [a&]:hover:bg-emerald-600 [a&]:hover:shadow-md',
         warning:

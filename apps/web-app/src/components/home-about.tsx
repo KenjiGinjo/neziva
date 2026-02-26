@@ -47,7 +47,7 @@ export function HomeAbout() {
               <h3 className="text-xl font-bold mb-2">Secure</h3>
               <p className="text-sm opacity-90">Enterprise-grade security standards</p>
             </div>
-            <div className="bg-gradient-to-br from-[#7C3AED] to-pink-500 rounded-xl p-8 text-white mt-8">
+            <div className="bg-gradient-to-br from-[#7C3AED] to-[#10B981] rounded-xl p-8 text-white mt-8">
               <RefreshCw className="h-10 w-10 mb-4" />
               <h3 className="text-xl font-bold mb-2">Scalable</h3>
               <p className="text-sm opacity-90">Built to grow with your business</p>

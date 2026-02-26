@@ -9,12 +9,12 @@ function Progress({
   value,
   ...props
 }: React.ComponentProps<typeof ProgressPrimitive.Root> & { color?: string }) {
-  const defaultColor = color || '#ff3366'
+  const defaultColor = color || '#4F46E5'
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        'bg-pink-100 dark:bg-pink-900/30 relative h-2.5 w-full overflow-hidden rounded-full shadow-inner',
+        'bg-indigo-100 dark:bg-indigo-900/30 relative h-2.5 w-full overflow-hidden rounded-full shadow-inner',
         className,
       )}
       {...props}
