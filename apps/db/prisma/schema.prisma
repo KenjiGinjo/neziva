@@ -101,6 +101,34 @@ model BlogPost {
   @@map("blog_post")
 }
 
+// 作品集项目
+model PortfolioProject {
+  id        String   @id @default(cuid()) @db.VarChar
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  name                String   @db.VarChar(255)
+  slug                String   @unique @db.VarChar(255)
+  type                String   @db.VarChar(100)
+  description         String   @db.Text
+  tags                String[]  @default([])
+  image               String    @db.VarChar(500)
+  status              String[]  @default([])
+  demoUrl             String?   @map("demo_url") @db.VarChar(500)
+  githubUrl           String?   @map("github_url") @db.VarChar(500)
+  problemStatement    String?   @map("problem_statement") @db.Text
+  solutionOverview    String?   @map("solution_overview") @db.Text
+  technicalHighlights Json?     @map("technical_highlights") @db.JsonB
+  results             Json?     @db.JsonB
+  screenshots         String[]  @default([])
+  technologies       String[]  @default([])
+  featured            Boolean  @default(false)
+
+  @@index([type])
+  @@index([featured])
+  @@map("portfolio_project")
+}
+
 // Newsletter 订阅
 model Newsletter {
   id        String   @id @default(cuid()) @db.VarChar
