@@ -3,6 +3,7 @@ import { admin } from './admin'
 import { blogRoute } from './blog'
 import { contactRoute } from './contact'
 import { newsletterRoute } from './newsletter'
+import { portfolioRoute } from './portfolio'
 import { systemRoute } from './system'
 import { uploadRoute } from './upload'
 
@@ -12,4 +13,5 @@ export const routes = new Hono()
   .route('/', uploadRoute)
   .route('/', contactRoute)
   .route('/', blogRoute)
+  .route('/', portfolioRoute)
   .route('/', newsletterRoute)
