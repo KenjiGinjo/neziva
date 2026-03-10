@@ -1,5 +1,6 @@
 import { Calendar, Github, Mail } from 'lucide-react'
 import { Link } from 'wouter'
+import { Logo } from '@/components/logo'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -9,14 +10,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div>
-            <Link href="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#4F46E5] to-[#7C3AED] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">N</span>
-              </div>
-              <span className="text-3xl font-bold bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] bg-clip-text text-transparent">
-                neziva
-              </span>
-            </Link>
+            <Logo size="sm" withBox withText href="/" className="mb-4" />
             <p className="text-gray-400 leading-relaxed mb-4">
               Practical AI Solutions for Your Business. From Ideas to Working Code.
             </p>
@@ -118,16 +112,13 @@ export function Footer() {
               {' '}
               {currentYear}
               {' '}
-              neziva. All rights reserved.
+              Neziva. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
-              <a href="#" className="hover:text-white transition-colors">
+              <Link href="/privacy" className="hover:text-white transition-colors">
                 Privacy Policy
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
+              </Link>
+              <a href="/privacy#cookies" className="hover:text-white transition-colors">
                 Cookie Policy
               </a>
             </div>
