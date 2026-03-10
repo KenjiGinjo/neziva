@@ -28,9 +28,14 @@ const technologies = [
   { name: 'FastAPI', icon: Zap },
 ]
 
-export function HomeTechnologies() {
+interface SectionTechnologiesProps {
+  /** Section background: 'gray' | 'white' */
+  variant?: 'gray' | 'white'
+}
+
+export function SectionTechnologies({ variant = 'gray' }: SectionTechnologiesProps) {
   return (
-    <section className="py-24 bg-gray-50">
+    <section className={`py-24 ${variant === 'gray' ? 'bg-gray-50' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -44,7 +49,10 @@ export function HomeTechnologies() {
           {technologies.map((tech) => {
             const Icon = tech.icon
             return (
-              <div key={tech.name} className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all">
+              <div
+                key={tech.name}
+                className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all"
+              >
                 <Icon className="h-12 w-12 text-[#4F46E5] mb-3 mx-auto" />
                 <div className="font-semibold text-gray-900">{tech.name}</div>
               </div>

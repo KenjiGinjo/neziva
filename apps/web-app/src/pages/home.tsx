@@ -4,11 +4,10 @@ import { HomeContact } from '@/components/home-contact'
 import { HomeCTA } from '@/components/home-cta'
 import { HomeHero } from '@/components/home-hero'
 import { HomePortfolio } from '@/components/home-portfolio'
-import { HomeProcess } from '@/components/home-process'
 import { HomeServices } from '@/components/home-services'
-import { HomeTechnologies } from '@/components/home-technologies'
-// import { HomeTestimonials } from '@/components/home-testimonials'
 import { HomeWhyChoose } from '@/components/home-why-choose'
+import { SectionProcess } from '@/components/section-process'
+import { SectionTechnologies } from '@/components/section-technologies'
 
 export function PageHome() {
   return (
@@ -18,8 +17,8 @@ export function PageHome() {
       <HomeServices />
       <HomePortfolio />
       <HomeAIDemo />
-      <HomeProcess />
-      <HomeTechnologies />
+      <SectionProcess />
+      <SectionTechnologies />
       {/* <HomeTestimonials /> */}
       <HomeAbout />
       <HomeCTA />
