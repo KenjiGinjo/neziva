@@ -1,6 +1,6 @@
+import type { ResPortfolioProjectList } from '@neziva/interfaces'
 import { ExternalLink, Github, Play } from 'lucide-react'
 import { Link } from 'wouter'
-import type { ResPortfolioProjectList } from '@neziva/interfaces'
 import { Loading } from './loading'
 
 interface PortfolioGridProps {

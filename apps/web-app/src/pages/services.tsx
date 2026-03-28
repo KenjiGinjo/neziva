@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { ServicesComparison } from '@/components/services-comparison'
-import { ServicesCTA } from '@/components/services-cta'
+import { SectionCTA } from '@/components/section-cta'
 import { ServicesGrid } from '@/components/services-grid'
 import { ServicesHero } from '@/components/services-hero'
 import { ServicesImplementation } from '@/components/services-implementation'
@@ -30,7 +30,7 @@ export function PageServices() {
       <ServicesMaintenance />
       <ServicesComparison />
       <ServicesProcess />
-      <ServicesCTA />
+      <SectionCTA variant="services" />
     </div>
   )
 }

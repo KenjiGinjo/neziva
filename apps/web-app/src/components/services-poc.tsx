@@ -9,7 +9,7 @@ export function ServicesPOC() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-4 mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-xl flex items-center justify-center">
                 <FlaskConical className="h-8 w-8 text-[#7C3AED]" />
               </div>
               <div>
@@ -79,7 +79,7 @@ export function ServicesPOC() {
               </div>
 
               <Link href="/contact">
-                <Button className="w-full bg-gradient-to-r from-[#7C3AED] to-pink-500 text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all mb-6">
+                <Button className="w-full bg-gradient-to-r from-[#7C3AED] to-[#10B981] text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all mb-6">
                   Start POC Project
                 </Button>
               </Link>

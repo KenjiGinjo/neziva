@@ -19,7 +19,7 @@ const services = [
     price: '$5,000-15,000',
     description: 'Validate your AI solution feasibility with a working minimum viable prototype.',
     color: '#7C3AED',
-    bgColor: 'from-purple-100 to-pink-100',
+    bgColor: 'from-indigo-100 to-purple-100',
   },
   {
     title: 'End-to-End AI System',

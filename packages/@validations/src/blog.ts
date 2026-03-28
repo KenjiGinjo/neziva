@@ -3,6 +3,8 @@ import { z } from 'zod'
 
 export const vBlogSearch = z.object({
   keyword: z.string().optional(),
+  page: z.coerce.number().optional(),
+  pageSize: z.coerce.number().optional(),
 })
 export type vBlogSearch = z.infer<typeof vBlogSearch>
 
@@ -10,6 +12,8 @@ export const vBlogPostsQuery = z.object({
   category: z.string().optional(),
   tag: z.string().optional(),
   featured: z.coerce.boolean().optional(),
+  page: z.coerce.number().optional(),
+  pageSize: z.coerce.number().optional(),
 })
 export type vBlogPostsQuery = z.infer<typeof vBlogPostsQuery>
 
