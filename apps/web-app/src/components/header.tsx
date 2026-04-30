@@ -43,11 +43,6 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <Link href="/contact">
-              <Button className="bg-[#F97316] hover:bg-orange-600 text-white px-6 py-2.5 rounded-lg font-semibold">
-                Get Started
-              </Button>
-            </Link>
           </nav>
 
           <button
