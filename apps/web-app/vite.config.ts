@@ -11,7 +11,7 @@ export default defineConfig({
     tailwindcss(),
     Sitemap({
       hostname: 'https://neziva.com',
-      dynamicRoutes: ['/services', '/portfolio', '/portfolio/:id', '/about', '/contact', '/blog'],
+      dynamicRoutes: ['/services', '/portfolio', '/about', '/contact', '/blog'],
       generateRobotsTxt: false,
     }),
   ],

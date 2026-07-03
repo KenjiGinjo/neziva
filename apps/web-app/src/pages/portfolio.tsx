@@ -32,11 +32,13 @@ export function PagePortfolio() {
   return (
     <div className="bg-white">
       <PortfolioHero />
-      <PortfolioFilter
-        selectedFilter={selectedFilter}
-        onFilterChange={f => { setSelectedFilter(f); setPage(1) }}
-        projectCount={projectCount}
-      />
+      {projectCount > 0 && (
+        <PortfolioFilter
+          selectedFilter={selectedFilter}
+          onFilterChange={f => { setSelectedFilter(f); setPage(1) }}
+          projectCount={projectCount}
+        />
+      )}
       <PortfolioGrid
         projects={projects}
         isLoading={isLoading}

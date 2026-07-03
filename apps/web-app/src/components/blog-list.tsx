@@ -1,6 +1,10 @@
 import type { ResBlogPostList } from '@neziva/interfaces'
+import { Mail } from 'lucide-react'
 import { Link } from 'wouter'
+import { Button } from '@/components/ui/button'
 import { Loading } from './loading'
+
+const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
 
 function formatDate(iso: string | null) {
   if (!iso) return ''
@@ -20,8 +24,15 @@ export function BlogList({ posts, isLoading }: BlogListProps) {
   if (posts.length === 0) {
     return (
       <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-6 text-gray-600">
-          No articles yet. Check back soon.
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <p className="text-xl text-gray-600 mb-4">No articles yet.</p>
+          <p className="text-gray-500 mb-8">We're working on content about AI for business. In the meantime, feel free to reach out with questions.</p>
+          <a href={`mailto:${CONTACT_EMAIL}?subject=AI%20Question`}>
+            <Button variant="outline" className="inline-flex items-center">
+              <Mail className="mr-2 h-4 w-4" />
+              Ask Us a Question
+            </Button>
+          </a>
         </div>
       </section>
     )

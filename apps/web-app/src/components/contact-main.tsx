@@ -1,7 +1,6 @@
 import type { vContactSubmit } from '@neziva/validations'
 import type { FieldValues, UseFormReturn } from 'react-hook-form'
 import { CheckCircle, Clock, Mail, Send } from 'lucide-react'
-import { Link } from 'wouter'
 import { Form } from '@/components/form'
 import { Select as FormSelect } from '@/components/form/select'
 import { Button } from '@/components/ui/button'
@@ -9,7 +8,7 @@ import { $qc } from '@/query-client'
 
 const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
 
-type ContactMainProps<T extends FieldValues> = {
+interface ContactMainProps<T extends FieldValues> {
   form: UseFormReturn<T>
   dto: vContactSubmit
   patch: (v: Partial<vContactSubmit>) => void
@@ -144,8 +143,6 @@ export function ContactMain<T extends FieldValues>({
                       <div className="text-center mt-4">
                         <p className="text-sm text-gray-500">
                           We'll never share your information.
-                          {' '}
-                          <Link href="/privacy" className="text-[#4F46E5] hover:underline">Privacy Policy</Link>
                         </p>
                       </div>
                     </Form.Form>

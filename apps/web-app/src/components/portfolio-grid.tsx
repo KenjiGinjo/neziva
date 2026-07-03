@@ -1,7 +1,10 @@
 import type { ResPortfolioProjectList } from '@neziva/interfaces'
-import { ExternalLink, Github, Play } from 'lucide-react'
+import { ExternalLink, Github, Mail, Play } from 'lucide-react'
 import { Link } from 'wouter'
+import { Button } from '@/components/ui/button'
 import { Loading } from './loading'
+
+const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
 
 interface PortfolioGridProps {
   projects: ResPortfolioProjectList[]
@@ -11,6 +14,25 @@ interface PortfolioGridProps {
 export function PortfolioGrid({ projects, isLoading }: PortfolioGridProps) {
   if (isLoading) {
     return <Loading.Card />
+  }
+
+  if (projects.length === 0) {
+    return (
+      <section className="py-20 bg-white">
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            We're currently looking for 1–2 pilot projects to build together.
+            Your project could be our first case study.
+          </p>
+          <a href={`mailto:${CONTACT_EMAIL}?subject=Pilot%20Project%20Inquiry`}>
+            <Button className="bg-[#F97316] hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center">
+              <Mail className="mr-2 h-5 w-5" />
+              Contact Us
+            </Button>
+          </a>
+        </div>
+      </section>
+    )
   }
 
   return (

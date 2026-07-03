@@ -1,6 +1,8 @@
-import { ArrowLeft, Calendar, CheckCircle, MessageSquare } from 'lucide-react'
+import { ArrowLeft, CheckCircle, Mail, MessageSquare } from 'lucide-react'
 import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
+
+const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
 
 type CTAVariant = 'home' | 'portfolio' | 'blog' | 'about' | 'contact' | 'services'
 
@@ -9,7 +11,6 @@ const PRESETS: Record<CTAVariant, {
   description: string
   features?: string[]
   footerText?: string
-  primaryIcon?: 'calendar' | 'none'
   showSecondaryButton: boolean
   secondaryAsLink?: boolean
   gradient: string
@@ -17,32 +18,30 @@ const PRESETS: Record<CTAVariant, {
 }> = {
   home: {
     title: 'Ready to Build Something Together?',
-    description: "Let's discuss how AI can help your business. Schedule a free consultation to explore AI opportunities. No commitment required—just an honest conversation about what's possible.",
-    features: ['No commitment required', '30-minute call', 'Actionable insights'],
-    primaryIcon: 'calendar',
+    description: "Have a project in mind? Email us — we'd love to hear about it. No commitment, just an honest conversation about what's possible.",
+    features: ['No commitment required', 'Free discovery call', '24h response on business days'],
     showSecondaryButton: false,
     gradient: 'from-[#4F46E5] to-[#7C3AED]',
   },
   portfolio: {
     title: 'Ready to Build Something Together?',
-    description: "Let's discuss how AI can help your business grow and transform your operations",
-    features: ['No commitment required', 'Free consultation', 'Quick response'],
+    description: "Looking for an AI partner? Tell us about your project and we'll explore how we can help.",
+    features: ['No commitment required', 'Free discovery call', 'Quick response'],
     showSecondaryButton: true,
     secondaryAsLink: true,
     gradient: 'from-[#4F46E5] to-[#7C3AED]',
   },
   blog: {
     title: 'Have Questions About AI?',
-    description: "Let's discuss how AI can help your business grow. Schedule a free consultation with our experts.",
-    features: ['No commitment required', '30-minute session', 'Expert advice'],
+    description: "Email us with your questions — we're happy to share what we know about AI for business.",
+    features: ['No commitment required', 'Free discovery call', 'Honest advice'],
     showSecondaryButton: true,
-    primaryIcon: 'none',
     gradient: 'from-[#4F46E5] via-[#7C3AED] to-[#4F46E5]',
   },
   about: {
     title: 'Ready to Build Something Together?',
-    description: "Let's discuss how AI can help your business improve operations and achieve your goals.",
-    footerText: 'No commitment required • Free 30-minute consultation',
+    description: "Tell us about your business and we'll explore how AI can help improve your operations.",
+    footerText: 'No commitment required • Free discovery call',
     showSecondaryButton: true,
     gradient: 'from-[#4F46E5] to-[#7C3AED]',
   },
@@ -55,8 +54,8 @@ const PRESETS: Record<CTAVariant, {
   },
   services: {
     title: 'Not Sure Which Service You Need?',
-    description: "Schedule a free consultation and we'll help you choose the right solution for your business",
-    footerText: 'No commitment required • 30-minute session • Expert guidance',
+    description: "Email us with your project details and we'll help you find the right starting point.",
+    footerText: 'No commitment required • Free discovery call',
     showSecondaryButton: false,
     gradient: 'from-[#4F46E5] via-[#7C3AED] to-[#10B981]',
     compact: true,
@@ -94,12 +93,12 @@ export function SectionCTA({ variant }: SectionCTAProps) {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-          <Link href="/contact">
+          <a href={`mailto:${CONTACT_EMAIL}?subject=Project%20Inquiry`}>
             <Button className="bg-white text-[#4F46E5] px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all shadow-xl hover:shadow-2xl transform hover:scale-105">
-              Schedule Free Consultation
-              {preset.primaryIcon === 'calendar' && <Calendar className="ml-2 h-5 w-5" />}
+              <Mail className="mr-2 h-5 w-5" />
+              Contact Us
             </Button>
-          </Link>
+          </a>
 
           {preset.showSecondaryButton && (
             preset.secondaryAsLink
