@@ -6,10 +6,11 @@ export function ContactHero() {
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Contact' }]} className="mb-4" />
         <h1 className="text-5xl font-bold text-gray-900 mb-4">
-          Let's Talk About Your AI Project
+          Get In Touch
         </h1>
         <p className="text-xl text-gray-600 max-w-3xl">
-          Schedule a free consultation to discuss how AI can transform your business and bring your ideas to life
+          Tell us about your project via the form below, or email us directly.
+          We offer a free 30-minute discovery call for new inquiries.
         </p>
       </div>
     </section>

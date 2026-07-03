@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
-import { ServicesComparison } from '@/components/services-comparison'
 import { SectionCTA } from '@/components/section-cta'
-import { ServicesGrid } from '@/components/services-grid'
+import { ServicesComparison } from '@/components/services-comparison'
 import { ServicesHero } from '@/components/services-hero'
 import { ServicesImplementation } from '@/components/services-implementation'
 import { ServicesMaintenance } from '@/components/services-maintenance'
@@ -23,7 +22,6 @@ export function PageServices() {
   return (
     <div className="bg-white text-gray-900">
       <ServicesHero />
-      <ServicesGrid />
       <ServicesStrategy />
       <ServicesPOC />
       <ServicesImplementation />

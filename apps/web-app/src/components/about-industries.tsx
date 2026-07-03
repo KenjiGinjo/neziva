@@ -14,9 +14,9 @@ export function AboutIndustries() {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">Industries We Serve</h2>
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">Areas We Work In</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We work across various domains to integrate AI solutions that make a real difference in day-to-day operations.
+            Types of AI solutions we build — from automation to intelligent applications.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

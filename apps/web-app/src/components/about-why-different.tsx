@@ -24,9 +24,9 @@ export function AboutWhyDifferent() {
             <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center mb-6">
               <TrendingUp className="h-8 w-8 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Real Experience</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Engineering Experience</h3>
             <p className="text-gray-600 leading-relaxed">
-              We've actually built AI projects and know what works and what doesn't. We've encountered the challenges firsthand and learned from real implementations.
+              Our team has hands-on experience building full-stack and AI-integrated systems. We know what works in practice — not just in theory.
             </p>
           </div>
           <div className="bg-white rounded-2xl p-8 shadow-sm hover:-translate-y-1 transition-all">

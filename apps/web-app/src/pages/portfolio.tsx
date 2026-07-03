@@ -2,9 +2,6 @@ import { useState } from 'react'
 import { PortfolioFilter } from '@/components/portfolio-filter'
 import { PortfolioGrid } from '@/components/portfolio-grid'
 import { PortfolioHero } from '@/components/portfolio-hero'
-import { SectionCTA } from '@/components/section-cta'
-import { SectionProcess } from '@/components/section-process'
-import { SectionTechnologies } from '@/components/section-technologies'
 import { Pagination } from '@/components/ui/pagination'
 import { $qc } from '@/query-client'
 
@@ -56,9 +53,6 @@ export function PagePortfolio() {
           </div>
         </section>
       )}
-      <SectionTechnologies variant="white" />
-      <SectionProcess variant="gradient" />
-      <SectionCTA variant="portfolio" />
     </div>
   )
 }

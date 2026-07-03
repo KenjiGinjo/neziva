@@ -2,6 +2,7 @@ import { Route, Switch } from 'wouter'
 import { MainLayout } from './components/main-layout'
 import { PageAbout } from './pages/about'
 import { PageBlog } from './pages/blog'
+import { PageBlogDetail } from './pages/blog-detail'
 import { PageContact } from './pages/contact'
 import { PageHome } from './pages/home'
 import { PageNotFound } from './pages/not-found'
@@ -41,6 +42,11 @@ export function AppRouter() {
       <Route path="/contact">
         <MainLayout>
           <PageContact />
+        </MainLayout>
+      </Route>
+      <Route path="/blog/:id">
+        <MainLayout>
+          <PageBlogDetail />
         </MainLayout>
       </Route>
       <Route path="/blog">

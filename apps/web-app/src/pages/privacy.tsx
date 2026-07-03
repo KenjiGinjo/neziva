@@ -146,8 +146,8 @@ export function PagePrivacy() {
             <p className="text-gray-600 leading-relaxed mt-4">
               To exercise these rights, please contact us at
               {' '}
-              <a href="mailto:hello@neziva.com" className="text-[#4F46E5] hover:underline">
-                hello@neziva.com
+              <a href="mailto:kenjiginjo@gmail.com" className="text-[#4F46E5] hover:underline">
+                kenjiginjo@gmail.com
               </a>
               .
             </p>
@@ -179,8 +179,8 @@ export function PagePrivacy() {
             <p className="text-gray-600 leading-relaxed">
               If you have questions about this Privacy Policy, please contact us at
               {' '}
-              <a href="mailto:hello@neziva.com" className="text-[#4F46E5] hover:underline">
-                hello@neziva.com
+              <a href="mailto:kenjiginjo@gmail.com" className="text-[#4F46E5] hover:underline">
+                kenjiginjo@gmail.com
               </a>
               .
             </p>

@@ -1,5 +1,4 @@
 import { AboutApproach } from '@/components/about-approach'
-import { AboutConnect } from '@/components/about-connect'
 import { AboutHero } from '@/components/about-hero'
 import { AboutIndustries } from '@/components/about-industries'
 import { AboutMain } from '@/components/about-main'
@@ -17,7 +16,6 @@ export function PageAbout() {
       <AboutIndustries />
       <AboutApproach />
       <AboutValues />
-      <AboutConnect />
       <SectionCTA variant="about" />
       {/* <AboutTestimonials /> */}
     </div>

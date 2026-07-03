@@ -1,5 +1,4 @@
 import { Calendar, CheckCircle, Code, FileText, FlaskConical, LaptopIcon, Rocket } from 'lucide-react'
-import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
 
 export function ServicesPOC() {
@@ -74,15 +73,15 @@ export function ServicesPOC() {
             <div className="bg-white rounded-2xl p-8 shadow-lg sticky top-24 border-2 border-purple-100">
               <div className="text-center mb-6 pb-6 border-b border-gray-200">
                 <p className="text-sm text-gray-500 uppercase tracking-wide mb-2">Starting at</p>
-                <div className="text-5xl font-bold text-gray-900 mb-2">$5,000</div>
-                <p className="text-gray-600">Up to $15,000</p>
+                <div className="text-5xl font-bold text-gray-900 mb-2">$2,000</div>
+                <p className="text-gray-600">Based on project scope</p>
               </div>
 
-              <Link href="/contact">
+              <a href="mailto:kenjiginjo@gmail.com?subject=POC%20Project%20Inquiry">
                 <Button className="w-full bg-gradient-to-r from-[#7C3AED] to-[#10B981] text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all mb-6">
-                  Start POC Project
+                  Get a Quote
                 </Button>
-              </Link>
+              </a>
 
               <div className="space-y-4 mb-6">
                 <h4 className="font-bold text-gray-900">What's Included</h4>

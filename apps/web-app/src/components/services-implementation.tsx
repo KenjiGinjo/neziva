@@ -7,7 +7,6 @@ import {
   Rocket,
   Server,
 } from 'lucide-react'
-import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
 
 export function ServicesImplementation() {
@@ -83,16 +82,16 @@ export function ServicesImplementation() {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl p-8 shadow-lg sticky top-24 border-2 border-orange-100">
               <div className="text-center mb-6 pb-6 border-b border-gray-200">
-                <p className="text-sm text-gray-500 uppercase tracking-wide mb-2">Starting at</p>
-                <div className="text-5xl font-bold text-gray-900 mb-2">$20,000</div>
-                <p className="text-gray-600">Custom pricing based on scope</p>
+                <p className="text-sm text-gray-500 uppercase tracking-wide mb-2">Pricing</p>
+                <div className="text-5xl font-bold text-gray-900 mb-2">Custom quote</div>
+                <p className="text-gray-600">Based on project scope & complexity</p>
               </div>
 
-              <Link href="/contact">
+              <a href="mailto:kenjiginjo@gmail.com?subject=Project%20Proposal%20Request">
                 <Button className="w-full bg-gradient-to-r from-[#F97316] to-red-500 text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all mb-6">
-                  Request Proposal
+                  Request a Proposal
                 </Button>
-              </Link>
+              </a>
 
               <div className="space-y-4 mb-6">
                 <h4 className="font-bold text-gray-900">What's Included</h4>

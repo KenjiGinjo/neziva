@@ -8,7 +8,7 @@ export function ServicesHero() {
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Our Services</h1>
           <p className="text-xl text-gray-600 leading-relaxed">
-            From strategy to implementation, we deliver working AI solutions that solve real business problems. No hype, just practical results.
+            From discovery to deployment, we deliver working AI solutions. Transparent pricing — no hidden fees.
           </p>
         </div>
       </div>

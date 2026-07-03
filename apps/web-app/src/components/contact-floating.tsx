@@ -95,10 +95,10 @@ export function ContactFloating() {
                     label="Service Interested In"
                     placeholder="Select a service"
                     options={[
-                      { value: 'strategy', label: 'AI Strategy Workshop' },
+                      { value: 'strategy', label: 'Discovery Call (Free)' },
                       { value: 'poc', label: 'AI POC Development' },
                       { value: 'implementation', label: 'Full Implementation' },
-                      { value: 'maintenance', label: 'Optimization & Maintenance' },
+                      { value: 'maintenance', label: 'Post-Project Support' },
                       { value: 'other', label: 'Not Sure Yet' },
                     ]}
                     className="w-full border border-gray-200 rounded-xl px-4 py-2.5 bg-gray-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition"
@@ -109,10 +109,10 @@ export function ContactFloating() {
                     desc="(Optional)"
                     placeholder="Select budget range"
                     options={[
-                      { value: 'under5k', label: 'Under $5,000' },
-                      { value: '5k-15k', label: '$5,000 - $15,000' },
-                      { value: '15k-50k', label: '$15,000 - $50,000' },
-                      { value: '50k+', label: '$50,000+' },
+                      { value: 'under2k', label: 'Under $2,000' },
+                      { value: '2k-8k', label: '$2,000 - $8,000' },
+                      { value: '8k-25k', label: '$8,000 - $25,000' },
+                      { value: '25k+', label: '$25,000+' },
                       { value: 'not-say', label: 'Prefer not to say' },
                     ]}
                     className="w-full border border-gray-200 rounded-xl px-4 py-2.5 bg-gray-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition"

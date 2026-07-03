@@ -1,36 +1,66 @@
-import { Award, Clock, RefreshCw, Shield } from 'lucide-react'
+import { Award, Clock, ExternalLink, RefreshCw, Shield, Users } from 'lucide-react'
 
 export function HomeAbout() {
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Neziva</h2>
             <p className="text-xl text-gray-700 mb-6 leading-relaxed">
-              We're a team of AI engineers and full-stack developers who believe in building real solutions, not just providing advice.
+              Neziva is an AI development studio focused on building real, production-ready systems — not slide decks.
             </p>
             <p className="text-gray-600 mb-6 leading-relaxed">
-              Our approach is simple: understand your business needs, design the right AI solution, write clean code, and deliver a working system. We've worked on projects ranging from small POCs to enterprise-scale implementations.
+              We specialize in full-stack AI development: from requirements analysis and system design
+              to writing code, integrating models, and deploying working solutions.
+              Our stack covers React, Vue, Node.js, TypeScript, and modern AI tooling.
             </p>
             <p className="text-gray-600 mb-8 leading-relaxed">
-              What sets us apart is our hands-on development capability. We don't outsource the technical work—we build it ourselves, ensuring quality and maintaining direct communication throughout the project.
+              Led by Kenji Ginjo, a full-stack engineer with hands-on experience across frontend, backend, and AI integration.
             </p>
-            <div className="grid grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#4F46E5] mb-2">50+</div>
-                <div className="text-gray-600">Projects Delivered</div>
+            <a
+              href="https://kenjiginjo.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-[#4F46E5] font-semibold hover:text-[#7C3AED] transition mb-8"
+            >
+              Meet our founder & technical background
+              <ExternalLink className="h-4 w-4" />
+            </a>
+
+            <div className="grid sm:grid-cols-2 gap-4 mb-8">
+              <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+                <Users className="h-8 w-8 text-[#4F46E5] mb-3" />
+                <h3 className="font-bold text-gray-900 mb-1">Direct Communication</h3>
+                <p className="text-sm text-gray-600">Work directly with our engineering team — no middlemen</p>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#7C3AED] mb-2">98%</div>
-                <div className="text-gray-600">Client Satisfaction</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#10B981] mb-2">24/7</div>
-                <div className="text-gray-600">Support Available</div>
+              <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+                <Award className="h-8 w-8 text-[#7C3AED] mb-3" />
+                <h3 className="font-bold text-gray-900 mb-1">Hands-On Delivery</h3>
+                <p className="text-sm text-gray-600">Full-stack development in-house, never outsourced</p>
               </div>
             </div>
+
+            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+              <div className="flex items-start gap-3 mb-4">
+                <Shield className="h-6 w-6 text-[#10B981] shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-1">Registered Business</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    两江新区涅智网络科技工作室（个体工商户）
+                    <br />
+                    Registered: May 14, 2026 · Chongqing, China
+                    <br />
+                    USCC: 92500157MAKD81B01T
+                  </p>
+                </div>
+              </div>
+              <p className="text-sm text-gray-500">
+                Licensed for software development, AI application development, IT consulting, and related technology services.
+              </p>
+            </div>
           </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-gradient-to-br from-[#4F46E5] to-[#7C3AED] rounded-xl p-8 text-white">
               <Award className="h-10 w-10 mb-4" />

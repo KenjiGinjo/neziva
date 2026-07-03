@@ -1,4 +1,4 @@
-import { Calendar, Github, Mail } from 'lucide-react'
+import { Mail } from 'lucide-react'
 import { Link } from 'wouter'
 import { Logo } from '@/components/logo'
 
@@ -11,27 +11,9 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div>
             <Logo size="sm" withBox withText href="/" className="mb-4" />
-            <p className="text-gray-400 leading-relaxed mb-4">
+            <p className="text-gray-400 leading-relaxed">
               Practical AI Solutions for Your Business. From Ideas to Working Code.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-[#4F46E5] transition-colors"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-[#4F46E5] transition-colors"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-            </div>
           </div>
 
           <div>
@@ -39,7 +21,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link href="/services" className="hover:text-white transition-colors">
-                  AI Strategy Workshop
+                  Discovery Call
                 </Link>
               </li>
               <li>
@@ -54,7 +36,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/services" className="hover:text-white transition-colors">
-                  Optimization & Maintenance
+                  Post-Project Support
                 </Link>
               </li>
             </ul>
@@ -91,38 +73,22 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-[#4F46E5]" />
-                <a href="mailto:hello@neziva.com" className="hover:text-white transition-colors">
-                  hello@neziva.com
+                <a href="mailto:kenjiginjo@gmail.com" className="hover:text-white transition-colors">
+                  kenjiginjo@gmail.com
                 </a>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Calendar className="h-5 w-5 text-[#4F46E5]" />
-                <Link href="/contact" className="hover:text-white transition-colors">
-                  Schedule Call
-                </Link>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-sm mb-4 md:mb-0">
-              ©
-              {' '}
-              {currentYear}
-              {' '}
-              Neziva. All rights reserved.
-            </p>
-            <div className="flex space-x-6 text-sm">
-              <Link href="/privacy" className="hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <a href="/privacy#cookies" className="hover:text-white transition-colors">
-                Cookie Policy
-              </a>
-            </div>
-          </div>
+          <p className="text-gray-500 text-sm text-center">
+            ©
+            {' '}
+            {currentYear}
+            {' '}
+            Neziva. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

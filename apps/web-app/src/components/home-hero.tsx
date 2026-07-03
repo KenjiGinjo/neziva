@@ -1,6 +1,8 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Mail } from 'lucide-react'
 import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
+
+const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
 
 export function HomeHero() {
   return (
@@ -12,6 +14,7 @@ export function HomeHero() {
       <div className="relative max-w-7xl mx-auto px-6 h-full min-h-[600px] flex items-center">
         <div className="grid md:grid-cols-2 gap-12 items-center w-full">
           <div className="text-white">
+            <p className="text-purple-200 font-medium mb-4">AI Development Studio · Registered in China</p>
             <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
               Practical AI Solutions for Your Business
             </h1>
@@ -19,18 +22,19 @@ export function HomeHero() {
               From Ideas to Working Code
             </p>
             <p className="text-lg mb-8 text-purple-100 leading-relaxed">
-              We build working AI systems. Not just consulting—we write code and deliver real solutions that transform your business operations.
+              We build working AI systems — not just consulting decks.
+              Neziva is a new studio, but our delivery is real. We're currently accepting our first pilot clients.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/contact">
+              <a href={`mailto:${CONTACT_EMAIL}?subject=Project%20Inquiry`}>
                 <Button className="bg-[#F97316] hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center">
-                  Schedule Free Consultation
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <Mail className="mr-2 h-5 w-5" />
+                  Contact Us
                 </Button>
-              </Link>
-              <Link href="/portfolio">
+              </a>
+              <Link href="/about">
                 <Button variant="outline">
-                  View Our Work
+                  About Neziva
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -41,7 +45,7 @@ export function HomeHero() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-3 h-3 bg-[#10B981] rounded-full animate-pulse" />
-                  <span className="text-white font-mono text-sm">AI System Active</span>
+                  <span className="text-white font-mono text-sm">buildAISolution()</span>
                 </div>
                 <div className="bg-white/5 rounded-lg p-4 font-mono text-xs text-purple-100">
                   <div className="mb-2">
@@ -69,16 +73,16 @@ export function HomeHero() {
                 </div>
                 <div className="grid grid-cols-3 gap-3 pt-4">
                   <div className="bg-white/5 rounded-lg p-3 text-center">
-                    <div className="text-2xl font-bold text-white">98%</div>
-                    <div className="text-xs text-purple-200">Accuracy</div>
+                    <div className="text-lg font-bold text-white">Full-Stack</div>
+                    <div className="text-xs text-purple-200">React · Node · AI</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3 text-center">
-                    <div className="text-2xl font-bold text-white">24/7</div>
-                    <div className="text-xs text-purple-200">Uptime</div>
+                    <div className="text-lg font-bold text-white">In-House</div>
+                    <div className="text-xs text-purple-200">We Write the Code</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3 text-center">
-                    <div className="text-2xl font-bold text-white">3x</div>
-                    <div className="text-xs text-purple-200">ROI</div>
+                    <div className="text-lg font-bold text-white">End-to-End</div>
+                    <div className="text-xs text-purple-200">Design to Deploy</div>
                   </div>
                 </div>
               </div>

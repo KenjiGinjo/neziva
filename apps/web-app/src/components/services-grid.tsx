@@ -1,13 +1,14 @@
-import { ArrowRight, FlaskConical, Lightbulb, Rocket, TrendingUp } from 'lucide-react'
+import { ArrowRight, FlaskConical, Lightbulb, Rocket } from 'lucide-react'
 
 const services = [
   {
-    title: 'AI Strategy Workshop',
+    title: 'Discovery Call',
     anchor: 'strategy',
     icon: Lightbulb,
-    duration: '2-4 hours',
-    price: '$800-1,500',
-    description: 'Discover how AI can transform your business operations with our diagnostic workshop.',
+    duration: '30 min',
+    price: 'Free',
+    priceNote: 'No commitment',
+    description: 'Explore how AI can help your business. We\'ll discuss your goals and outline possible next steps.',
     color: '#4F46E5',
     bgColor: 'from-blue-100 to-purple-100',
   },
@@ -16,7 +17,8 @@ const services = [
     anchor: 'poc',
     icon: FlaskConical,
     duration: '1-3 weeks',
-    price: '$5,000-15,000',
+    price: 'From $2,000',
+    priceNote: 'Early partner pricing',
     description: 'Validate your AI solution feasibility with a working minimum viable prototype.',
     color: '#7C3AED',
     bgColor: 'from-indigo-100 to-purple-100',
@@ -26,20 +28,11 @@ const services = [
     anchor: 'implementation',
     icon: Rocket,
     duration: '1-3 months',
-    price: '$20,000+',
+    price: 'Custom quote',
+    priceNote: 'Based on scope',
     description: 'Complete AI system from concept to production-ready deployment.',
     color: '#F97316',
     bgColor: 'from-orange-100 to-red-100',
-  },
-  {
-    title: 'AI Optimization & Maintenance',
-    anchor: 'maintenance',
-    icon: TrendingUp,
-    duration: 'Monthly',
-    price: '$2,000-5,000/mo',
-    description: 'Ongoing optimization and support for existing AI systems.',
-    color: '#10B981',
-    bgColor: 'from-green-100 to-emerald-100',
   },
 ]
 
@@ -47,7 +40,10 @@ export function ServicesGrid() {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <p className="text-center text-[#4F46E5] font-medium mb-10">
+          Early partner pricing available for our first pilot clients
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon
             return (
@@ -68,6 +64,7 @@ export function ServicesGrid() {
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-3xl font-bold text-gray-900">{service.price}</span>
+                    <p className="text-sm text-gray-500 mt-1">{service.priceNote}</p>
                   </div>
                   <a
                     href={`/services#${service.anchor}`}

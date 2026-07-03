@@ -1,9 +1,9 @@
 import { CheckCircle } from 'lucide-react'
 
 const rows = [
-  { feature: 'Duration', values: ['2-4 hours', '1-3 weeks', '1-3 months', 'Monthly'] },
-  { feature: 'Price Range', values: ['$800 - $1,500', '$5,000 - $15,000', '$20,000+', '$2,000 - $5,000/mo'], highlight: true },
-  { feature: 'Best For', values: ['Exploring AI opportunities', 'Validating feasibility', 'Full implementation', 'Existing systems'] },
+  { feature: 'Duration', values: ['30 min', '1-3 weeks', '1-3 months', 'Monthly'] },
+  { feature: 'Pricing', values: ['Free', 'From $2,000', 'Custom quote', 'After delivery'], highlight: true },
+  { feature: 'Best For', values: ['Exploring AI opportunities', 'Validating feasibility', 'Full implementation', 'Existing systems we built'] },
   { feature: 'Strategic Planning', values: [true, true, true, false] },
   { feature: 'Working Prototype', values: [false, true, true, false] },
   { feature: 'Production Deployment', values: [false, false, true, true] },
@@ -17,7 +17,7 @@ export function ServicesComparison() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Compare Our Services</h2>
-          <p className="text-xl text-gray-600">Find the perfect solution for your business needs</p>
+          <p className="text-xl text-gray-600">Find the right starting point for your project</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -26,10 +26,10 @@ export function ServicesComparison() {
               <thead>
                 <tr className="bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] text-white">
                   <th className="px-6 py-4 text-left font-semibold">Feature</th>
-                  <th className="px-6 py-4 text-center font-semibold">Strategy Workshop</th>
+                  <th className="px-6 py-4 text-center font-semibold">Discovery Call</th>
                   <th className="px-6 py-4 text-center font-semibold">POC Development</th>
                   <th className="px-6 py-4 text-center font-semibold">End-to-End System</th>
-                  <th className="px-6 py-4 text-center font-semibold">Optimization</th>
+                  <th className="px-6 py-4 text-center font-semibold">Post-Project Support</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">

@@ -1,5 +1,4 @@
 import { Calendar, CheckCircle, FileText, HeadphonesIcon, Lightbulb, TrendingUp } from 'lucide-react'
-import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
 
 export function ServicesMaintenance() {
@@ -13,8 +12,8 @@ export function ServicesMaintenance() {
                 <TrendingUp className="h-8 w-8 text-[#10B981]" />
               </div>
               <div>
-                <h2 className="text-4xl font-bold text-gray-900">AI Optimization & Maintenance</h2>
-                <p className="text-gray-600 mt-1">Keep your AI systems running at peak performance</p>
+                <h2 className="text-4xl font-bold text-gray-900">Post-Project Support</h2>
+                <p className="text-gray-600 mt-1">Ongoing optimization for systems we've built together</p>
               </div>
             </div>
 
@@ -23,8 +22,8 @@ export function ServicesMaintenance() {
                 <div className="flex items-center space-x-3">
                   <Calendar className="h-6 w-6 text-[#10B981]" />
                   <div>
-                    <p className="text-sm text-gray-500">Duration</p>
-                    <p className="font-semibold text-gray-900">Monthly service</p>
+                    <p className="text-sm text-gray-500">Availability</p>
+                    <p className="font-semibold text-gray-900">After project delivery</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -39,12 +38,11 @@ export function ServicesMaintenance() {
               <h3 className="text-xl font-bold text-gray-900 mb-4">What's Included</h3>
               <ul className="space-y-3 mb-8">
                 {[
-                  'System performance optimization and efficiency improvements',
-                  'Regular model updates and fine-tuning based on performance data',
-                  '24/7 monitoring and proactive maintenance',
-                  'Continuous improvement recommendations based on usage patterns',
-                  'Priority technical support and issue resolution',
-                  'Regular security updates and compliance checks',
+                  'Bug fixes and performance improvements for delivered systems',
+                  'Model updates and fine-tuning as needed',
+                  'Feature enhancements based on usage feedback',
+                  'Technical support via email with agreed response times',
+                  'Security updates and dependency maintenance',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-[#10B981] mt-1 mr-3 flex-shrink-0" />
@@ -57,15 +55,15 @@ export function ServicesMaintenance() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-green-50 rounded-xl p-4">
                   <FileText className="h-8 w-8 text-[#10B981] mb-2" />
-                  <p className="font-semibold text-gray-900">Monthly Reports</p>
+                  <p className="font-semibold text-gray-900">Status Reports</p>
                 </div>
                 <div className="bg-green-50 rounded-xl p-4">
                   <Lightbulb className="h-8 w-8 text-[#10B981] mb-2" />
-                  <p className="font-semibold text-gray-900">Optimization Recommendations</p>
+                  <p className="font-semibold text-gray-900">Improvement Suggestions</p>
                 </div>
                 <div className="bg-green-50 rounded-xl p-4">
                   <HeadphonesIcon className="h-8 w-8 text-[#10B981] mb-2" />
-                  <p className="font-semibold text-gray-900">Priority Support</p>
+                  <p className="font-semibold text-gray-900">Email Support</p>
                 </div>
               </div>
             </div>
@@ -74,21 +72,21 @@ export function ServicesMaintenance() {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl p-8 shadow-lg sticky top-24 border-2 border-green-100">
               <div className="text-center mb-6 pb-6 border-b border-gray-200">
-                <p className="text-sm text-gray-500 uppercase tracking-wide mb-2">Starting at</p>
-                <div className="text-5xl font-bold text-gray-900 mb-2">$2,000</div>
-                <p className="text-gray-600">per month</p>
+                <p className="text-sm text-gray-500 uppercase tracking-wide mb-2">Pricing</p>
+                <div className="text-5xl font-bold text-gray-900 mb-2">Custom quote</div>
+                <p className="text-gray-600">Available after project delivery</p>
               </div>
 
-              <Link href="/contact">
+              <a href="mailto:kenjiginjo@gmail.com?subject=Post-Project%20Support%20Inquiry">
                 <Button className="w-full bg-gradient-to-r from-[#10B981] to-emerald-500 text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all mb-6">
-                  Start Maintenance Plan
+                  Ask About Support
                 </Button>
-              </Link>
+              </a>
 
               <div className="space-y-4 mb-6">
                 <h4 className="font-bold text-gray-900">What's Included</h4>
                 <ul className="space-y-2 text-sm">
-                  {['Performance optimization', 'Model updates', '24/7 monitoring', 'Monthly reports', 'Technical support'].map((item, i) => (
+                  {['Bug fixes & optimization', 'Model updates', 'Feature enhancements', 'Email support', 'Security updates'].map((item, i) => (
                     <li key={i} className="flex items-center text-gray-700">
                       <CheckCircle className="h-4 w-4 text-[#10B981] mr-2" />
                       {item}
