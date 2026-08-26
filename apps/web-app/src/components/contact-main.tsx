@@ -132,7 +132,7 @@ export function ContactMain<T extends FieldValues>({
                         }}
                       >
                         <Button
-                          type="submit"
+                          type="button"
                           className="w-full bg-[#F97316] hover:bg-orange-600 text-white font-semibold py-4 rounded-lg transition flex items-center justify-center"
                         >
                           <Send className="h-5 w-5 mr-2" />
