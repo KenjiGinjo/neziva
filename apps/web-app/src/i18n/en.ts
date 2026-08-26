@@ -107,6 +107,7 @@ export const en = {
         priceNote: 'No commitment',
         description: 'Tell us about your business and AI goals. We\'ll explore whether we\'re a good fit and outline possible next steps.',
         mailtoSubject: 'Discovery Call Request',
+        cta: 'Contact Us',
       },
       {
         title: 'AI POC Development',
@@ -115,6 +116,7 @@ export const en = {
         priceNote: 'Based on scope',
         description: 'Build a working prototype to validate your AI concept before committing to full development.',
         mailtoSubject: 'POC Project Inquiry',
+        cta: 'Get a Quote',
       },
       {
         title: 'Full Implementation',
@@ -123,6 +125,7 @@ export const en = {
         priceNote: 'Based on scope',
         description: 'Complete AI system from design to deployment. Pricing depends on complexity — we\'ll provide a detailed proposal.',
         mailtoSubject: 'Project Proposal Request',
+        cta: 'Get a Quote',
       },
     ],
     portfolioBadge: 'Now Accepting Pilot Clients',

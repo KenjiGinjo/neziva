@@ -109,6 +109,7 @@ export const zh: Messages = {
         priceNote: '无需承诺',
         description: '说说你的业务和 AI 目标。我们一起判断是否合适，并梳理可能的下一步。',
         mailtoSubject: '预约需求沟通',
+        cta: '联系我们',
       },
       {
         title: 'AI 原型开发',
@@ -117,6 +118,7 @@ export const zh: Messages = {
         priceNote: '按范围定价',
         description: '先做一个可运行的原型，验证想法后再决定是否全面开发。',
         mailtoSubject: '原型项目咨询',
+        cta: '获取报价',
       },
       {
         title: '完整落地',
@@ -125,6 +127,7 @@ export const zh: Messages = {
         priceNote: '按范围定价',
         description: '从设计到上线的完整 AI 系统。价格取决于复杂度——我们会提供详细方案。',
         mailtoSubject: '项目方案咨询',
+        cta: '获取报价',
       },
     ],
     portfolioBadge: '正在接受试点客户',

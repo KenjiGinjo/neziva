@@ -65,7 +65,7 @@ export function HomeServices() {
                         className={`w-full ${meta.featured ? 'bg-white text-[#4F46E5] hover:bg-gray-100' : 'bg-[#4F46E5] hover:bg-blue-700 text-white'}`}
                       >
                         <Mail className="mr-2 h-4 w-4" />
-                        {m.common.getQuote}
+                        {service.cta}
                       </Button>
                     </a>
                     <Link
