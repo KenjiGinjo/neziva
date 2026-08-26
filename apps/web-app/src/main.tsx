@@ -6,6 +6,7 @@ import { Router } from 'wouter'
 import { AppRouter } from './app-router.tsx'
 import { ModalProvider } from './components/extend'
 import { GoogleAnalytics } from './components/google-analytics.tsx'
+import { ScrollOnNavigate } from './components/scroll-on-navigate.tsx'
 import { TailwindIndicator } from './components/tailwind-indicator.tsx'
 import { Toaster } from './components/ui/sonner.tsx'
 import { SystemSetting } from './hooks/system-setting.tsx'
@@ -43,6 +44,7 @@ else {
             <I18nProvider>
               <Router base={routerBase(locale)}>
                 <DocumentMeta />
+                <ScrollOnNavigate />
                 <AppRouter />
                 <GoogleAnalytics />
               </Router>

@@ -1,7 +1,36 @@
 import { Mail } from 'lucide-react'
-import { Link } from 'wouter'
+import { Link, useLocation } from 'wouter'
 import { Logo } from '@/components/logo'
+import { requestSectionScroll } from '@/components/scroll-on-navigate'
 import { useI18n } from '@/i18n'
+import { withLocalePrefix } from '@/i18n/locale'
+
+function FooterServiceLink({ id, children }: { id: string, children: React.ReactNode }) {
+  const [location, setLocation] = useLocation()
+  const { locale } = useI18n()
+  const href = withLocalePrefix(`/services#${id}`, locale)
+
+  return (
+    <a
+      href={href}
+      className="hover:text-white transition-colors cursor-pointer"
+      onClick={(e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0)
+          return
+        e.preventDefault()
+        if (location === '/services') {
+          history.replaceState(null, '', href)
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+          return
+        }
+        requestSectionScroll(id)
+        setLocation('/services')
+      }}
+    >
+      {children}
+    </a>
+  )
+}
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -22,24 +51,16 @@ export function Footer() {
             <h3 className="text-white font-bold text-lg mb-4">{m.footer.services}</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/services" className="hover:text-white transition-colors">
-                  {m.footer.discovery}
-                </Link>
+                <FooterServiceLink id="strategy">{m.footer.discovery}</FooterServiceLink>
               </li>
               <li>
-                <Link href="/services" className="hover:text-white transition-colors">
-                  {m.footer.poc}
-                </Link>
+                <FooterServiceLink id="poc">{m.footer.poc}</FooterServiceLink>
               </li>
               <li>
-                <Link href="/services" className="hover:text-white transition-colors">
-                  {m.footer.implementation}
-                </Link>
+                <FooterServiceLink id="implementation">{m.footer.implementation}</FooterServiceLink>
               </li>
               <li>
-                <Link href="/services" className="hover:text-white transition-colors">
-                  {m.footer.support}
-                </Link>
+                <FooterServiceLink id="maintenance">{m.footer.support}</FooterServiceLink>
               </li>
             </ul>
           </div>
