@@ -1,6 +1,7 @@
 import { IconErrorWarningFill } from '@neziva/svg'
 import { Exception } from '@neziva/tools/exception'
 import { Loader2Icon } from 'lucide-react'
+import { useI18n } from '@/i18n'
 import { Empty } from './empty'
 import { AuthSection } from './guard/auth-section'
 
@@ -24,10 +25,11 @@ export function Loading(_props: LoadingProps) {
 }
 
 Loading.Card = ({ className = '' }: LoadingCardProps) => {
+  const { m } = useI18n()
   return (
     <div className={`h-160 flex w-full items-center justify-center flex-col ${className}`}>
       <Loading />
-      <p className="text-sm text-gray-500">Loading...</p>
+      <p className="text-sm text-gray-500">{m.common.loading}</p>
     </div>
   )
 }

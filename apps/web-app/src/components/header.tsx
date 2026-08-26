@@ -1,21 +1,24 @@
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useLocation } from 'wouter'
+import { LanguageSwitch } from '@/components/language-switch'
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
+import { useI18n } from '@/i18n'
 import { cn } from '@/lib/utils'
 
 export function Header() {
   const [location] = useLocation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { m } = useI18n()
 
   const navItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Services', href: '/services' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Blog', href: '/blog' },
+    { label: m.nav.home, href: '/' },
+    { label: m.nav.services, href: '/services' },
+    { label: m.nav.portfolio, href: '/portfolio' },
+    { label: m.nav.about, href: '/about' },
+    { label: m.nav.contact, href: '/contact' },
+    { label: m.nav.blog, href: '/blog' },
   ]
 
   const isActive = (href: string) => {
@@ -43,17 +46,20 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <LanguageSwitch />
           </nav>
 
-          <button
-            className="md:hidden text-gray-700"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="flex items-center gap-3 md:hidden">
+            <LanguageSwitch />
+            <button
+              className="text-gray-700"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-gray-200 pt-4">
             {navItems.map(item => (
@@ -71,7 +77,7 @@ export function Header() {
             ))}
             <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
               <Button className="w-full bg-[#F97316] hover:bg-orange-600 text-white py-2.5 rounded-lg font-semibold mt-2">
-                Get Started
+                {m.nav.getStarted}
               </Button>
             </Link>
           </div>

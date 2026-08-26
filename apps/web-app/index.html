@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      if (location.pathname === '/zh' || location.pathname.indexOf('/zh/') === 0)
+        document.documentElement.lang = 'zh-CN'
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0" />
     <meta name="theme-color" content="#4F46E5" />

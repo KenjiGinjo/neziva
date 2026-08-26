@@ -1,20 +1,20 @@
 import { useState } from 'react'
-import { PortfolioFilter } from '@/components/portfolio-filter'
+import { PortfolioFilter, type PortfolioFilterId } from '@/components/portfolio-filter'
 import { PortfolioGrid } from '@/components/portfolio-grid'
 import { PortfolioHero } from '@/components/portfolio-hero'
 import { Pagination } from '@/components/ui/pagination'
 import { $qc } from '@/query-client'
 
-const FILTER_TYPE_MAP: Record<string, string | undefined> = {
-  'All Projects': undefined,
-  'Personal Project': 'Personal Project',
-  'Concept Validation': 'Concept Validation',
+const FILTER_TYPE_MAP: Record<PortfolioFilterId, string | undefined> = {
+  all: undefined,
+  personal: 'Personal Project',
+  concept: 'Concept Validation',
 }
 
 const PAGE_SIZE = 12
 
 export function PagePortfolio() {
-  const [selectedFilter, setSelectedFilter] = useState('All Projects')
+  const [selectedFilter, setSelectedFilter] = useState<PortfolioFilterId>('all')
   const [page, setPage] = useState(1)
   const typeFilter = FILTER_TYPE_MAP[selectedFilter]
 
@@ -35,7 +35,10 @@ export function PagePortfolio() {
       {projectCount > 0 && (
         <PortfolioFilter
           selectedFilter={selectedFilter}
-          onFilterChange={f => { setSelectedFilter(f); setPage(1) }}
+          onFilterChange={(f) => {
+            setSelectedFilter(f)
+            setPage(1)
+          }}
           projectCount={projectCount}
         />
       )}

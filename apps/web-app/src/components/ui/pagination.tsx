@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react'
+import { useI18n } from '@/i18n'
 
 export interface PaginationProps {
   total: number
@@ -11,8 +12,10 @@ export interface PaginationProps {
 const MAX_VISIBLE_PAGES = 5
 
 export function Pagination({ total, page, pageSize, onPageChange, className = '' }: PaginationProps) {
+  const { m } = useI18n()
   const totalPages = Math.max(1, Math.ceil(total / pageSize))
-  if (totalPages <= 1) return null
+  if (totalPages <= 1)
+    return null
 
   const prevDisabled = page <= 1
   const nextDisabled = page >= totalPages
@@ -41,7 +44,7 @@ export function Pagination({ total, page, pageSize, onPageChange, className = ''
         onClick={() => onPageChange(page - 1)}
       >
         <ArrowRight className="h-4 w-4 mr-2 rotate-180 inline" />
-        <span className="hidden sm:inline">Previous</span>
+        <span className="hidden sm:inline">{m.common.previous}</span>
       </button>
       {pages[0] > 1 && (
         <>
@@ -87,7 +90,7 @@ export function Pagination({ total, page, pageSize, onPageChange, className = ''
         disabled={nextDisabled}
         onClick={() => onPageChange(page + 1)}
       >
-        <span className="mr-2 hidden sm:inline">Next</span>
+        <span className="mr-2 hidden sm:inline">{m.common.next}</span>
         <ArrowRight className="h-4 w-4 inline" />
       </button>
     </div>

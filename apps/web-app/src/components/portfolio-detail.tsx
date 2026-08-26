@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
+import { useI18n } from '@/i18n'
 import { $qc } from '@/query-client'
 import { Loading } from './loading'
 
@@ -25,6 +26,7 @@ const HIGHLIGHT_COLORS = ['bg-blue-50', 'bg-purple-50', 'bg-green-50']
 const HIGHLIGHT_BG = ['bg-[#4F46E5]', 'bg-[#7C3AED]', 'bg-[#10B981]']
 
 export function PortfolioDetail({ id }: PortfolioDetailProps) {
+  const { m, fmt } = useI18n()
   const { data, isLoading, error } = $qc.portfolio.projects[':id'].$get.useQuery(
     { params: { id } },
     { enabled: !!id },
@@ -34,9 +36,9 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
     return (
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-gray-600 mb-6">Project not found</p>
+          <p className="text-gray-600 mb-6">{m.portfolio.notFound}</p>
           <Link href="/portfolio">
-            <Button variant="outline">Back to Portfolio</Button>
+            <Button variant="outline">{m.portfolio.back}</Button>
           </Link>
         </div>
       </section>
@@ -51,9 +53,9 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
     return (
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-gray-600 mb-6">Failed to load project</p>
+          <p className="text-gray-600 mb-6">{m.portfolio.loadFailed}</p>
           <Link href="/portfolio">
-            <Button variant="outline">Back to Portfolio</Button>
+            <Button variant="outline">{m.portfolio.back}</Button>
           </Link>
         </div>
       </section>
@@ -74,7 +76,7 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
         <div className="mb-12">
           <Link href="/portfolio" className="inline-flex items-center text-[#4F46E5] hover:text-[#7C3AED] transition-colors font-semibold">
             <ArrowLeft className="h-5 w-5 mr-2" />
-            Back to Projects
+            {m.portfolio.backProjects}
           </Link>
         </div>
 
@@ -112,7 +114,7 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
                   <div className="mb-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
                       <Lightbulb className="h-6 w-6 text-[#F97316] mr-3" />
-                      Problem Statement
+                      {m.portfolio.problem}
                     </h3>
                     <p className="text-lg text-gray-700 leading-relaxed">
                       {project.problemStatement}
@@ -124,7 +126,7 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
                   <div className="mb-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
                       <Rocket className="h-6 w-6 text-[#4F46E5] mr-3" />
-                      Solution Overview
+                      {m.portfolio.solution}
                     </h3>
                     <p className="text-lg text-gray-700 leading-relaxed whitespace-pre-line">
                       {project.solutionOverview}
@@ -136,7 +138,7 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
                   <div className="mb-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
                       <Cpu className="h-6 w-6 text-[#7C3AED] mr-3" />
-                      Technical Highlights
+                      {m.portfolio.highlights}
                     </h3>
                     <div className="space-y-4">
                       {technicalHighlights.map((item, i) => (
@@ -161,7 +163,7 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
                   <div className="mb-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
                       <Trophy className="h-6 w-6 text-[#F97316] mr-3" />
-                      Results & Achievements
+                      {m.portfolio.results}
                     </h3>
                     <div className="grid md:grid-cols-3 gap-6">
                       {results.map((item, i) => (
@@ -189,12 +191,12 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
                       <ImageIcon className="h-6 w-6 text-[#4F46E5] mr-3" />
-                      Project Screenshots
+                      {m.portfolio.screenshots}
                     </h3>
                     <div className="grid md:grid-cols-2 gap-6">
                       {screenshots.map((img, i) => (
                         <div key={i} className="rounded-xl overflow-hidden shadow-lg">
-                          <img className="w-full h-64 object-cover" src={img} alt={`Screenshot ${i + 1}`} />
+                          <img className="w-full h-64 object-cover" src={img} alt={fmt(m.portfolio.screenshotAlt, { n: i + 1 })} />
                         </div>
                       ))}
                     </div>
@@ -205,19 +207,19 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
               <div className="lg:col-span-1">
                 <div className="sticky top-32 space-y-6">
                   <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-2xl">
-                    <h4 className="text-xl font-bold text-gray-900 mb-4">Quick Info</h4>
+                    <h4 className="text-xl font-bold text-gray-900 mb-4">{m.portfolio.quickInfo}</h4>
                     <div className="space-y-3">
                       <div>
-                        <div className="text-sm text-gray-600 mb-1">Project Type</div>
+                        <div className="text-sm text-gray-600 mb-1">{m.portfolio.projectType}</div>
                         <div className="font-semibold text-gray-900">{project.type}</div>
                       </div>
                       <div>
-                        <div className="text-sm text-gray-600 mb-1">Status</div>
-                        <div className="font-semibold text-[#10B981]">{status.join(' / ') || 'Active'}</div>
+                        <div className="text-sm text-gray-600 mb-1">{m.portfolio.status}</div>
+                        <div className="font-semibold text-[#10B981]">{status.join(' / ') || m.portfolio.statusActive}</div>
                       </div>
                       {technologies.length > 0 && (
                         <div>
-                          <div className="text-sm text-gray-600 mb-1">Technologies Used</div>
+                          <div className="text-sm text-gray-600 mb-1">{m.portfolio.technologies}</div>
                           <div className="flex flex-wrap gap-2 mt-2">
                             {technologies.map((tech, i) => (
                               <span
@@ -234,7 +236,7 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
                   </div>
 
                   <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-                    <h4 className="text-xl font-bold text-gray-900 mb-4">Project Links</h4>
+                    <h4 className="text-xl font-bold text-gray-900 mb-4">{m.portfolio.links}</h4>
                     <div className="space-y-3">
                       {project.demoUrl && project.demoUrl !== '#'
                         ? (
@@ -246,7 +248,7 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
                             >
                               <Button className="w-full bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 flex items-center justify-center">
                                 <Play className="h-4 w-4 mr-2" />
-                                Try Live Demo
+                                {m.portfolio.liveDemo}
                               </Button>
                             </a>
                           )
@@ -254,7 +256,7 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
                             <Link href="/portfolio">
                               <Button className="w-full bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 flex items-center justify-center">
                                 <Play className="h-4 w-4 mr-2" />
-                                View Portfolio
+                                {m.portfolio.viewPortfolio}
                               </Button>
                             </Link>
                           )}
@@ -266,7 +268,7 @@ export function PortfolioDetail({ id }: PortfolioDetailProps) {
                           className="w-full border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:border-[#4F46E5] hover:text-[#4F46E5] transition-all duration-200 flex items-center justify-center"
                         >
                           <Github className="h-4 w-4 mr-2" />
-                          View on GitHub
+                          {m.portfolio.github}
                         </a>
                       )}
                     </div>

@@ -2,6 +2,7 @@ import type { ResPortfolioProjectList } from '@neziva/interfaces'
 import { ExternalLink, Github, Mail, Play } from 'lucide-react'
 import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
+import { useI18n } from '@/i18n'
 import { Loading } from './loading'
 
 const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
@@ -12,6 +13,8 @@ interface PortfolioGridProps {
 }
 
 export function PortfolioGrid({ projects, isLoading }: PortfolioGridProps) {
+  const { m } = useI18n()
+
   if (isLoading) {
     return <Loading.Card />
   }
@@ -21,13 +24,12 @@ export function PortfolioGrid({ projects, isLoading }: PortfolioGridProps) {
       <section className="py-20 bg-white">
         <div className="max-w-2xl mx-auto px-6 text-center">
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            We're currently looking for 1–2 pilot projects to build together.
-            Your project could be our first case study.
+            {m.portfolio.empty}
           </p>
-          <a href={`mailto:${CONTACT_EMAIL}?subject=Pilot%20Project%20Inquiry`}>
+          <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(m.portfolio.mailSubject)}`}>
             <Button className="bg-[#F97316] hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center">
               <Mail className="mr-2 h-5 w-5" />
-              Contact Us
+              {m.common.contactUs}
             </Button>
           </a>
         </div>
@@ -98,7 +100,7 @@ export function PortfolioGrid({ projects, isLoading }: PortfolioGridProps) {
                           className="flex-1 bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] text-white px-4 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 flex items-center justify-center"
                         >
                           <Play className="h-4 w-4 mr-2" />
-                          View Demo
+                          {m.portfolio.viewDemo}
                         </a>
                       )
                     : (
@@ -107,7 +109,7 @@ export function PortfolioGrid({ projects, isLoading }: PortfolioGridProps) {
                           className="flex-1 bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] text-white px-4 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 flex items-center justify-center"
                         >
                           <Play className="h-4 w-4 mr-2" />
-                          View Demo
+                          {m.portfolio.viewDemo}
                         </Link>
                       )}
                   {project.githubUrl

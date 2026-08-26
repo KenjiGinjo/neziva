@@ -1,12 +1,17 @@
 import { useEffect } from 'react'
 import { Link } from 'wouter'
+import { formatDate, useI18n } from '@/i18n'
 
 export function PagePrivacy() {
+  const { m, locale } = useI18n()
+  const p = m.privacy
+
   useEffect(() => {
     if (window.location.hash === '#cookies') {
       const scroll = () => {
         const el = document.getElementById('cookies')
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        if (el)
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
       requestAnimationFrame(() => requestAnimationFrame(scroll))
     }
@@ -15,136 +20,101 @@ export function PagePrivacy() {
   return (
     <div className="bg-white text-gray-900 min-h-screen">
       <div className="max-w-3xl mx-auto px-6 py-20">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">{p.title}</h1>
         <p className="text-gray-500 text-sm mb-12">
-          Last updated:
+          {p.lastUpdated}
           {' '}
-          {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          {formatDate(new Date().toISOString(), locale)}
         </p>
 
         <div className="prose prose-gray max-w-none space-y-10">
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Introduction</h2>
-            <p className="text-gray-600 leading-relaxed">
-              Neziva (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to protecting your privacy.
-              This Privacy Policy explains how we collect, use, disclose, and safeguard your information
-              when you visit our website at neziva.com and use our services.
-            </p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s1Title}</h2>
+            <p className="text-gray-600 leading-relaxed">{p.s1Body}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Information We Collect</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              We collect information that you provide directly to us and information collected automatically:
-            </p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s2Title}</h2>
+            <p className="text-gray-600 leading-relaxed mb-4">{p.s2Intro}</p>
             <ul className="list-disc pl-6 space-y-2 text-gray-600">
               <li>
-                <strong>Contact form data:</strong>
+                <strong>{p.s2Contact}</strong>
                 {' '}
-                Name, email address, phone number, company name, project description, and budget range when you submit our contact form
+                {p.s2ContactBody}
               </li>
               <li>
-                <strong>Automatically collected data:</strong>
+                <strong>{p.s2Auto}</strong>
                 {' '}
-                IP address, browser type, device information, pages visited, and referring URLs through Google Analytics
+                {p.s2AutoBody}
               </li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. How We Use Your Information</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">We use the information we collect to:</p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s3Title}</h2>
+            <p className="text-gray-600 leading-relaxed mb-4">{p.s3Intro}</p>
             <ul className="list-disc pl-6 space-y-2 text-gray-600">
-              <li>Respond to your inquiries and provide customer support</li>
-              <li>Send you information about our services (with your consent)</li>
-              <li>Improve our website and user experience</li>
-              <li>Analyze site traffic and usage patterns</li>
-              <li>Comply with legal obligations</li>
+              {p.s3Items.map(item => <li key={item}>{item}</li>)}
             </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Information Sharing</h2>
-            <p className="text-gray-600 leading-relaxed">
-              We do not sell your personal information. We may share your information with:
-            </p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s4Title}</h2>
+            <p className="text-gray-600 leading-relaxed">{p.s4Intro}</p>
             <ul className="list-disc pl-6 space-y-2 text-gray-600 mt-4">
               <li>
-                <strong>Service providers:</strong>
+                <strong>{p.s4Providers}</strong>
                 {' '}
-                Google Analytics for website analytics. Google&apos;s privacy policy:
+                {p.s4ProvidersBody}
                 {' '}
-                <a
-                  href="https://policies.google.com/privacy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#4F46E5] hover:underline"
-                >
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#4F46E5] hover:underline">
                   https://policies.google.com/privacy
                 </a>
               </li>
               <li>
-                <strong>Legal requirements:</strong>
+                <strong>{p.s4Legal}</strong>
                 {' '}
-                When required by law or to protect our rights
+                {p.s4LegalBody}
               </li>
             </ul>
           </section>
 
           <section id="cookies">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Cookies and Similar Technologies</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              We use cookies and similar technologies to enhance your experience on our website:
-            </p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s5Title}</h2>
+            <p className="text-gray-600 leading-relaxed mb-4">{p.s5Intro}</p>
             <ul className="list-disc pl-6 space-y-2 text-gray-600">
               <li>
-                <strong>Google Analytics:</strong>
+                <strong>{p.s5Ga}</strong>
                 {' '}
-                We use Google Analytics to understand how visitors interact with our site. This service uses cookies to collect information such as pages visited, time on site, and referral sources. You can opt out of Google Analytics by installing the
+                {p.s5GaBefore}
                 {' '}
-                <a
-                  href="https://tools.google.com/dlpage/gaoptout"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#4F46E5] hover:underline"
-                >
-                  Google Analytics Opt-out Browser Add-on
+                <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[#4F46E5] hover:underline">
+                  {p.s5GaLink}
                 </a>
-                .
+                {p.s5GaAfter}
               </li>
               <li>
-                <strong>Essential cookies:</strong>
+                <strong>{p.s5Essential}</strong>
                 {' '}
-                May be used for basic site functionality
+                {p.s5EssentialBody}
               </li>
             </ul>
-            <p className="text-gray-600 leading-relaxed mt-4">
-              You can control cookies through your browser settings. Disabling cookies may affect some website features.
-            </p>
+            <p className="text-gray-600 leading-relaxed mt-4">{p.s5Control}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Data Retention</h2>
-            <p className="text-gray-600 leading-relaxed">
-              We retain your contact form submissions for as long as necessary to fulfill the purpose for which they were collected, or as required by law. Analytics data is retained according to Google Analytics&apos; data retention settings.
-            </p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s6Title}</h2>
+            <p className="text-gray-600 leading-relaxed">{p.s6Body}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Your Rights</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              Depending on your location, you may have the right to:
-            </p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s7Title}</h2>
+            <p className="text-gray-600 leading-relaxed mb-4">{p.s7Intro}</p>
             <ul className="list-disc pl-6 space-y-2 text-gray-600">
-              <li>Access the personal data we hold about you</li>
-              <li>Request correction of inaccurate data</li>
-              <li>Request deletion of your data</li>
-              <li>Object to or restrict processing of your data</li>
-              <li>Data portability</li>
-              <li>Withdraw consent (where processing is based on consent)</li>
+              {p.s7Items.map(item => <li key={item}>{item}</li>)}
             </ul>
             <p className="text-gray-600 leading-relaxed mt-4">
-              To exercise these rights, please contact us at
+              {p.s7Contact}
               {' '}
               <a href="mailto:kenjiginjo@gmail.com" className="text-[#4F46E5] hover:underline">
                 kenjiginjo@gmail.com
@@ -154,30 +124,24 @@ export function PagePrivacy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Security</h2>
-            <p className="text-gray-600 leading-relaxed">
-              We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.
-            </p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s8Title}</h2>
+            <p className="text-gray-600 leading-relaxed">{p.s8Body}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. International Transfers</h2>
-            <p className="text-gray-600 leading-relaxed">
-              Your information may be transferred to and processed in countries other than your country of residence. We ensure appropriate safeguards are in place for such transfers.
-            </p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s9Title}</h2>
+            <p className="text-gray-600 leading-relaxed">{p.s9Body}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Changes to This Policy</h2>
-            <p className="text-gray-600 leading-relaxed">
-              We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the &quot;Last updated&quot; date.
-            </p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s10Title}</h2>
+            <p className="text-gray-600 leading-relaxed">{p.s10Body}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">11. Contact Us</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{p.s11Title}</h2>
             <p className="text-gray-600 leading-relaxed">
-              If you have questions about this Privacy Policy, please contact us at
+              {p.s11Body}
               {' '}
               <a href="mailto:kenjiginjo@gmail.com" className="text-[#4F46E5] hover:underline">
                 kenjiginjo@gmail.com
@@ -189,7 +153,7 @@ export function PagePrivacy() {
 
         <div className="mt-16 pt-8 border-t border-gray-200">
           <Link href="/" className="text-[#4F46E5] hover:underline font-medium">
-            ← Back to Home
+            {p.back}
           </Link>
         </div>
       </div>

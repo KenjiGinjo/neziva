@@ -1,10 +1,10 @@
-import { vContactSubmit } from '@neziva/validations'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ContactHero } from '@/components/contact-hero'
 import { ContactLocation } from '@/components/contact-location'
 import { ContactMain } from '@/components/contact-main'
 import { ContactTrust } from '@/components/contact-trust'
 import { useSchemaPatch } from '@/hooks'
+import { createContactSchema, useI18n } from '@/i18n'
 
 const defaultContactValues = {
   name: '',
@@ -18,8 +18,9 @@ const defaultContactValues = {
 
 export function PageContact() {
   const [submitSuccess, setSubmitSuccess] = useState(false)
-
-  const { form, dto, patch } = useSchemaPatch(vContactSubmit, defaultContactValues)
+  const { m } = useI18n()
+  const schema = useMemo(() => createContactSchema(m), [m])
+  const { form, dto, patch } = useSchemaPatch(schema, defaultContactValues)
 
   return (
     <div className="font-sans bg-white text-gray-800">

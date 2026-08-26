@@ -1,9 +1,11 @@
 import { Mail } from 'lucide-react'
 import { Link } from 'wouter'
 import { Logo } from '@/components/logo'
+import { useI18n } from '@/i18n'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
+  const { m, fmt } = useI18n()
 
   return (
     <footer className="bg-gray-900 text-gray-300 py-16">
@@ -12,64 +14,64 @@ export function Footer() {
           <div>
             <Logo size="sm" withBox withText href="/" className="mb-4" />
             <p className="text-gray-400 leading-relaxed">
-              Practical AI Solutions for Your Business. From Ideas to Working Code.
+              {m.footer.tagline}
             </p>
           </div>
 
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Services</h3>
+            <h3 className="text-white font-bold text-lg mb-4">{m.footer.services}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/services" className="hover:text-white transition-colors">
-                  Discovery Call
+                  {m.footer.discovery}
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-white transition-colors">
-                  AI POC Development
+                  {m.footer.poc}
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-white transition-colors">
-                  Full Implementation
+                  {m.footer.implementation}
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-white transition-colors">
-                  Post-Project Support
+                  {m.footer.support}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Company</h3>
+            <h3 className="text-white font-bold text-lg mb-4">{m.footer.company}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
-                  About Us
+                  {m.footer.aboutUs}
                 </Link>
               </li>
               <li>
                 <Link href="/portfolio" className="hover:text-white transition-colors">
-                  Portfolio
+                  {m.nav.portfolio}
                 </Link>
               </li>
               <li>
                 <Link href="/blog" className="hover:text-white transition-colors">
-                  Blog
+                  {m.nav.blog}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors">
-                  Contact
+                  {m.nav.contact}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Contact Info</h3>
+            <h3 className="text-white font-bold text-lg mb-4">{m.footer.contactInfo}</h3>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-[#4F46E5]" />
@@ -83,11 +85,7 @@ export function Footer() {
 
         <div className="border-t border-gray-800 pt-8">
           <p className="text-gray-500 text-sm text-center">
-            ©
-            {' '}
-            {currentYear}
-            {' '}
-            Neziva. All rights reserved.
+            {fmt(m.footer.copyright, { year: currentYear })}
           </p>
         </div>
       </div>

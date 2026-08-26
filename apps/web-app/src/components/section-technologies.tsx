@@ -4,14 +4,15 @@ import {
   Cloud,
   Code,
   Database,
-  Layout,
   Layers,
+  Layout,
   Link,
   Package,
   Server,
   TrendingUp,
   Zap,
 } from 'lucide-react'
+import { useI18n } from '@/i18n'
 
 const technologies = [
   { name: 'LLMs', icon: Brain },
@@ -29,20 +30,21 @@ const technologies = [
 ]
 
 interface SectionTechnologiesProps {
-  /** Section background: 'gray' | 'white' */
   variant?: 'gray' | 'white'
 }
 
 export function SectionTechnologies({ variant = 'gray' }: SectionTechnologiesProps) {
+  const { m } = useI18n()
+
   return (
     <section className={`py-24 ${variant === 'gray' ? 'bg-gray-50' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Technologies We Use
+            {m.tech.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We leverage cutting-edge AI technologies and proven frameworks to build robust solutions.
+            {m.tech.subtitle}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">

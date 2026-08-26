@@ -9,6 +9,9 @@ import { GoogleAnalytics } from './components/google-analytics.tsx'
 import { TailwindIndicator } from './components/tailwind-indicator.tsx'
 import { Toaster } from './components/ui/sonner.tsx'
 import { SystemSetting } from './hooks/system-setting.tsx'
+import { I18nProvider } from './i18n/context.tsx'
+import { DocumentMeta } from './i18n/document-meta.tsx'
+import { getLocaleFromPath, maybeRedirectToPreferredLocale, routerBase } from './i18n/locale.ts'
 import './style/index.css'
 
 const isDevMode = import.meta.env.DEV
@@ -26,20 +29,30 @@ const queryClient = new QueryClient({
   },
 })
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <QueryClientProvider client={queryClient}>
-        <ModalProvider>
-          <Router>
-            <AppRouter />
-            <GoogleAnalytics />
-          </Router>
-          <Toaster />
-          <SystemSetting />
-          {isDevMode && <TailwindIndicator />}
-        </ModalProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
-  </StrictMode>,
-)
+if (maybeRedirectToPreferredLocale()) {
+  // Chinese first-visit on `/` — wait for /zh
+}
+else {
+  const locale = getLocaleFromPath()
+
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <QueryClientProvider client={queryClient}>
+          <ModalProvider>
+            <I18nProvider>
+              <Router base={routerBase(locale)}>
+                <DocumentMeta />
+                <AppRouter />
+                <GoogleAnalytics />
+              </Router>
+            </I18nProvider>
+            <Toaster />
+            <SystemSetting />
+            {isDevMode && <TailwindIndicator />}
+          </ModalProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </StrictMode>,
+  )
+}

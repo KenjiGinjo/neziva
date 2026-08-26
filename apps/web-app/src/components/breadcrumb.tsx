@@ -1,4 +1,5 @@
 import { Link } from 'wouter'
+import { useI18n } from '@/i18n'
 
 interface BreadcrumbItem {
   label: string
@@ -11,10 +12,11 @@ interface BreadcrumbProps {
 }
 
 export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
+  const { m } = useI18n()
   return (
     <nav
       className={`text-sm text-gray-500 ${className}`}
-      aria-label="Breadcrumb"
+      aria-label={m.common.breadcrumb}
     >
       {items.map((item, i) => {
         const isLast = i === items.length - 1

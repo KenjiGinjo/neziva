@@ -1,10 +1,13 @@
 import { ArrowRight, Mail } from 'lucide-react'
 import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
+import { useI18n } from '@/i18n'
 
 const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
 
 export function HomeHero() {
+  const { m } = useI18n()
+
   return (
     <section className="relative min-h-[700px] bg-gradient-to-br from-[#667eea] to-[#764ba2] overflow-hidden pt-20">
       <div className="absolute inset-0 opacity-10">
@@ -14,27 +17,26 @@ export function HomeHero() {
       <div className="relative max-w-7xl mx-auto px-6 h-full min-h-[600px] flex items-center">
         <div className="grid md:grid-cols-2 gap-12 items-center w-full">
           <div className="text-white">
-            <p className="text-purple-200 font-medium mb-4">AI Development Studio · Registered in China</p>
+            <p className="text-purple-200 font-medium mb-4">{m.home.heroEyebrow}</p>
             <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-              Practical AI Solutions for Your Business
+              {m.home.heroTitle}
             </h1>
             <p className="text-2xl font-light mb-4 text-purple-100">
-              From Ideas to Working Code
+              {m.home.heroSubtitle}
             </p>
             <p className="text-lg mb-8 text-purple-100 leading-relaxed">
-              We build working AI systems — not just consulting decks.
-              Neziva is a new studio, but our delivery is real. We're currently accepting our first pilot clients.
+              {m.home.heroBody}
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href={`mailto:${CONTACT_EMAIL}?subject=Project%20Inquiry`}>
+              <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(m.home.heroMailSubject)}`}>
                 <Button className="bg-[#F97316] hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center">
                   <Mail className="mr-2 h-5 w-5" />
-                  Contact Us
+                  {m.common.contactUs}
                 </Button>
               </a>
               <Link href="/about">
                 <Button variant="outline">
-                  About Neziva
+                  {m.home.heroAbout}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -73,16 +75,16 @@ export function HomeHero() {
                 </div>
                 <div className="grid grid-cols-3 gap-3 pt-4">
                   <div className="bg-white/5 rounded-lg p-3 text-center">
-                    <div className="text-lg font-bold text-white">Full-Stack</div>
-                    <div className="text-xs text-purple-200">React · Node · AI</div>
+                    <div className="text-lg font-bold text-white">{m.home.heroCardFullStack}</div>
+                    <div className="text-xs text-purple-200">{m.home.heroCardFullStackSub}</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3 text-center">
-                    <div className="text-lg font-bold text-white">In-House</div>
-                    <div className="text-xs text-purple-200">We Write the Code</div>
+                    <div className="text-lg font-bold text-white">{m.home.heroCardInHouse}</div>
+                    <div className="text-xs text-purple-200">{m.home.heroCardInHouseSub}</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3 text-center">
-                    <div className="text-lg font-bold text-white">End-to-End</div>
-                    <div className="text-xs text-purple-200">Design to Deploy</div>
+                    <div className="text-lg font-bold text-white">{m.home.heroCardEndToEnd}</div>
+                    <div className="text-xs text-purple-200">{m.home.heroCardEndToEndSub}</div>
                   </div>
                 </div>
               </div>
