@@ -6,6 +6,7 @@ export const en = {
     about: 'About',
     contact: 'Contact',
     careers: 'Careers',
+    payment: 'Payment',
     blog: 'Blog',
     getStarted: 'Contact us',
     switchToEn: 'English',
@@ -22,6 +23,7 @@ export const en = {
     support: 'After launch',
     aboutUs: 'About Us',
     careers: 'Careers',
+    payment: 'Payment',
     copyright: '© {year} Neziva. All rights reserved.',
   },
   common: {
@@ -57,6 +59,8 @@ export const en = {
     privacyDescription: 'How Neziva collects, uses, and protects your information.',
     careersTitle: 'Careers | Neziva',
     careersDescription: 'A small studio in Chongqing. Full-time fullstack, plus a product agent to sell applications already built.',
+    paymentTitle: 'Payment | Neziva',
+    paymentDescription: 'How we price and collect payment. Bank details for transfers.',
     notFoundTitle: 'Page Not Found | Neziva',
   },
   cta: {
@@ -153,7 +157,7 @@ export const en = {
     aboutHandsOnTitle: 'We do the work',
     aboutHandsOnBody: 'Development is not outsourced.',
     aboutRegisteredTitle: 'Registered Business',
-    aboutRegisteredLegal: '两江新区涅智网络科技工作室（个体工商户）',
+    aboutRegisteredLegal: '两江新区涅智维网络科技工作室（个体工商户）',
     aboutRegisteredMeta: 'Registered: May 14, 2026 · Chongqing, China',
     aboutRegisteredUscc: 'USCC: 92500157MAKD81B01T',
     aboutLicense: 'Licensed for software development, AI application development, IT consulting, and related technology services.',
@@ -332,7 +336,7 @@ export const en = {
     ledBy: 'Led by Kenji Ginjo. He has delivered frontend, backend, and model integration himself.',
     founder: 'Founder and background',
     registeredTitle: 'Registered business',
-    registeredLegal: '两江新区涅智网络科技工作室（个体工商户）',
+    registeredLegal: '两江新区涅智维网络科技工作室（个体工商户）',
     registeredMeta: 'Registered: May 14, 2026 · Chongqing, China',
     registeredUscc: 'USCC: 92500157MAKD81B01T',
     tiles: [
@@ -435,7 +439,7 @@ export const en = {
     ],
     locationTitle: 'Location & Hours',
     officeTitle: 'Registered Office',
-    officeLegal: '两江新区涅智网络科技工作室（个体工商户）',
+    officeLegal: '两江新区涅智维网络科技工作室（个体工商户）',
     officePlace: 'Liangjiang New Area, Chongqing, China',
     officeNote: 'Cluster registration address',
     hoursTitle: 'Business Hours',
@@ -635,6 +639,45 @@ export const en = {
         mailSubject: 'Application: Product agent',
       },
     ],
+  },
+  payment: {
+    heroTitle: 'Payment',
+    fairnessTitle: 'How we keep payment fair',
+    fairnessIntro:
+      'A sole-proprietor studio. Price is written down first. We collect what was agreed — not a different story later.',
+    fairness: [
+      {
+        title: 'Quote after scope',
+        body: 'The first conversation is free. Prototype starting prices and full-build quotes follow a written scope. We do not start paid work without that.',
+      },
+      {
+        title: 'Same scope, same price',
+        body: 'We do not raise the price afterwards because you are new or a small team. If the scope changes, we discuss the amount again.',
+      },
+      {
+        title: 'Milestones in writing',
+        body: 'Amount, currency, and when to pay go into the agreement. If a milestone is unpaid, the matching work waits.',
+      },
+      {
+        title: 'USD on the site, RMB for domestic transfer',
+        body: 'Listed prices are in US dollars. For a China bank transfer, the exchange rate is confirmed in writing before you pay.',
+      },
+      {
+        title: 'Check the account name',
+        body: 'The legal entity is a sole proprietorship. The bank account is in the operator’s personal name, not a company account. If the name does not match, do not transfer.',
+      },
+    ],
+    infoTitle: 'Bank transfer',
+    infoIntro: 'Confirm these details against the email agreement before you pay.',
+    legalLabel: 'Registered name',
+    usccLabel: 'USCC',
+    payeeLabel: 'Account name',
+    accountLabel: 'Account number',
+    bankLabel: 'Bank',
+    cnapsLabel: 'CNAPS code',
+    copy: 'Copy',
+    copied: 'Copied',
+    note: 'Put the project name in the transfer memo. If you need an invoice, say so before we start — we issue what a sole proprietorship can issue.',
   },
 }
 

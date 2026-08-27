@@ -7,6 +7,7 @@ import { PageCareers } from './pages/careers'
 import { PageContact } from './pages/contact'
 import { PageHome } from './pages/home'
 import { PageNotFound } from './pages/not-found'
+import { PagePayment } from './pages/payment'
 import { PagePortfolio } from './pages/portfolio'
 import { PagePortfolioDetail } from './pages/portfolio-detail'
 import { PagePrivacy } from './pages/privacy'
@@ -43,6 +44,11 @@ export function AppRouter() {
       <Route path="/careers">
         <MainLayout>
           <PageCareers />
+        </MainLayout>
+      </Route>
+      <Route path="/payment">
+        <MainLayout>
+          <PagePayment />
         </MainLayout>
       </Route>
       <Route path="/contact">

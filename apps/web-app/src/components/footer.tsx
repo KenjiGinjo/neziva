@@ -79,6 +79,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/payment" className="hover:text-white transition-colors">
+                  {m.footer.payment}
+                </Link>
+              </li>
+              <li>
                 <Link href="/portfolio" className="hover:text-white transition-colors">
                   {m.nav.portfolio}
                 </Link>
