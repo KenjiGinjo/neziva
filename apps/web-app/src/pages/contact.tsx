@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { ContactFaq } from '@/components/contact-faq'
 import { ContactHero } from '@/components/contact-hero'
 import { ContactLocation } from '@/components/contact-location'
 import { ContactMain } from '@/components/contact-main'
@@ -33,6 +34,7 @@ export function PageContact() {
         setSubmitSuccess={setSubmitSuccess}
       />
       <ContactTrust />
+      <ContactFaq />
       <ContactLocation />
     </div>
   )

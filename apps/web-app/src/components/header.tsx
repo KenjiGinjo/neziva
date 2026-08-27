@@ -18,7 +18,6 @@ export function Header() {
     { label: m.nav.portfolio, href: '/portfolio' },
     { label: m.nav.about, href: '/about' },
     { label: m.nav.contact, href: '/contact' },
-    { label: m.nav.blog, href: '/blog' },
   ]
 
   const isActive = (href: string) => {

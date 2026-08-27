@@ -23,7 +23,7 @@ export function HomeWhyChoose() {
             {m.home.whySubtitle}
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {m.home.whyItems.map((item, i) => {
             const Icon = ICONS[i]
             return (
