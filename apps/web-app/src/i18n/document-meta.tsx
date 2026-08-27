@@ -47,8 +47,9 @@ export function DocumentMeta() {
     upsertMeta('meta[property="og:title"]', { property: 'og:title', content: title })
     upsertMeta('meta[property="og:description"]', { property: 'og:description', content: desc })
     upsertMeta('meta[property="og:locale"]', { property: 'og:locale', content: locale === 'zh' ? 'zh_CN' : 'en_US' })
-    upsertMeta('meta[property="og:url"]', { property: 'og:url', content: `${SITE}${withLocalePrefix(path, locale)}` })
-    upsertMeta('link[rel="canonical"]', { rel: 'canonical', href: `${SITE}${withLocalePrefix(path, locale)}` })
+    const canonical = `${SITE}${withLocalePrefix(path, locale)}`
+    upsertMeta('meta[property="og:url"]', { property: 'og:url', content: canonical })
+    upsertMeta('link[rel="canonical"]', { rel: 'canonical', href: canonical })
     upsertMeta('link[rel="alternate"][hreflang="en"]', { rel: 'alternate', hreflang: 'en', href: `${SITE}${path}` })
     upsertMeta('link[rel="alternate"][hreflang="zh-CN"]', { rel: 'alternate', hreflang: 'zh-CN', href: `${SITE}${withLocalePrefix(path, 'zh')}` })
     upsertMeta('link[rel="alternate"][hreflang="x-default"]', { rel: 'alternate', hreflang: 'x-default', href: `${SITE}${path}` })

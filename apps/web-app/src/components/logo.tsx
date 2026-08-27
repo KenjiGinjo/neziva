@@ -76,8 +76,17 @@ export function Logo({
   )
 
   if (href !== undefined) {
+    const classNames = cn('inline-flex items-center gap-2 md:gap-3', className)
+    if (href.startsWith('/zh')) {
+      return (
+        <a href={href} className={classNames}>
+          {content}
+          {text}
+        </a>
+      )
+    }
     return (
-      <Link href={href} className={cn('inline-flex items-center gap-2 md:gap-3', className)}>
+      <Link href={href} className={classNames}>
         {content}
         {text}
       </Link>
