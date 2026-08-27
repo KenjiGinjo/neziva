@@ -50,6 +50,9 @@ export function PageNotFound() {
               <Link href="/about" className="text-[#4F46E5] font-medium hover:text-[#7C3AED] transition-colors">
                 {m.nav.about}
               </Link>
+              <Link href="/careers" className="text-[#4F46E5] font-medium hover:text-[#7C3AED] transition-colors">
+                {m.nav.careers}
+              </Link>
             </div>
           </div>
         </div>

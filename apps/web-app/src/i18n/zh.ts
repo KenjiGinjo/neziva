@@ -7,6 +7,7 @@ export const zh: Messages = {
     portfolio: '案例',
     about: '关于',
     contact: '联系',
+    careers: '加入我们',
     blog: '博客',
     getStarted: '联系我们',
     switchToEn: 'English',
@@ -22,6 +23,7 @@ export const zh: Messages = {
     implementation: '整套上线',
     support: '上线后支持',
     aboutUs: '关于我们',
+    careers: '加入我们',
     copyright: '© {year} Neziva. 保留所有权利。',
   },
   common: {
@@ -55,6 +57,8 @@ export const zh: Messages = {
     blogDescription: '系统交付过程中的记录与总结。',
     privacyTitle: '隐私政策 | Neziva',
     privacyDescription: 'Neziva 如何收集、使用和保护您的信息。',
+    careersTitle: '加入我们 | Neziva',
+    careersDescription: '重庆小工作室。全职招全栈；另招产品代理人，销售已成型的项目应用。',
     notFoundTitle: '页面未找到 | Neziva',
   },
   cta: {
@@ -588,5 +592,49 @@ export const zh: Messages = {
     liveDemo: '在线演示',
     viewPortfolio: '查看案例',
     github: '在 GitHub 查看',
+  },
+  careers: {
+    heroTitle: '加入我们',
+    duties: '工作内容',
+    want: '我们看重',
+    apply: '如何应聘',
+    applyTo: '发送至',
+    applyNote:
+      '邮件写明岗位、可工作时间。全栈请附可运行项目或代码仓库。产品代理人请说明做过的销售或渠道。工作日内回复；不合适也会说明。',
+    mailCta: '发送应聘邮件',
+    jobs: [
+      {
+        title: '全栈工程师',
+        type: '全职',
+        summary: '把界面、后台与模型接入做到上线，并跟到客户环境里能稳定运行。',
+        duties: [
+          '按项目需要使用 React、Vue、Node、TypeScript 开发并部署',
+          '接入模型与客户现有系统',
+          '跟到对方环境中能够稳定运行',
+        ],
+        want: [
+          '有可展示的上线项目',
+          '能覆盖前端、后端与对接',
+          '书面同步清楚',
+        ],
+        mailSubject: '应聘：全栈工程师',
+      },
+      {
+        title: '产品代理人',
+        type: '兼职或合作',
+        summary: '销售我们已经做好、可以交付的项目应用，不是从零谈定制开发。',
+        duties: [
+          '向客户介绍已成型的应用，讲清能做什么、不能做什么',
+          '跟进意向，促成签约或合作',
+          '把客户需求和反馈带回开发',
+        ],
+        want: [
+          '做过销售或渠道',
+          '能讲清产品边界，不过度承诺',
+          '有可接触的客户或渠道',
+        ],
+        mailSubject: '应聘：产品代理人',
+      },
+    ],
   },
 }

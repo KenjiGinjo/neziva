@@ -3,6 +3,7 @@ import { MainLayout } from './components/main-layout'
 import { PageAbout } from './pages/about'
 import { PageBlog } from './pages/blog'
 import { PageBlogDetail } from './pages/blog-detail'
+import { PageCareers } from './pages/careers'
 import { PageContact } from './pages/contact'
 import { PageHome } from './pages/home'
 import { PageNotFound } from './pages/not-found'
@@ -37,6 +38,11 @@ export function AppRouter() {
       <Route path="/about">
         <MainLayout>
           <PageAbout />
+        </MainLayout>
+      </Route>
+      <Route path="/careers">
+        <MainLayout>
+          <PageCareers />
         </MainLayout>
       </Route>
       <Route path="/contact">

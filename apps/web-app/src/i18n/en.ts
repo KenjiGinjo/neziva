@@ -5,6 +5,7 @@ export const en = {
     portfolio: 'Portfolio',
     about: 'About',
     contact: 'Contact',
+    careers: 'Careers',
     blog: 'Blog',
     getStarted: 'Contact us',
     switchToEn: 'English',
@@ -20,6 +21,7 @@ export const en = {
     implementation: 'Full build',
     support: 'After launch',
     aboutUs: 'About Us',
+    careers: 'Careers',
     copyright: '© {year} Neziva. All rights reserved.',
   },
   common: {
@@ -53,6 +55,8 @@ export const en = {
     blogDescription: 'Notes from building AI systems for real work.',
     privacyTitle: 'Privacy Policy | Neziva',
     privacyDescription: 'How Neziva collects, uses, and protects your information.',
+    careersTitle: 'Careers | Neziva',
+    careersDescription: 'A small studio in Chongqing. Full-time fullstack, plus a product agent to sell applications already built.',
     notFoundTitle: 'Page Not Found | Neziva',
   },
   cta: {
@@ -586,6 +590,51 @@ export const en = {
     liveDemo: 'Try Live Demo',
     viewPortfolio: 'View Portfolio',
     github: 'View on GitHub',
+  },
+  careers: {
+    heroTitle: 'Work with us',
+    duties: 'What you would do',
+    want: 'What we look for',
+    apply: 'How to apply',
+    applyTo: 'Email',
+    applyNote:
+      'Name the role and your available hours. For fullstack, include a running project or a repository. For product agent, describe sales or channel work you have done. We reply on business days, including when it is not a fit.',
+    mailCta: 'Send an application',
+    jobs: [
+      {
+        title: 'Fullstack engineer',
+        type: 'Full-time',
+        summary:
+          'Build the interface, backend, and model integration, and stay until it runs stably in the client’s environment.',
+        duties: [
+          'Build and deploy in React, Vue, Node, and TypeScript as the project needs',
+          'Connect models and the client’s existing systems',
+          'Follow the work through to stable production',
+        ] as string[],
+        want: [
+          'Shipped work you can show',
+          'Comfort across front end, back end, and integration',
+          'Clear written updates',
+        ] as string[],
+        mailSubject: 'Application: Fullstack',
+      },
+      {
+        title: 'Product agent',
+        type: 'Part-time or collaboration',
+        summary: 'Sell applications we have already built and can deliver. This is not custom development from scratch.',
+        duties: [
+          'Present the finished applications and say clearly what they can and cannot do',
+          'Follow up on interest and close a contract or partnership',
+          'Bring customer needs and feedback back to development',
+        ] as string[],
+        want: [
+          'Sales or channel experience',
+          'You can explain product limits and do not overpromise',
+          'You have customers or channels you can reach',
+        ] as string[],
+        mailSubject: 'Application: Product agent',
+      },
+    ],
   },
 }
 

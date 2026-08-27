@@ -25,6 +25,8 @@ function metaForPath(path: string, m: ReturnType<typeof useI18n>['m']) {
     return { title: m.meta.portfolioTitle, desc: m.meta.portfolioDescription }
   if (path.startsWith('/about'))
     return { title: m.meta.aboutTitle, desc: m.meta.aboutDescription }
+  if (path.startsWith('/careers'))
+    return { title: m.meta.careersTitle, desc: m.meta.careersDescription }
   if (path.startsWith('/contact'))
     return { title: m.meta.contactTitle, desc: m.meta.contactDescription }
   if (path.startsWith('/blog'))
