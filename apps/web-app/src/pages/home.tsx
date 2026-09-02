@@ -1,4 +1,5 @@
 import { HomeAbout } from '@/components/home-about'
+import { HomeAIDemo } from '@/components/home-ai-demo'
 import { HomeContact } from '@/components/home-contact'
 import { HomeHero } from '@/components/home-hero'
 import { HomePortfolio } from '@/components/home-portfolio'
@@ -16,7 +17,7 @@ export function PageHome() {
       <HomePortfolio />
       <SectionProcess />
       <SectionTechnologies />
-      {/* <HomeTestimonials /> */}
+      <HomeAIDemo />
       <HomeAbout />
       <HomeContact />
     </div>

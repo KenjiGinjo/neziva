@@ -23,6 +23,10 @@ const schema = {
   // Resend 邮件配置
   RESEND_API_KEY: z.string(),
   RESEND_FROM_EMAIL: z.string().default('onboarding@resend.dev'),
+
+  GPT_GE_API_KEY: z.string().default(''),
+  GPT_GE_BASE_URL: z.string().default('https://api.gpt.ge/v1'),
+  GPT_GE_MODEL: z.string().default('gpt-4.1-mini'),
 }
 
 export const ENV = parseEnv(process.env, schema)

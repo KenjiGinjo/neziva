@@ -10,7 +10,10 @@ import { errorHandler } from './utils'
 
 const app = new Hono()
 
-app.use('/*', cors())
+app.use('/*', cors({
+  origin: '*',
+  exposeHeaders: ['X-Vercel-AI-Data-Stream'],
+}))
 app.route('/', routes)
 
 app.get('/', (c) => {

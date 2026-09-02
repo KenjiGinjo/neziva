@@ -49,6 +49,11 @@ export enum EnumContactFormStatus {
   Replied = 2, // 已回复
 }
 
+export enum EnumContactFormSource {
+  Form = 'form',
+  Chat = 'chat',
+}
+
 export enum EnumNewsletterStatus {
   Pending = 0, // 待验证
   Subscribed = 1, // 已订阅

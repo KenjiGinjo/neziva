@@ -16,5 +16,6 @@ export class TableContactForm extends BaseTable {
     budget: t.varchar(50).nullable(),
     status: t.xEnum(EnumContactFormStatus).hasDefault(),
     notes: t.text().nullable(),
+    source: t.varchar(20).default('form'),
   }))
 }

@@ -1,4 +1,4 @@
-import type {
+import {
   ResAdminAuthStateResponse,
   ResAdminBlogPostList,
   ResAdminContactFormList,
@@ -13,7 +13,7 @@ import type {
   ResPortfolioProjectList,
   ResSystemSetting,
 } from '@neziva/interfaces'
-import type {
+import {
   vAdminLogin,
   vBlogAdminPostsQuery,
   vBlogCreate,
@@ -23,6 +23,7 @@ import type {
   vBlogRelated,
   vBlogSearch,
   vBlogUpdate,
+  vChatBody,
   vContactFormNotes,
   vContactFormsQuery,
   vContactFormStatus,
@@ -34,60 +35,57 @@ import type {
   vPortfolioProjectsQuery,
   vPortfolioRelated,
 } from '@neziva/validations'
-
 import { initContract } from '@packages/ts-rest-react-query/ts-rest-core'
-
 const c = initContract()
 export const contract = {
-  blog: {
-    related: {
-      ':id': c.router({
-        $get: {
+  "blog": {
+    "related": {
+      ":id": c.router({
+        "$get": {
           method: 'GET',
           path: 'blog/related/:id',
-          pathParams: c.type<{ id: string }>(),
           query: c.type<vBlogRelated>(),
-          responses: { 200: c.type<{ data: any[] }>() },
+          responses: { 200: c.type<{data:any[]}>() },
         },
       }),
     },
-    search: c.router({
-      $get: {
+    "search": c.router({
+      "$get": {
         method: 'GET',
         path: 'blog/search',
         query: c.type<vBlogSearch>(),
-        responses: {
-          200: c.type<{
-            data: ResBlogPostList[]
-            query?: string
-            pagination: ResPagination
-          }>(),
-        },
+        responses: { 200: c.type<{data:ResBlogPostList[],query?:string,pagination:ResPagination}>() },
       },
     }),
-    posts: c.router({
-      ':id': c.router({
-        $get: {
+    "posts": c.router({
+      ":id": c.router({
+        "$get": {
           method: 'GET',
           path: 'blog/posts/:id',
-          pathParams: c.type<{ id: string }>(),
           query: c.type<undefined>(),
-          responses: { 200: c.type<{ data: any }>() },
+          responses: { 200: c.type<{data:any}>() },
         },
       }),
-      '$get': {
+      "$get": {
         method: 'GET',
         path: 'blog/posts',
         query: c.type<vBlogPostsQuery>(),
-        responses: {
-          200: c.type<{ data: ResBlogPostList[], pagination: ResPagination }>(),
-        },
+        responses: { 200: c.type<{data:ResBlogPostList[],pagination:ResPagination}>() },
       },
     }),
   },
-  contact: {
-    submit: c.router({
-      $post: {
+  "chat": c.router({
+    "$post": {
+      method: 'POST',
+      path: 'chat',
+      query: c.type<undefined>(),
+      body: c.type<vChatBody>(),
+      responses: { 200: c.type<undefined>() },
+    },
+  }),
+  "contact": {
+    "submit": c.router({
+      "$post": {
         method: 'POST',
         path: 'contact/submit',
         query: c.type<undefined>(),
@@ -96,270 +94,235 @@ export const contract = {
       },
     }),
   },
-  newsletter: {
-    subscribe: c.router({
-      $post: {
+  "newsletter": {
+    "subscribe": c.router({
+      "$post": {
         method: 'POST',
         path: 'newsletter/subscribe',
         query: c.type<undefined>(),
         body: c.type<vNewsletterSubscribe>(),
-        responses: { 200: c.type<{ data: ResNewsletterSubscribe }>() },
+        responses: { 200: c.type<{data:ResNewsletterSubscribe}>() },
       },
     }),
   },
-  portfolio: {
-    related: {
-      ':id': c.router({
-        $get: {
+  "portfolio": {
+    "related": {
+      ":id": c.router({
+        "$get": {
           method: 'GET',
           path: 'portfolio/related/:id',
-          pathParams: c.type<{ id: string }>(),
           query: c.type<vPortfolioRelated>(),
-          responses: { 200: c.type<{ data: ResPortfolioProjectDetail[] }>() },
+          responses: { 200: c.type<{data:ResPortfolioProjectDetail[]}>() },
         },
       }),
     },
-    projects: c.router({
-      ':id': c.router({
-        $get: {
+    "projects": c.router({
+      ":id": c.router({
+        "$get": {
           method: 'GET',
           path: 'portfolio/projects/:id',
-          pathParams: c.type<{ id: string }>(),
           query: c.type<undefined>(),
-          responses: { 200: c.type<{ data: ResPortfolioProjectDetail }>() },
+          responses: { 200: c.type<{data:ResPortfolioProjectDetail}>() },
         },
       }),
-      '$get': {
+      "$get": {
         method: 'GET',
         path: 'portfolio/projects',
         query: c.type<vPortfolioProjectsQuery>(),
-        responses: {
-          200: c.type<{
-            data: ResPortfolioProjectList[]
-            pagination: ResPagination
-          }>(),
-        },
+        responses: { 200: c.type<{data:ResPortfolioProjectList[],pagination:ResPagination}>() },
       },
     }),
   },
-  system: {
-    setting: c.router({
-      $get: {
+  "system": {
+    "setting": c.router({
+      "$get": {
         method: 'GET',
         path: 'system/setting',
         query: c.type<undefined>(),
-        responses: { 200: c.type<{ data: ResSystemSetting }>() },
+        responses: { 200: c.type<{data:ResSystemSetting}>() },
       },
     }),
   },
-  upload: c.router({
-    $post: {
+  "upload": c.router({
+    "$post": {
       method: 'POST',
       path: 'upload',
       query: c.type<undefined>(),
       body: c.type<undefined>(),
-      responses: { 200: c.type<{ data: string }>() },
+      responses: { 200: c.type<{data:string}>() },
     },
   }),
-  admin: {
-    auth: {
-      state: c.router({
-        $get: {
+  "admin": {
+    "auth": {
+      "state": c.router({
+        "$get": {
           method: 'GET',
           path: 'admin/auth/state',
           query: c.type<undefined>(),
-          responses: { 200: c.type<{ data: ResAdminAuthStateResponse }>() },
+          responses: { 200: c.type<{data:ResAdminAuthStateResponse}>() },
         },
       }),
-      logout: c.router({
-        $post: {
+      "logout": c.router({
+        "$post": {
           method: 'POST',
           path: 'admin/auth/logout',
           query: c.type<undefined>(),
           body: c.type<undefined>(),
-          responses: { 200: c.type<{ data: ResAuthMessage }>() },
+          responses: { 200: c.type<{data:ResAuthMessage}>() },
         },
       }),
-      login: c.router({
-        $post: {
+      "login": c.router({
+        "$post": {
           method: 'POST',
           path: 'admin/auth/login',
           query: c.type<undefined>(),
           body: c.type<vAdminLogin>(),
-          responses: { 200: c.type<{ data: ResAdminLogin }>() },
+          responses: { 200: c.type<{data:ResAdminLogin}>() },
         },
       }),
     },
-    blog: {
-      posts: c.router({
-        ':id': c.router({
-          feature: c.router({
-            $put: {
+    "blog": {
+      "posts": c.router({
+        ":id": c.router({
+          "feature": c.router({
+            "$put": {
               method: 'PUT',
               path: 'admin/blog/posts/:id/feature',
-              pathParams: c.type<{ id: string }>(),
               query: c.type<undefined>(),
               body: c.type<vBlogFeature>(),
               responses: { 200: c.type<undefined>() },
             },
           }),
-          publish: c.router({
-            $put: {
+          "publish": c.router({
+            "$put": {
               method: 'PUT',
               path: 'admin/blog/posts/:id/publish',
-              pathParams: c.type<{ id: string }>(),
               query: c.type<undefined>(),
               body: c.type<vBlogPublish>(),
               responses: { 200: c.type<undefined>() },
             },
           }),
-          $delete: {
+          "$delete": {
             method: 'DELETE',
             path: 'admin/blog/posts/:id',
-            pathParams: c.type<{ id: string }>(),
             query: c.type<undefined>(),
             body: c.type<undefined>(),
             responses: { 200: c.type<undefined>() },
           },
-          $get: {
+          "$get": {
             method: 'GET',
             path: 'admin/blog/posts/:id',
-            pathParams: c.type<{ id: string }>(),
             query: c.type<undefined>(),
-            responses: { 200: c.type<{ data: any }>() },
+            responses: { 200: c.type<{data:any}>() },
           },
-          $put: {
+          "$put": {
             method: 'PUT',
             path: 'admin/blog/posts/:id',
-            pathParams: c.type<{ id: string }>(),
             query: c.type<undefined>(),
             body: c.type<vBlogUpdate>(),
             responses: { 200: c.type<undefined>() },
           },
         }),
-        '$get': {
+        "$get": {
           method: 'GET',
           path: 'admin/blog/posts',
           query: c.type<vBlogAdminPostsQuery>(),
-          responses: {
-            200: c.type<{
-              data: ResAdminBlogPostList[]
-              pagi: ResPagination
-            }>(),
-          },
+          responses: { 200: c.type<{data:ResAdminBlogPostList[],pagi:ResPagination}>() },
         },
-        '$post': {
+        "$post": {
           method: 'POST',
           path: 'admin/blog/posts',
           query: c.type<undefined>(),
           body: c.type<vBlogCreate>(),
-          responses: { 200: c.type<{ data: { id: string } }>() },
+          responses: { 200: c.type<{data:{id:string}}>() },
         },
       }),
     },
-    contact: {
-      forms: c.router({
-        ':id': c.router({
-          $delete: {
+    "contact": {
+      "forms": c.router({
+        ":id": c.router({
+          "$delete": {
             method: 'DELETE',
             path: 'admin/contact/forms/:id',
-            pathParams: c.type<{ id: string }>(),
             query: c.type<undefined>(),
             body: c.type<undefined>(),
             responses: { 200: c.type<undefined>() },
           },
-          notes: c.router({
-            $put: {
+          "notes": c.router({
+            "$put": {
               method: 'PUT',
               path: 'admin/contact/forms/:id/notes',
-              pathParams: c.type<{ id: string }>(),
               query: c.type<undefined>(),
               body: c.type<vContactFormNotes>(),
               responses: { 200: c.type<undefined>() },
             },
           }),
-          status: c.router({
-            $put: {
+          "status": c.router({
+            "$put": {
               method: 'PUT',
               path: 'admin/contact/forms/:id/status',
-              pathParams: c.type<{ id: string }>(),
               query: c.type<undefined>(),
               body: c.type<vContactFormStatus>(),
               responses: { 200: c.type<undefined>() },
             },
           }),
-          $get: {
+          "$get": {
             method: 'GET',
             path: 'admin/contact/forms/:id',
-            pathParams: c.type<{ id: string }>(),
             query: c.type<undefined>(),
-            responses: { 200: c.type<{ data: any }>() },
+            responses: { 200: c.type<{data:any}>() },
           },
         }),
-        '$get': {
+        "$get": {
           method: 'GET',
           path: 'admin/contact/forms',
           query: c.type<vContactFormsQuery>(),
-          responses: {
-            200: c.type<{
-              data: ResAdminContactFormList[]
-              pagi: ResPagination
-            }>(),
-          },
+          responses: { 200: c.type<{data:ResAdminContactFormList[],pagi:ResPagination}>() },
         },
       }),
     },
-    logs: c.router({
-      $get: {
+    "logs": c.router({
+      "$get": {
         method: 'GET',
         path: 'admin/logs',
         query: c.type<vLogsQuery>(),
-        responses: {
-          200: c.type<{ data: ResAdminLogList[], pagi: ResPagination }>(),
-        },
+        responses: { 200: c.type<{data:ResAdminLogList[],pagi:ResPagination}>() },
       },
     }),
-    newsletter: {
-      subscribers: c.router({
-        ':id': c.router({
-          $delete: {
+    "newsletter": {
+      "subscribers": c.router({
+        ":id": c.router({
+          "$delete": {
             method: 'DELETE',
             path: 'admin/newsletter/subscribers/:id',
-            pathParams: c.type<{ id: string }>(),
             query: c.type<undefined>(),
             body: c.type<undefined>(),
             responses: { 200: c.type<undefined>() },
           },
-          status: c.router({
-            $put: {
+          "status": c.router({
+            "$put": {
               method: 'PUT',
               path: 'admin/newsletter/subscribers/:id/status',
-              pathParams: c.type<{ id: string }>(),
               query: c.type<undefined>(),
               body: c.type<vNewsletterSubscriberStatus>(),
               responses: { 200: c.type<undefined>() },
             },
           }),
         }),
-        '$get': {
+        "$get": {
           method: 'GET',
           path: 'admin/newsletter/subscribers',
           query: c.type<vNewsletterSubscribersQuery>(),
-          responses: {
-            200: c.type<{
-              data: ResAdminNewsletterList[]
-              pagi: ResPagination
-            }>(),
-          },
+          responses: { 200: c.type<{data:ResAdminNewsletterList[],pagi:ResPagination}>() },
         },
       }),
     },
-    stats: c.router({
-      $get: {
+    "stats": c.router({
+      "$get": {
         method: 'GET',
         path: 'admin/stats',
         query: c.type<undefined>(),
-        responses: { 200: c.type<{ data: any }>() },
+        responses: { 200: c.type<{data:any}>() },
       },
     }),
   },

@@ -1,25 +1,16 @@
-import { join } from 'node:path'
 import { generateContract, parseHono } from '@packages/honojs'
-import { $ } from 'bun'
 
-const contractPath = join(
-  __dirname,
-  '../../../packages/@contracts/src/contract.ts',
-)
+const httpDir = new URL('../src/http/', import.meta.url)
 
 const { imports, routerTree } = parseHono({
   sources: [
-    join(__dirname, '../src/http/**/*.ts'),
-    `!${join(__dirname, '../src/http/**/index.ts')}`,
-    `!${join(__dirname, '../src/http/_base/*.ts')}`,
+    `${httpDir.pathname}**/*.ts`,
+    `!${httpDir.pathname}**/index.ts`,
   ],
 })
 
-generateContract({
+await generateContract({
   imports,
   routerTree,
-  output: contractPath,
+  output: new URL('../../../packages/@contracts/src/contract.ts', import.meta.url),
 })
-
-await $`bunx prettier ${contractPath} --write`
-await $`bunx eslint ${contractPath} --fix`

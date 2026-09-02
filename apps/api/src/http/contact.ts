@@ -1,4 +1,4 @@
-import { EnumContactFormStatus } from '@neziva/enums'
+import { EnumContactFormSource, EnumContactFormStatus } from '@neziva/enums'
 import { vContactSubmit } from '@neziva/validations'
 import { endOfDay } from 'date-fns'
 import { db, ds } from 'db'
@@ -29,6 +29,7 @@ export const contactRoute = new Hono()
     await db.contactForm.create({
       ...dto,
       status: EnumContactFormStatus.Pending,
+      source: EnumContactFormSource.Form,
     })
 
     // TODO: 发送邮件通知到 hello@neziva.com
