@@ -375,6 +375,63 @@
     }
     .mobile-panel a { display: block; padding: 10px 0; text-decoration: none; color: #374151; font-weight: 500; }
 
+    .nz-chat {
+      position: fixed; right: 24px; bottom: 24px; z-index: 60;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+    }
+    .nz-chat-panel {
+      width: min(calc(100vw - 2rem), 24rem);
+      background: #fff; border: 1px solid var(--line); border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, .25);
+      overflow: hidden; display: none; flex-direction: column;
+    }
+    .nz-chat.open .nz-chat-panel { display: flex; }
+    .nz-chat-head {
+      background: linear-gradient(90deg, var(--indigo), var(--purple));
+      color: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
+      font-weight: 650; font-size: 0.9rem;
+    }
+    .nz-chat-head button {
+      background: none; border: 0; color: rgba(255,255,255,.85); cursor: pointer; font-size: 1.25rem; line-height: 1;
+    }
+    .nz-chat-msgs {
+      height: 20rem; overflow-y: auto; background: #F9FAFB; padding: 16px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .nz-chat-row { display: flex; align-items: flex-start; }
+    .nz-chat-row.user { justify-content: flex-end; }
+    .nz-chat-bubble {
+      max-width: 85%; border-radius: 8px; padding: 10px 12px; font-size: 0.875rem; line-height: 1.55;
+      box-shadow: 0 1px 2px rgba(0,0,0,.04); white-space: pre-wrap;
+    }
+    .nz-chat-row.bot .nz-chat-bubble { background: #fff; color: #1f2937; border-top-left-radius: 0; margin-left: 8px; }
+    .nz-chat-row.user .nz-chat-bubble { background: var(--indigo); color: #fff; border-top-right-radius: 0; }
+    .nz-chat-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .nz-chat-chips button {
+      background: #fff; border: 1px solid var(--line); border-radius: 999px;
+      padding: 4px 10px; font-size: 0.75rem; color: #374151; cursor: pointer;
+    }
+    .nz-chat-chips button:hover { border-color: var(--indigo); color: var(--indigo); background: #EEF2FF; }
+    .nz-chat-status { font-size: 0.75rem; color: var(--muted); }
+    .nz-chat-status.err { color: #DC2626; }
+    .nz-chat-form {
+      display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--line); background: #fff;
+    }
+    .nz-chat-form input {
+      flex: 1; border: 2px solid #D1D5DB; border-radius: 8px; padding: 10px 12px; font-size: 0.875rem;
+    }
+    .nz-chat-form input:focus { outline: none; border-color: var(--indigo); }
+    .nz-chat-form button[type=submit] {
+      background: var(--indigo); color: #fff; border: 0; border-radius: 8px; padding: 0 14px; cursor: pointer; font-weight: 650;
+    }
+    .nz-chat-form button[type=submit]:disabled { opacity: .5; cursor: not-allowed; }
+    .nz-chat-fab {
+      width: 56px; height: 56px; border: 0; border-radius: 50%; cursor: pointer;
+      background: linear-gradient(135deg, #4F46E5, #7C3AED); color: #fff;
+      box-shadow: 0 10px 24px rgba(79, 70, 229, .35);
+      display: grid; place-items: center;
+    }
+    .nz-chat-fab:hover { transform: scale(1.05); }
+
     @media (max-width: 900px) {
       .wrap { width: min(1120px, calc(100% - 32px)); }
       nav.links, .nav .btn-orange { display: none; }
@@ -883,6 +940,32 @@
     </div>
   </footer>
 
+  <div class="nz-chat" id="nzChat">
+    <div class="nz-chat-panel" role="dialog" aria-label="涅智维助手">
+      <div class="nz-chat-head">
+        <span>涅智维助手</span>
+        <button type="button" data-chat-close aria-label="关闭对话">×</button>
+      </div>
+      <div class="nz-chat-msgs" data-chat-msgs>
+        <div class="nz-chat-row bot">
+          <div class="nz-chat-bubble">你好，有什么可以帮你的？</div>
+        </div>
+        <div class="nz-chat-chips" data-chat-chips>
+          <button type="button" data-prompt="Neziva 提供哪些服务？我该怎么开始？">服务说明</button>
+          <button type="button" data-prompt="我可能需要做一个原型。通常要多久、大概多少钱？">原型</button>
+          <button type="button" data-prompt="我有一个项目想法，请帮我整理成方便你们跟进的需求说明。">我有项目</button>
+        </div>
+      </div>
+      <form class="nz-chat-form" data-chat-form>
+        <input name="q" autocomplete="off" placeholder="输入消息…" />
+        <button type="submit">发送</button>
+      </form>
+    </div>
+    <button class="nz-chat-fab" type="button" data-chat-toggle aria-label="打开对话" aria-expanded="false">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+    </button>
+  </div>
+
   <script>
     const header = document.getElementById('top')
     const menuBtn = document.getElementById('menuBtn')
@@ -901,6 +984,114 @@
         } catch {}
       })
     })
+
+    ;(function setupChat() {
+      const root = document.getElementById('nzChat')
+      if (!root) return
+      const msgs = root.querySelector('[data-chat-msgs]')
+      const chips = root.querySelector('[data-chat-chips]')
+      const form = root.querySelector('[data-chat-form]')
+      const input = form.querySelector('input')
+      const submit = form.querySelector('button[type=submit]')
+      const toggle = root.querySelector('[data-chat-toggle]')
+      const closeBtn = root.querySelector('[data-chat-close]')
+      const thread = [{ role: 'assistant', content: '你好，有什么可以帮你的？' }]
+      let busy = false
+
+      function setOpen(open) {
+        root.classList.toggle('open', open)
+        toggle.setAttribute('aria-expanded', String(open))
+        toggle.setAttribute('aria-label', open ? '关闭对话' : '打开对话')
+        if (open) input.focus()
+      }
+
+      toggle.addEventListener('click', () => setOpen(!root.classList.contains('open')))
+      closeBtn.addEventListener('click', () => setOpen(false))
+
+      function addBubble(role, text) {
+        const row = document.createElement('div')
+        row.className = 'nz-chat-row ' + role
+        const bubble = document.createElement('div')
+        bubble.className = 'nz-chat-bubble'
+        bubble.textContent = text
+        row.appendChild(bubble)
+        msgs.insertBefore(row, chips)
+        msgs.scrollTop = msgs.scrollHeight
+        return bubble
+      }
+
+      function setStatus(text, isError) {
+        const old = msgs.querySelector('[data-status]')
+        if (old) old.remove()
+        if (!text) return
+        const el = document.createElement('p')
+        el.className = 'nz-chat-status' + (isError ? ' err' : '')
+        el.setAttribute('data-status', '1')
+        el.textContent = text
+        msgs.insertBefore(el, chips)
+        msgs.scrollTop = msgs.scrollHeight
+      }
+
+      async function readStream(res, onText) {
+        const reader = res.body.getReader()
+        const decoder = new TextDecoder()
+        let buffer = ''
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+          buffer += decoder.decode(value, { stream: true })
+          const lines = buffer.split('\n')
+          buffer = lines.pop() || ''
+          for (const line of lines) {
+            if (line.startsWith('0:')) onText(JSON.parse(line.slice(2)))
+            else if (line.startsWith('3:')) throw new Error(String(JSON.parse(line.slice(2))))
+          }
+        }
+      }
+
+      async function send(text) {
+        const q = String(text || '').trim()
+        if (!q || busy) return
+        busy = true
+        submit.disabled = true
+        chips.hidden = true
+        addBubble('user', q)
+        thread.push({ role: 'user', content: q })
+        input.value = ''
+        setStatus('正在回复…')
+        const bubble = addBubble('bot', '')
+        try {
+          const res = await fetch('https://api.neziva.com/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ messages: thread }),
+          })
+          if (!res.ok) throw new Error(res.statusText)
+          let full = ''
+          await readStream(res, (chunk) => {
+            full += chunk
+            bubble.textContent = full
+            msgs.scrollTop = msgs.scrollHeight
+          })
+          setStatus('')
+          thread.push({ role: 'assistant', content: full || '…' })
+        } catch {
+          bubble.remove()
+          setStatus('助手暂时不可用，请改发邮件 kenjiginjo@gmail.com', true)
+        } finally {
+          busy = false
+          submit.disabled = false
+        }
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        send(input.value)
+      })
+      chips.querySelectorAll('[data-prompt]').forEach((btn) => {
+        btn.addEventListener('click', () => send(btn.getAttribute('data-prompt') || ''))
+      })
+    })()
   </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 import { useChat } from '@ai-sdk/react'
 import { IconAiGenerate3DLine } from '@neziva/svg'
-import { Code, Lightbulb, Rocket, Send } from 'lucide-react'
+import { Send } from 'lucide-react'
 import { useEffect, useMemo, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { Button } from '@/components/ui/button'
@@ -16,9 +16,9 @@ export function ChatThread({ className, compact }: { className?: string, compact
   const { m } = useI18n()
   const bottomRef = useRef<HTMLDivElement>(null)
   const suggestions = useMemo(() => [
-    { icon: Lightbulb, label: m.chat.s1Title, hint: m.chat.s1Hint, prompt: m.chat.s1Prompt },
-    { icon: Code, label: m.chat.s2Title, hint: m.chat.s2Hint, prompt: m.chat.s2Prompt },
-    { icon: Rocket, label: m.chat.s3Title, hint: m.chat.s3Hint, prompt: m.chat.s3Prompt },
+    { label: m.chat.s1Title, prompt: m.chat.s1Prompt },
+    { label: m.chat.s2Title, prompt: m.chat.s2Prompt },
+    { label: m.chat.s3Title, prompt: m.chat.s3Prompt },
   ], [m])
 
   const { messages, input, handleInputChange, handleSubmit, append, isLoading, error } = useChat({
@@ -43,8 +43,8 @@ export function ChatThread({ className, compact }: { className?: string, compact
             className={cn('flex items-start', message.role === 'user' ? 'justify-end' : '')}
           >
             {message.role !== 'user' && (
-              <div className="w-10 h-10 bg-gradient-to-br from-[#4F46E5] to-[#7C3AED] rounded-full flex items-center justify-center flex-shrink-0">
-                <IconAiGenerate3DLine className="w-5 h-5 text-white" />
+              <div className="w-7 h-7 bg-gradient-to-br from-[#4F46E5] to-[#7C3AED] rounded-full flex items-center justify-center flex-shrink-0">
+                <IconAiGenerate3DLine className="w-3.5 h-3.5 text-white" />
               </div>
             )}
             <div
@@ -72,22 +72,17 @@ export function ChatThread({ className, compact }: { className?: string, compact
           <p className="text-sm text-red-600">{error.message || m.chat.error}</p>
         )}
         {showSuggestions && (
-          <div className={cn('grid gap-3', compact ? 'grid-cols-1' : 'grid-cols-2')}>
-            {suggestions.map((item) => {
-              const Icon = item.icon
-              return (
-                <button
-                  key={item.label}
-                  type="button"
-                  className="bg-white border-2 border-gray-200 rounded-lg p-4 text-left hover:border-[#4F46E5] hover:bg-blue-50 transition"
-                  onClick={() => append({ role: 'user', content: item.prompt })}
-                >
-                  <Icon className="h-5 w-5 text-[#4F46E5] mb-2" />
-                  <div className="font-semibold text-gray-900 text-sm">{item.label}</div>
-                  <div className="text-xs text-gray-600">{item.hint}</div>
-                </button>
-              )
-            })}
+          <div className="flex flex-wrap gap-1.5">
+            {suggestions.map(item => (
+              <button
+                key={item.label}
+                type="button"
+                className="bg-white border border-gray-200 rounded-full px-2.5 py-1 text-xs text-gray-700 hover:border-[#4F46E5] hover:text-[#4F46E5] hover:bg-indigo-50 transition"
+                onClick={() => append({ role: 'user', content: item.prompt })}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
         )}
         <div ref={bottomRef} />

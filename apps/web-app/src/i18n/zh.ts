@@ -46,7 +46,7 @@ export const zh: Messages = {
     subtitle: '可问工作室相关问题，或描述开发需求。我们会汇总并索要联系方式。',
     assistantName: 'Neziva 助手',
     online: '在线',
-    welcome: '你好。我只回答与 Neziva 相关的问题：服务、合作方式，以及帮你整理项目需求。你想做什么？',
+    welcome: '你好，有什么可以帮你的？',
     placeholder: '输入消息…',
     send: '发送',
     thinking: '正在回复…',

@@ -44,7 +44,7 @@ export const en = {
     subtitle: 'Ask about the studio, or describe what you want built. We will summarize it and ask how to reach you.',
     assistantName: 'Neziva assistant',
     online: 'Online',
-    welcome: 'Hi — I only help with Neziva: services, how we work, and collecting a project brief. What do you want to build?',
+    welcome: 'Hi, how can I help?',
     placeholder: 'Type your message...',
     send: 'Send',
     thinking: 'Thinking…',
