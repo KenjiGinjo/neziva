@@ -29,6 +29,18 @@ export interface RoutesTree {
   [x: string]: Extras | RoutesTree
 }
 
+const HTTP_METHODS = new Set(['get', 'post', 'put', 'patch', 'delete', 'options'])
+
+function isPackageSpecifier(moduleSpecifier: string) {
+  return moduleSpecifier.length > 0
+    && !moduleSpecifier.startsWith('.')
+    && !moduleSpecifier.startsWith('/')
+}
+
+function isHttpRoute(extras: Extras) {
+  return HTTP_METHODS.has(extras.method) && extras.path.startsWith('/')
+}
+
 // 获取读取文件的上级目录名称, 若传入ignore参数, 则忽略该目录，返回空字符串
 function getDirPath(filepath: string, ignore?: string): string {
   const pathArr = filepath.split('/')
@@ -83,26 +95,60 @@ function getImports(
     const moduleSpecifier: string = importDeclaration
       .getModuleSpecifier()
       .getText()
-      .replace(/'/g, '')
-    // 将获取到的import存入imports对象，保存格式 {"@xxx": {a,b}, "@xxx": {c,d}}  ，并且去重，去除重复的import，如果不是@开头的import则不处理
+      .replace(/['"]/g, '')
+    if (!isPackageSpecifier(moduleSpecifier)) {
+      return
+    }
     const namedImports: ImportSpecifier[] = importDeclaration.getNamedImports()
-    // 遍历namedImports
     namedImports.forEach((namedImport: ImportSpecifier) => {
-      // 获取import的名称
       const name: string = namedImport.getName()
-      // 判断是否是@neziva开头的import
-      if (moduleSpecifier.startsWith('@neziva')) {
-        // 如果imports[moduleSpecifier]不存在则创建一个新的set
-        if (!imports[moduleSpecifier]) {
-          imports[moduleSpecifier] = new Set()
-        }
-        // 如果存在则添加到set中
-        imports[moduleSpecifier].add(name)
+      if (!imports[moduleSpecifier]) {
+        imports[moduleSpecifier] = new Set()
       }
+      imports[moduleSpecifier].add(name)
     })
   })
 
   return imports
+}
+
+function collectExtras(tree: RoutesTree): Extras[] {
+  const extras: Extras[] = []
+  for (const value of Object.values(tree)) {
+    if (!value || typeof value !== 'object') {
+      continue
+    }
+    if ('method' in value && 'fullPath' in value) {
+      extras.push(value as Extras)
+      continue
+    }
+    extras.push(...collectExtras(value as RoutesTree))
+  }
+  return extras
+}
+
+/** 契约只引用 query / body / response 类型字符串里出现过的名字 */
+function pruneUnusedImports(imports: Imports, routerTree: RoutesTree): Imports {
+  const used = new Set<string>()
+  for (const extra of collectExtras(routerTree)) {
+    for (const text of [extra.query, extra.body, extra.response]) {
+      if (!text) {
+        continue
+      }
+      for (const match of text.matchAll(/\b[A-Za-z_][A-Za-z0-9_]*\b/g)) {
+        used.add(match[0])
+      }
+    }
+  }
+
+  const pruned: Imports = {}
+  for (const [mod, names] of Object.entries(imports)) {
+    const keep = [...names].filter(name => used.has(name))
+    if (keep.length > 0) {
+      pruned[mod] = new Set(keep)
+    }
+  }
+  return pruned
 }
 
 export function parseHono({ sources }: { sources: string[] }) {
@@ -148,11 +194,9 @@ export function parseHono({ sources }: { sources: string[] }) {
             = propertyAccessExpression?.getName()
 
           if (propertyAccessExpressionName === 'basePath') {
-            // basePath = callExpression.getArguments()[0].getText().replace(/'/g, '');
-            break
+            continue
           }
 
-          // 获取method方法
           extras.method = propertyAccessExpressionName || ''
 
           const args: Node<ts.Node>[] = callExpression.getArguments()
@@ -220,6 +264,9 @@ export function parseHono({ sources }: { sources: string[] }) {
               extras.path = arg.getText().replace(/'/g, '')
             }
           })
+          if (!isHttpRoute(extras)) {
+            continue
+          }
           routes.push(extras)
         }
       })
@@ -228,5 +275,5 @@ export function parseHono({ sources }: { sources: string[] }) {
     routerTree = merge(routerTree, newRouterTree)
   })
 
-  return { routerTree, imports }
+  return { routerTree, imports: pruneUnusedImports(imports, routerTree) }
 }
