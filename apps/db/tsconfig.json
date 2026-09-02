@@ -15,6 +15,7 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
+    "types": ["bun"],
     "strict": true,
     "strictPropertyInitialization": false,
     "noImplicitOverride": false,
@@ -28,7 +29,9 @@
   "include": [
     "src",
     "test",
-    "seed",
-    "docs"
+    "seed"
+  ],
+  "exclude": [
+    "src/doc"
   ]
 }

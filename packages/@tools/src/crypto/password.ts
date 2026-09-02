@@ -1,3 +1,5 @@
+/// <reference types="bun" />
+
 /**
  * 密码哈希函数
  *

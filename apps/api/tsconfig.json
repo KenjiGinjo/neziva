@@ -10,6 +10,7 @@
       "@/src/*": ["./src/*"]
     },
     "resolveJsonModule": true,
+    "types": ["bun"],
 
     // ======== Others ========
     "allowJs": true,

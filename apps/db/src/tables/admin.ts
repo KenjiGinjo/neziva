@@ -1,9 +1,9 @@
 import { BaseTable } from './_base'
 
 export class TableAdmin extends BaseTable {
-  readonly table = 'admin'
+  public override readonly table = 'admin'
 
-  columns = this.setColumns(t => ({
+  public override columns = this.setColumns(t => ({
     ...t.baseColumns(),
 
     username: t.string().unique(),

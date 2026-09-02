@@ -8,8 +8,12 @@ export function useUserState() {
   const _data = data?.body.data
 
   useEffect(() => {
-    if (_data) {
-      stateUser.setData(_data)
+    if (_data?.isAuthenticated && _data.admin) {
+      stateUser.setData({
+        id: _data.admin.id,
+        nickname: _data.admin.nickname,
+        avatar: null,
+      })
       auth.setIsSignin(true)
     }
   }, [_data])

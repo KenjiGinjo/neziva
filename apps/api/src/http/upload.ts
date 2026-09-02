@@ -1,11 +1,11 @@
 import type { HonoResponse } from '../types'
 import { Hono } from 'hono'
-import { auth } from '../middleware'
+import { authAd } from '../middleware'
 
 export const uploadRoute = new Hono()
   .basePath('/upload')
 
   /** 上传暂时没用 */
-  .post('/', auth(), async (c): Promise<HonoResponse<{ data: string }>> => {
+  .post('/', authAd(), async (c): Promise<HonoResponse<{ data: string }>> => {
     return c.json({ data: '' })
   })

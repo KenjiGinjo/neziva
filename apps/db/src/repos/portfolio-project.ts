@@ -31,15 +31,15 @@ export const portfolioProject = createRepo(db.portfolioProject, {
       const defaultWhere: Record<string, any> = {}
 
       if (type) {
-        defaultWhere.type = type
+        defaultWhere['type'] = type
       }
 
       if (tag) {
-        defaultWhere.tags = { has: tag }
+        defaultWhere['tags'] = { has: tag }
       }
 
       if (featured !== undefined) {
-        defaultWhere.featured = featured
+        defaultWhere['featured'] = featured
       }
 
       if (Object.keys(defaultWhere).length > 0) {

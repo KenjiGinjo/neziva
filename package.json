@@ -18,13 +18,17 @@
     "esbuild": "0.21.5"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.7.1",
+    "@babel/core": "^7.28.6",
+    "@babel/eslint-parser": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
+    "@eslint/js": "^9.39.2",
     "@types/bun": "latest",
     "eslint": "^9.11.0",
     "globals": "^15.9.0",
     "prettier": "^3.2.5",
     "turbo": "^2.3.3",
-    "typescript": "5.4.2",
+    "typescript": "7.0.2",
     "vite-plugin-sitemap": "0.8.2",
     "web-app": "0.1.0"
   }

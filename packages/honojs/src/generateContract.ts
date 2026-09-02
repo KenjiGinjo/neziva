@@ -1,6 +1,13 @@
 import type { Extras, Imports, RoutesTree } from './parseHono'
 import { writeFileSync } from 'node:fs'
 
+function pathParamsField(fullPath: string) {
+  const pathParams = [...fullPath.matchAll(/:([A-Za-z0-9_]+)/g)]
+    .map(m => `${m[1]}: string`)
+    .join('; ')
+  return pathParams ? `pathParams:c.type<{${pathParams}}>(),` : ''
+}
+
 function generateRouteString(routerTree: RoutesTree) {
   let result = ''
   for (const [key, value] of Object.entries(routerTree)) {
@@ -10,11 +17,12 @@ function generateRouteString(routerTree: RoutesTree) {
       )
       if (key.startsWith('$')) {
         const { method, query, body, response, fullPath } = value as Extras
+        const params = pathParamsField(String(fullPath))
         if (method === 'get') {
-          result += `"${key}":{method:'${method.toUpperCase()}',path:'${fullPath}',query:c.type<${query}>(),responses:{200: c.type<${response}>()}},`
+          result += `"${key}":{method:'${method.toUpperCase()}',path:'${fullPath}',${params}query:c.type<${query}>(),responses:{200: c.type<${response}>()}},`
         }
         else {
-          result += `"${key}":{method:'${method.toUpperCase()}',path:'${fullPath}',query:c.type<${query}>(),body:c.type<${body}>(),responses:{200: c.type<${response}>()}},`
+          result += `"${key}":{method:'${method.toUpperCase()}',path:'${fullPath}',${params}query:c.type<${query}>(),body:c.type<${body}>(),responses:{200: c.type<${response}>()}},`
         }
       }
       else {
