@@ -14,7 +14,8 @@ describe('parse-hono', () => {
       sources: [join(__dirname, './templates/http/city.template')],
     })
 
-    expect(Array.from(imports['@acme/interface'])).toEqual(['City'])
+    expect(Array.from(imports['@acme/interface'].names)).toEqual(['City'])
+    expect(imports['@acme/interface'].typeOnly).toBe(true)
 
     expect(imports['@skip']).toBeUndefined()
 
@@ -30,15 +31,16 @@ describe('parse-hono', () => {
       ],
     })
 
-    expect(Array.from(imports['@acme/interface'])).toEqual([
+    expect(Array.from(imports['@acme/interface'].names)).toEqual([
       'ActivityA',
       'City',
     ])
-    expect(Array.from(imports['@acme/validation'])).toEqual([
+    expect(imports['@acme/interface'].typeOnly).toBe(true)
+    expect(Array.from(imports['@acme/validation'].names)).toEqual([
       'ValidA',
       'ValidD',
-      'vIds',
     ])
+    expect(imports['@acme/validation'].typeOnly).toBe(true)
 
     expect(imports['@skip']).toBeUndefined()
 

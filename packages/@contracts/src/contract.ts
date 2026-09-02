@@ -44,6 +44,7 @@ export const contract = {
         "$get": {
           method: 'GET',
           path: 'blog/related/:id',
+          pathParams: c.type<{id:string}>(),
           query: c.type<vBlogRelated>(),
           responses: { 200: c.type<{data:any[]}>() },
         },
@@ -62,6 +63,7 @@ export const contract = {
         "$get": {
           method: 'GET',
           path: 'blog/posts/:id',
+          pathParams: c.type<{id:string}>(),
           query: c.type<undefined>(),
           responses: { 200: c.type<{data:any}>() },
         },
@@ -111,6 +113,7 @@ export const contract = {
         "$get": {
           method: 'GET',
           path: 'portfolio/related/:id',
+          pathParams: c.type<{id:string}>(),
           query: c.type<vPortfolioRelated>(),
           responses: { 200: c.type<{data:ResPortfolioProjectDetail[]}>() },
         },
@@ -121,6 +124,7 @@ export const contract = {
         "$get": {
           method: 'GET',
           path: 'portfolio/projects/:id',
+          pathParams: c.type<{id:string}>(),
           query: c.type<undefined>(),
           responses: { 200: c.type<{data:ResPortfolioProjectDetail}>() },
         },
@@ -188,6 +192,7 @@ export const contract = {
             "$put": {
               method: 'PUT',
               path: 'admin/blog/posts/:id/feature',
+              pathParams: c.type<{id:string}>(),
               query: c.type<undefined>(),
               body: c.type<vBlogFeature>(),
               responses: { 200: c.type<undefined>() },
@@ -197,6 +202,7 @@ export const contract = {
             "$put": {
               method: 'PUT',
               path: 'admin/blog/posts/:id/publish',
+              pathParams: c.type<{id:string}>(),
               query: c.type<undefined>(),
               body: c.type<vBlogPublish>(),
               responses: { 200: c.type<undefined>() },
@@ -205,6 +211,7 @@ export const contract = {
           "$delete": {
             method: 'DELETE',
             path: 'admin/blog/posts/:id',
+            pathParams: c.type<{id:string}>(),
             query: c.type<undefined>(),
             body: c.type<undefined>(),
             responses: { 200: c.type<undefined>() },
@@ -212,12 +219,14 @@ export const contract = {
           "$get": {
             method: 'GET',
             path: 'admin/blog/posts/:id',
+            pathParams: c.type<{id:string}>(),
             query: c.type<undefined>(),
             responses: { 200: c.type<{data:any}>() },
           },
           "$put": {
             method: 'PUT',
             path: 'admin/blog/posts/:id',
+            pathParams: c.type<{id:string}>(),
             query: c.type<undefined>(),
             body: c.type<vBlogUpdate>(),
             responses: { 200: c.type<undefined>() },
@@ -244,6 +253,7 @@ export const contract = {
           "$delete": {
             method: 'DELETE',
             path: 'admin/contact/forms/:id',
+            pathParams: c.type<{id:string}>(),
             query: c.type<undefined>(),
             body: c.type<undefined>(),
             responses: { 200: c.type<undefined>() },
@@ -252,6 +262,7 @@ export const contract = {
             "$put": {
               method: 'PUT',
               path: 'admin/contact/forms/:id/notes',
+              pathParams: c.type<{id:string}>(),
               query: c.type<undefined>(),
               body: c.type<vContactFormNotes>(),
               responses: { 200: c.type<undefined>() },
@@ -261,6 +272,7 @@ export const contract = {
             "$put": {
               method: 'PUT',
               path: 'admin/contact/forms/:id/status',
+              pathParams: c.type<{id:string}>(),
               query: c.type<undefined>(),
               body: c.type<vContactFormStatus>(),
               responses: { 200: c.type<undefined>() },
@@ -269,6 +281,7 @@ export const contract = {
           "$get": {
             method: 'GET',
             path: 'admin/contact/forms/:id',
+            pathParams: c.type<{id:string}>(),
             query: c.type<undefined>(),
             responses: { 200: c.type<{data:any}>() },
           },
@@ -295,6 +308,7 @@ export const contract = {
           "$delete": {
             method: 'DELETE',
             path: 'admin/newsletter/subscribers/:id',
+            pathParams: c.type<{id:string}>(),
             query: c.type<undefined>(),
             body: c.type<undefined>(),
             responses: { 200: c.type<undefined>() },
@@ -303,6 +317,7 @@ export const contract = {
             "$put": {
               method: 'PUT',
               path: 'admin/newsletter/subscribers/:id/status',
+              pathParams: c.type<{id:string}>(),
               query: c.type<undefined>(),
               body: c.type<vNewsletterSubscriberStatus>(),
               responses: { 200: c.type<undefined>() },

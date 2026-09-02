@@ -11,7 +11,7 @@ import merge from 'lodash.merge'
 import { Project, SyntaxKind } from 'ts-morph'
 
 export interface Imports {
-  [key: string]: Set<string>
+  [key: string]: { names: Set<string>, typeOnly: boolean }
 }
 
 export interface Extras {
@@ -102,10 +102,13 @@ function getImports(
     const namedImports: ImportSpecifier[] = importDeclaration.getNamedImports()
     namedImports.forEach((namedImport: ImportSpecifier) => {
       const name: string = namedImport.getName()
+      const isType = importDeclaration.isTypeOnly() || namedImport.isTypeOnly()
       if (!imports[moduleSpecifier]) {
-        imports[moduleSpecifier] = new Set()
+        imports[moduleSpecifier] = { names: new Set(), typeOnly: isType }
       }
-      imports[moduleSpecifier].add(name)
+      imports[moduleSpecifier].names.add(name)
+      if (!isType)
+        imports[moduleSpecifier].typeOnly = false
     })
   })
 
@@ -142,10 +145,10 @@ function pruneUnusedImports(imports: Imports, routerTree: RoutesTree): Imports {
   }
 
   const pruned: Imports = {}
-  for (const [mod, names] of Object.entries(imports)) {
-    const keep = [...names].filter(name => used.has(name))
+  for (const [mod, entry] of Object.entries(imports)) {
+    const keep = [...entry.names].filter(name => used.has(name))
     if (keep.length > 0) {
-      pruned[mod] = new Set(keep)
+      pruned[mod] = { names: new Set(keep), typeOnly: entry.typeOnly }
     }
   }
   return pruned
