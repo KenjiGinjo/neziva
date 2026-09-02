@@ -1,4 +1,4 @@
-import { Award, CheckCircle, Code, Cog, ExternalLink, Rocket, Shield, Sparkles, Users } from 'lucide-react'
+import { Award, CheckCircle, Code, Cog, Rocket, Shield, Sparkles, Users } from 'lucide-react'
 import { useI18n } from '@/i18n'
 
 const TILE_ICONS = [Sparkles, Code, Cog, Rocket] as const
@@ -25,17 +25,6 @@ export function AboutMain() {
                 </p>
               ))}
             </div>
-
-            <p className="text-gray-600 leading-relaxed">{m.about.ledBy}</p>
-            <a
-              href="https://kenjiginjo.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[#4F46E5] font-semibold hover:text-[#7C3AED] transition"
-            >
-              {m.about.founder}
-              <ExternalLink className="h-4 w-4" />
-            </a>
 
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
               <div className="flex items-start gap-3">

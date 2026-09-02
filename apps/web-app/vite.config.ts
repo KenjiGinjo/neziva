@@ -18,6 +18,7 @@ export default defineConfig({
         '/contact',
         '/blog',
         '/privacy',
+        '/landing.html',
         '/zh',
         '/zh/services',
         '/zh/portfolio',
@@ -32,6 +33,14 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+    },
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        landing: path.resolve(__dirname, 'landing.html'),
+      },
     },
   },
 })

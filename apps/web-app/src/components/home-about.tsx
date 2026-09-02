@@ -1,4 +1,4 @@
-import { Award, Clock, ExternalLink, RefreshCw, Shield, Users } from 'lucide-react'
+import { Award, Clock, RefreshCw, Shield, Users } from 'lucide-react'
 import { useI18n } from '@/i18n'
 
 export function HomeAbout() {
@@ -11,17 +11,7 @@ export function HomeAbout() {
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{m.home.aboutTitle}</h2>
             <p className="text-xl text-gray-700 mb-6 leading-relaxed">{m.home.aboutP1}</p>
-            <p className="text-gray-600 mb-6 leading-relaxed">{m.home.aboutP2}</p>
-            <p className="text-gray-600 mb-8 leading-relaxed">{m.home.aboutP3}</p>
-            <a
-              href="https://kenjiginjo.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[#4F46E5] font-semibold hover:text-[#7C3AED] transition mb-8"
-            >
-              {m.home.aboutFounder}
-              <ExternalLink className="h-4 w-4" />
-            </a>
+            <p className="text-gray-600 mb-8 leading-relaxed">{m.home.aboutP2}</p>
 
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
               <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">

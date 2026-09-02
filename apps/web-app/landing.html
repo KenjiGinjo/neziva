@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#4F46E5" />
+  <title>涅智维 | 把 AI 做成可上线运行的系统</title>
+  <meta name="description" content="先确认需求范围，再交付可在您现有环境中运行的系统。由开发者直接对接，不转包。免费沟通 30 分钟，或开发原型，或整套上线。" />
+  <meta name="author" content="涅智维" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://neziva.com/landing.html" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234F46E5'%3E%3Cpath d='m15.142 2.818-2.04 1.13L12 3.311 4.5 7.652v.006L12 12v8.69l7.5-4.343V11.5l2-1.17v7.17L12 23l-9.5-5.5v-11L12 1zm3.387-.499a.507.507 0 0 1 .942 0l.253.612a4.37 4.37 0 0 0 2.25 2.326l.718.32a.53.53 0 0 1 0 .962l-.76.338a4.36 4.36 0 0 0-2.218 2.25l-.247.566a.506.506 0 0 1-.934 0l-.246-.565a4.36 4.36 0 0 0-2.22-2.251l-.76-.338a.53.53 0 0 1 0-.963l.718-.32a4.37 4.37 0 0 0 2.251-2.325z'/%3E%3C/svg%3E" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://neziva.com/landing.html" />
+  <meta property="og:title" content="涅智维 | 把 AI 做成可上线运行的系统" />
+  <meta property="og:description" content="先确认范围，再交付到您现有的环境中。由开发者直接对接，不转包。" />
+  <meta property="og:image" content="https://neziva.com/og-image.png" />
+  <meta property="og:site_name" content="涅智维" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="涅智维 | 把 AI 做成可上线运行的系统" />
+  <meta name="twitter:description" content="先确认范围，再交付到您现有的环境中。由开发者直接对接，不转包。" />
+  <meta name="twitter:image" content="https://neziva.com/og-image.png" />
+
+  <style>
+    :root {
+      --indigo: #4F46E5;
+      --indigo-dark: #4338CA;
+      --purple: #7C3AED;
+      --orange: #F97316;
+      --orange-dark: #EA580C;
+      --green: #10B981;
+      --text: #111827;
+      --muted: #4B5563;
+      --line: #E5E7EB;
+      --bg: #FFFFFF;
+      --bg-soft: #F9FAFB;
+      --hero-a: #667eea;
+      --hero-b: #764ba2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .muted { color: var(--muted); }
+    .center { text-align: center; }
+    h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 0.75rem; }
+    .lead { font-size: 1.125rem; max-width: 40rem; margin: 0 auto; }
+
+    /* header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .nav {
+      display: flex; align-items: center; height: 68px;
+    }
+    .nav-end {
+      display: flex; align-items: center; gap: 12px; margin-left: auto;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-mark {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--indigo), var(--purple));
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .brand-text { display: flex; flex-direction: column; justify-content: center; gap: 1px; min-width: 0; }
+    .brand-name {
+      font-size: 1.4rem; font-weight: 800; line-height: 1.15;
+      background: linear-gradient(90deg, var(--indigo), var(--purple));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .brand-tag {
+      font-size: 0.7rem; font-weight: 500; color: var(--muted); line-height: 1.3;
+      white-space: nowrap;
+    }
+    footer .brand-tag { color: rgba(255,255,255,.65); }
+    nav.links { display: flex; align-items: center; gap: 28px; }
+    nav.links a {
+      text-decoration: none; color: #374151; font-weight: 500; font-size: 0.95rem;
+    }
+    nav.links a:hover { color: var(--indigo); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border: 0; border-radius: 10px; font-weight: 650; text-decoration: none;
+      padding: 12px 20px; cursor: pointer; font-size: 1rem; line-height: 1.2;
+    }
+    .btn-orange { background: var(--orange); color: #fff; }
+    .btn-orange:hover { background: var(--orange-dark); }
+    .btn-indigo { background: var(--indigo); color: #fff; }
+    .btn-indigo:hover { background: var(--indigo-dark); }
+    .btn-white { background: #fff; color: var(--indigo); }
+    .btn-white:hover { background: #F3F4F6; }
+    .btn-outline {
+      background: transparent; color: #fff;
+      border: 1.5px solid rgba(255,255,255,.7);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.12); }
+    .btn-ghost {
+      background: transparent; color: var(--indigo); padding: 8px 0;
+    }
+    .menu-btn {
+      display: none; background: none; border: 0; width: 40px; height: 40px; cursor: pointer;
+    }
+    .menu-btn span { display: block; height: 2px; background: #111; margin: 7px 6px; }
+
+    /* hero */
+    .hero {
+      background: linear-gradient(135deg, var(--hero-a), var(--hero-b));
+      color: #fff; padding: 72px 0 80px; position: relative; overflow: hidden;
+    }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; border-radius: 999px; background: #fff; opacity: .1; filter: blur(40px);
+    }
+    .hero::before { width: 260px; height: 260px; top: 40px; left: -40px; }
+    .hero::after { width: 380px; height: 380px; bottom: -80px; right: -60px; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; position: relative; }
+    .eyebrow { color: #DDD6FE; font-weight: 600; margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); margin-bottom: 16px; }
+    .hero .sub { font-size: 1.35rem; font-weight: 400; color: #EDE9FE; margin-bottom: 14px; }
+    .hero .body { font-size: 1.05rem; color: #E9D5FF; margin-bottom: 28px; max-width: 38rem; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-card {
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 18px; padding: 28px; backdrop-filter: blur(12px);
+    }
+    .hero-card .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem; background: rgba(0,0,0,.18); border-radius: 10px; padding: 14px 16px; margin: 14px 0 18px;
+      color: #EDE9FE;
+    }
+    .hero-card .code .g { color: #34D399; }
+    .hero-card .code .o { color: #FB923C; }
+    .hero-card .code .b { color: #A5B4FC; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .hero-stats div { background: rgba(255,255,255,.08); border-radius: 10px; padding: 12px 8px; text-align: center; }
+    .hero-stats strong { display: block; font-size: 0.95rem; }
+    .hero-stats span { display: block; font-size: 0.72rem; color: #DDD6FE; margin-top: 2px; }
+    .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; margin-right: 8px; }
+
+    section { padding: 80px 0; background: var(--bg); }
+    .sec-head { margin-bottom: 48px; text-align: center; }
+    .sec-head .lead { margin-left: auto; margin-right: auto; }
+
+    .band { background: var(--bg-soft); }
+    .cards-3, .cards-4, .cards-2 { display: grid; gap: 22px; }
+    .cards-3 { grid-template-columns: repeat(3, 1fr); }
+    .cards-4 { grid-template-columns: repeat(4, 1fr); }
+    .cards-2 { grid-template-columns: repeat(2, 1fr); }
+    .card {
+      background: #fff; border-radius: 16px; padding: 28px;
+      border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(17,24,39,.04);
+    }
+    .icon {
+      width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 18px; color: #fff;
+    }
+    .g1 { background: linear-gradient(135deg, #4F46E5, #7C3AED); }
+    .g2 { background: linear-gradient(135deg, #7C3AED, #10B981); }
+    .g3 { background: linear-gradient(135deg, #F97316, #EF4444); }
+    .g4 { background: linear-gradient(135deg, #10B981, #14B8A6); }
+    .card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+
+    /* services */
+    .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .svc {
+      border: 1.5px solid var(--line); border-radius: 18px; padding: 28px; background: #fff;
+      display: flex; flex-direction: column;
+    }
+    .svc.featured {
+      background: linear-gradient(135deg, var(--indigo), var(--purple));
+      color: #fff; border-color: transparent;
+    }
+    .svc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+    .svc h3 { font-size: 1.45rem; }
+    .pill {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+      background: #D1FAE5; color: #047857; margin-bottom: 12px;
+    }
+    .svc.featured .pill { background: rgba(255,255,255,.2); color: #fff; }
+    .price { font-size: 1.9rem; font-weight: 800; }
+    .price-note { font-size: 0.85rem; color: #6B7280; margin: 2px 0 12px; }
+    .svc.featured .price-note { color: rgba(255,255,255,.8); }
+    .svc p { margin-bottom: 14px; }
+    .svc.featured p { color: rgba(255,255,255,.92); }
+    .svc ul { margin: 0 0 18px 1.1rem; color: var(--muted); flex: 1; }
+    .svc.featured ul { color: rgba(255,255,255,.9); }
+    .svc li { margin: 6px 0; }
+    .note { text-align: center; color: #6B7280; font-size: 0.9rem; margin-top: 28px; }
+
+    /* table */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+    table { width: 100%; border-collapse: collapse; min-width: 640px; }
+    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+    th { background: var(--bg-soft); font-weight: 700; }
+    td.hl { font-weight: 700; color: var(--indigo); }
+    .yes { color: var(--green); font-weight: 700; }
+    .no { color: #D1D5DB; }
+
+    /* about — editorial, scoped */
+    #about .wrap { text-align: center; }
+    #about .about-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      max-width: 14em;
+      margin: 0 auto 28px;
+      line-height: 1.15;
+    }
+    #about .about-copy p {
+      margin: 0 auto 14px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 38em;
+    }
+    #about .about-lead {
+      color: var(--text);
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    #about .legal {
+      display: grid;
+      gap: 18px;
+      margin: 36px auto 0;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      max-width: 38em;
+    }
+    #about .legal div { min-width: 0; }
+    #about .legal dt {
+      font-size: 0.75rem;
+      color: #9CA3AF;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    #about .legal dd {
+      font-weight: 650;
+      font-size: 0.95rem;
+      color: #4B5563;
+      word-break: break-all;
+    }
+
+    .pay-fair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 28px 0 40px; }
+    .pay-fair article {
+      border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; background: #fff;
+    }
+    .pay-fair h3 { font-size: 1rem; margin-bottom: 6px; }
+    .pay-book {
+      max-width: 40rem; border: 1px solid var(--line); border-radius: 14px; padding: 4px 22px; background: #fff;
+      margin: 0 auto; text-align: left;
+    }
+    .pay-row {
+      display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px;
+      padding: 14px 0; border-bottom: 1px solid var(--line);
+    }
+    .pay-row:last-child { border-bottom: 0; }
+    .pay-row dt { width: 7.5rem; color: #6B7280; font-size: 0.9rem; flex-shrink: 0; }
+    .pay-row dd { flex: 1; font-weight: 650; min-width: 12rem; }
+    .pay-hint { display: block; font-weight: 500; font-size: 0.8rem; color: #6B7280; margin-top: 4px; }
+    .pay-copy {
+      background: none; border: 0; color: var(--indigo); font-weight: 600;
+      cursor: pointer; font-size: 0.85rem; padding: 0; margin-left: 8px;
+    }
+    .pay-copy:hover { text-decoration: underline; }
+    .pay-note { margin: 16px auto 0; color: var(--muted); max-width: 40rem; text-align: center; }
+    #payment .pay-account { text-align: center; margin-bottom: 16px; }
+    #payment .pay-account h3 { font-size: 1.4rem; margin-bottom: 8px; }
+
+    .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; }
+    .tile { background: var(--bg-soft); border-radius: 12px; padding: 16px; }
+    .tile strong { display: block; margin-bottom: 4px; }
+
+    /* process */
+    #process .timeline {
+      list-style: none;
+      max-width: 36rem;
+      margin: 0 auto;
+    }
+    #process .timeline li {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 16px 20px;
+      position: relative;
+      padding-bottom: 28px;
+    }
+    #process .timeline li:last-child { padding-bottom: 0; }
+    #process .timeline li:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 19px; top: 40px; bottom: 0;
+      width: 2px;
+      background: #E0E7FF;
+    }
+    #process .t-num {
+      width: 40px; height: 40px; border-radius: 999px;
+      display: grid; place-items: center;
+      background: var(--indigo); color: #fff; font-weight: 800; font-size: 0.95rem;
+      position: relative; z-index: 1;
+    }
+    #process .timeline h3 { font-size: 1.15rem; margin: 6px 0 6px; }
+    #process .timeline p { color: var(--muted); margin: 0; }
+    #process .process-notes {
+      list-style: none;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px;
+      margin: 40px auto 0; max-width: 42rem;
+      padding-top: 28px; border-top: 1px solid var(--line);
+      color: var(--muted); font-size: 0.95rem;
+    }
+    #process .process-notes li { position: relative; padding-left: 14px; }
+    #process .process-notes li::before {
+      content: "";
+      position: absolute; left: 0; top: 0.55em;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--indigo);
+    }
+
+    /* tech */
+    .tech-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+    .tech-item {
+      background: #fff; border-radius: 12px; padding: 18px 8px; text-align: center; font-weight: 650; font-size: 0.92rem;
+      border: 1px solid var(--line);
+    }
+
+    /* faq */
+    details {
+      background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 0 auto 10px;
+      max-width: 40rem; text-align: left;
+    }
+    summary { cursor: pointer; font-weight: 700; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    details p { margin-top: 10px; color: var(--muted); }
+
+    /* contact */
+    .contact {
+      background: linear-gradient(135deg, var(--indigo), var(--purple));
+      color: #fff;
+    }
+    .contact h2 { color: #fff; }
+    .contact .lead { color: #EDE9FE; margin-bottom: 22px; }
+    .mail-need {
+      max-width: 36rem; margin: 0 auto 28px; text-align: left;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22);
+      border-radius: 14px; padding: 22px 26px;
+    }
+    .mail-need p { color: #EDE9FE; font-size: 0.95rem; margin-bottom: 12px; }
+    .mail-need ol { margin: 0 0 0 1.15rem; color: #fff; }
+    .mail-need li { margin: 8px 0; }
+    .mail-need .hint { margin: 12px 0 0; font-size: 0.88rem; color: #DDD6FE; }
+    .contact-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; margin-top: 22px; color: #DDD6FE; font-size: 0.95rem; }
+    .contact-meta a { color: #fff; font-weight: 700; }
+
+    footer { background: #111827; color: #9CA3AF; padding: 48px 0 28px; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+    footer a { color: #D1D5DB; text-decoration: none; }
+    footer a:hover { color: #fff; }
+    footer h3 { color: #fff; margin-bottom: 12px; font-size: 1rem; }
+    footer ul { list-style: none; }
+    footer li { margin: 8px 0; }
+    .copy { border-top: 1px solid #1F2937; padding-top: 18px; font-size: 0.85rem; }
+
+    .mobile-panel {
+      display: none; border-top: 1px solid var(--line); padding: 12px 0 16px;
+    }
+    .mobile-panel a { display: block; padding: 10px 0; text-decoration: none; color: #374151; font-weight: 500; }
+
+    @media (max-width: 900px) {
+      .wrap { width: min(1120px, calc(100% - 32px)); }
+      nav.links, .nav .btn-orange { display: none; }
+      .menu-btn { display: block; }
+      header.open .mobile-panel { display: block; }
+      .hero { padding: 48px 0 56px; }
+      .hero-grid, .cards-3, .cards-4, .cards-2, .svc-grid, .tiles, .tech-grid, .foot-grid, .pay-fair {
+        grid-template-columns: 1fr;
+      }
+      .hero-card { display: none; }
+      .brand-tag { white-space: normal; max-width: 11.5rem; }
+      .tech-grid { grid-template-columns: repeat(3, 1fr); }
+      section { padding: 56px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header id="top">
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="m15.142 2.818-2.04 1.13L12 3.311 4.5 7.652v.006L12 12v8.69l7.5-4.343V11.5l2-1.17v7.17L12 23l-9.5-5.5v-11L12 1zm3.387-.499a.507.507 0 0 1 .942 0l.253.612a4.37 4.37 0 0 0 2.25 2.326l.718.32a.53.53 0 0 1 0 .962l-.76.338a4.36 4.36 0 0 0-2.218 2.25l-.247.566a.506.506 0 0 1-.934 0l-.246-.565a4.36 4.36 0 0 0-2.22-2.251l-.76-.338a.53.53 0 0 1 0-.963l.718-.32a4.37 4.37 0 0 0 2.251-2.325z"/></svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">涅智维</span>
+          <span class="brand-tag">把 AI 做成可上线系统的工作室</span>
+        </span>
+      </a>
+      <div class="nav-end">
+        <nav class="links">
+          <a href="#services">服务</a>
+          <a href="#about">关于</a>
+          <a href="#process">工作方式</a>
+          <a href="#payment">收款</a>
+          <a href="#contact">联系</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="menu-btn" type="button" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+        </div>
+      </div>
+    </div>
+    <div class="wrap mobile-panel" id="mobilePanel">
+      <a href="#services">服务</a>
+      <a href="#about">关于</a>
+      <a href="#process">工作方式</a>
+      <a href="#payment">收款</a>
+      <a href="#contact">联系</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">流程清楚，就可以谈</p>
+        <h1>你缺的不是 AI 想法，是把它接到现有流程里跑起来的人</h1>
+        <p class="sub">先定做什么、不做什么，再写代码、接模型、部署到你现在的环境。</p>
+        <p class="body">你直接跟动手的人说话，中间没有客户经理，开发也不转包。适不适合，30 分钟免费沟通就能说清。</p>
+        <div class="hero-ctas">
+          <a class="btn btn-orange" href="#contact">联系我们</a>
+          <a class="btn btn-outline" href="#services">查看服务</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div><span class="dot"></span><span style="font-family:ui-monospace,monospace;font-size:.85rem">buildAISolution()</span></div>
+        <div class="code">
+          <div><span class="g">function</span> buildAISolution() {</div>
+          <div>&nbsp;&nbsp;<span class="o">const</span> strategy = analyzeNeeds();</div>
+          <div>&nbsp;&nbsp;<span class="o">const</span> code = developSystem();</div>
+          <div>&nbsp;&nbsp;<span class="b">return</span> deployWorkingSolution();</div>
+          <div>}</div>
+        </div>
+        <div class="hero-stats">
+          <div><strong>同一团队</strong><span>前端 · 后端 · 模型</span></div>
+          <div><strong>自行开发</strong><span>不转包</span></div>
+          <div><strong>交付上线</strong><span>从需求到生产</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="why">
+    <div class="wrap">
+      <div class="sec-head center">
+        <h2>为什么选择我们</h2>
+        <p class="lead muted">您需要的是可上线使用的系统。我们负责开发，您直接与动手的人沟通。</p>
+      </div>
+      <div class="cards-3">
+        <article class="card">
+          <div class="icon g1" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 18 16 8M7 8h4v4M13 14h4v4"/></svg>
+          </div>
+          <h3>交付可运行的系统</h3>
+          <p class="muted">范围确认后即开始开发，接入您现有流程，直到能够稳定运行。</p>
+        </article>
+        <article class="card">
+          <div class="icon g2" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="18" height="16" rx="2"/><path d="M4 10h18"/></svg>
+          </div>
+          <h3>一条线做到底</h3>
+          <p class="muted">界面、后台与模型接入由同一团队完成，无需在多方之间转手。</p>
+        </article>
+        <article class="card">
+          <div class="icon g3" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19V9l7-5 7 5v10"/><path d="M10 19v-6h4v6"/></svg>
+          </div>
+          <h3>按可用标准交付</h3>
+          <p class="muted">交付的是可在您环境中运行的软件，而不是一叠设想文档。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head center">
+        <h2>服务</h2>
+        <p class="lead muted">免费沟通 30 分钟，或开发原型，或整套上线。范围确认后再谈费用。</p>
+      </div>
+      <div class="svc-grid">
+        <article class="svc">
+          <div class="svc-top">
+            <h3>免费沟通</h3>
+          </div>
+          <span class="pill">30 分钟</span>
+          <div class="price-note">无需承诺</div>
+          <p>用半小时了解现状，并明确告知是否适合合作。</p>
+          <ul>
+            <li>了解您目前如何运作</li>
+            <li>判断哪一部分适合由 AI 接手</li>
+            <li>工期与实施方式</li>
+            <li>下一步：原型、整套上线，或暂缓</li>
+            <li>不是推销会</li>
+          </ul>
+        </article>
+
+        <article class="svc featured">
+          <div class="svc-top">
+            <h3>原型</h3>
+          </div>
+          <span class="pill">1–3 周</span>
+          <p>先做出可运行的一小块，再决定是否继续整套上线。</p>
+          <ul>
+            <li>打通核心路径</li>
+            <li>例如客服回复、预测、自动生成内容</li>
+            <li>含界面、后台，可部署</li>
+            <li>可供内部试用</li>
+            <li>运行效果会如实说明</li>
+          </ul>
+        </article>
+
+        <article class="svc">
+          <div class="svc-top">
+            <h3>整套上线</h3>
+          </div>
+          <span class="pill">1–3 个月</span>
+          <p>按约定范围开发，并部署到您的环境中运行。</p>
+          <ul>
+            <li>按约定完成开发并上线</li>
+            <li>数据的进入与输出</li>
+            <li>模型训练或接入</li>
+            <li>与现有系统对接</li>
+            <li>供实际使用的界面</li>
+            <li>部署，并先搭好基础监控</li>
+            <li>权限与数据按正式项目处理</li>
+          </ul>
+        </article>
+
+        <article class="svc">
+          <div class="svc-top">
+            <h3>上线后支持</h3>
+          </div>
+          <span class="pill">项目交付之后</span>
+          <div class="price-note">共同交付过的项目才承接</div>
+          <p>我们共同交付过的系统，后续仍可修改与维护。</p>
+          <ul>
+            <li>缺陷与性能问题</li>
+            <li>必要时更新模型</li>
+            <li>使用中发现的小功能</li>
+            <li>邮件支持，回复时限事先约定</li>
+            <li>安全补丁与依赖更新</li>
+          </ul>
+        </article>
+      </div>
+      <p class="note">交付之后如需持续修改与维护，可以另行约定。</p>
+
+      <div class="sec-head center" style="margin-top:64px">
+        <h2>对照一览</h2>
+        <p class="lead muted">从哪一步开始，由您选择。</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th>沟通</th>
+              <th>原型</th>
+              <th>整套</th>
+              <th>上线后</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>时间</td>
+              <td>30 分钟</td>
+              <td>1–3 周</td>
+              <td>1–3 个月</td>
+              <td>按月</td>
+            </tr>
+            <tr>
+              <td>适合</td>
+              <td>先了解现状</td>
+              <td>先验证一小块</td>
+              <td>需要上线</td>
+              <td>我们交付过的系统</td>
+            </tr>
+            <tr>
+              <td>确认范围</td>
+              <td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">—</td>
+            </tr>
+            <tr>
+              <td>可运行的一小块</td>
+              <td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">—</td>
+            </tr>
+            <tr>
+              <td>上线</td>
+              <td class="no">—</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>后续支持</td>
+              <td class="no">—</td><td class="no">—</td>
+              <td>30 天</td>
+              <td class="yes">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="about">
+    <div class="wrap">
+      <h2 class="about-title">你直接跟动手的人说话</h2>
+      <div class="about-copy">
+        <p class="about-lead">小型工作室。先定范围，再写代码、接模型、部署到你现在的环境。</p>
+        <p>前端、后端、模型接入由同一团队完成。中间没有客户经理。开发不转包。</p>
+        <p>不接只出方案、不写代码的咨询，也不会从零替你想商业模式。开发自己做，不转包。</p>
+      </div>
+      <dl class="legal">
+        <div>
+          <dt>已注册经营</dt>
+          <dd>两江新区涅智维网络科技工作室（个体工商户）</dd>
+        </div>
+        <div>
+          <dt>统一社会信用代码</dt>
+          <dd>92500157MAKD81B01T</dd>
+        </div>
+        <div>
+          <dt>经营范围</dt>
+          <dd>软件开发、人工智能应用开发、信息技术咨询及相关技术服务。</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="industries">
+    <div class="wrap">
+      <div class="sec-head center">
+        <h2>常接的方向</h2>
+        <p class="lead muted">只要是明确的业务流程，通常可以把 AI 接到其中一块。</p>
+      </div>
+      <div class="cards-3">
+        <article class="card"><h3>营销日常</h3><p class="muted">文案草稿、活动安排、发送对象——减少手工操作。</p></article>
+        <article class="card"><h3>数据查看</h3><p class="muted">看清发生了什么、下一步可能如何，再做决定。</p></article>
+        <article class="card"><h3>客服回复</h3><p class="muted">常见问题先自动答复；其余转给人工。</p></article>
+        <article class="card"><h3>重复操作</h3><p class="muted">录入、单据、每天同一套步骤。</p></article>
+        <article class="card"><h3>批量撰写</h3><p class="muted">产品文案、帖子、邮件——仍需人工过目。</p></article>
+        <article class="card"><h3>前瞻判断</h3><p class="muted">需求、库存、客户下一步可能如何。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="process">
+    <div class="wrap">
+      <div class="sec-head center">
+        <h2>工作方式</h2>
+        <p class="lead muted">从沟通到上线，四步。</p>
+      </div>
+      <ol class="timeline">
+        <li>
+          <span class="t-num">1</span>
+          <div>
+            <h3>了解现状</h3>
+            <p>目前如何运作、卡在哪里、希望 AI 接手哪一部分。</p>
+          </div>
+        </li>
+        <li>
+          <span class="t-num">2</span>
+          <div>
+            <h3>确认范围</h3>
+            <p>做什么、不做什么、大致工期，以及怎样算完成。</p>
+          </div>
+        </li>
+        <li>
+          <span class="t-num">3</span>
+          <div>
+            <h3>开发交付</h3>
+            <p>开始开发，并同步进度。您也可以提出调整。</p>
+          </div>
+        </li>
+        <li>
+          <span class="t-num">4</span>
+          <div>
+            <h3>部署上线</h3>
+            <p>部署到您的环境，并附说明。交付后仍可继续询问。</p>
+          </div>
+        </li>
+      </ol>
+      <ul class="process-notes">
+        <li>能做、不能做、费用，如实说</li>
+        <li>必须能在你这边跑起来</li>
+        <li>代码可读，你可以接手</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="tech">
+    <div class="wrap">
+      <div class="sec-head center">
+        <h2>使用的技术</h2>
+        <p class="lead muted">实际项目中会用到的工具，按项目选用，不是摆设清单。</p>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-item">LLMs</div>
+        <div class="tech-item">Python</div>
+        <div class="tech-item">React</div>
+        <div class="tech-item">Vue</div>
+        <div class="tech-item">Node.js</div>
+        <div class="tech-item">TypeScript</div>
+        <div class="tech-item">PostgreSQL</div>
+        <div class="tech-item">Docker</div>
+        <div class="tech-item">LangChain</div>
+        <div class="tech-item">Vector DBs</div>
+        <div class="tech-item">AWS</div>
+        <div class="tech-item">FastAPI</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="faq">
+    <div class="wrap">
+      <div class="sec-head center">
+        <h2>常见问题</h2>
+      </div>
+      <details open>
+        <summary>多久会回复？</summary>
+        <p>工作日（周一至周五，UTC+8）通常 12 小时内回复。紧急事项请在邮件标题中注明。</p>
+      </details>
+      <details>
+        <summary>是否提供免费沟通？</summary>
+        <p>提供。30 分钟，无需承诺。直接发邮件即可。是否适合合作，我们会明确告知。</p>
+      </details>
+      <details>
+        <summary>项目周期一般多久？</summary>
+        <p>免费沟通 30 分钟。原型 1–3 周。整套上线 1–3 个月，视范围而定。范围确认后再给出时间表。</p>
+      </details>
+      <details>
+        <summary>承接哪类项目？</summary>
+        <p>有明确业务流程，并希望将其中一块交给 AI、最终上线。是否适合，可先免费沟通确认。</p>
+      </details>
+      <details>
+        <summary>如何收费？</summary>
+        <p>先确认范围，再书面约定费用。未约定不开工收款。转账账户见<a href="#payment">收款说明</a>。</p>
+      </details>
+      <details>
+        <summary>能否对接现有系统？</summary>
+        <p>可以。接入您现有的流程与系统，而不是推倒重来。云端或自有机房均可讨论。</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="payment">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>收款说明</h2>
+        <p class="lead muted">个体户工作室。价格先写清楚，按约定收，不事后改口径。</p>
+      </div>
+      <div class="pay-fair">
+        <article>
+          <h3>范围确认后再报价</h3>
+          <p class="muted">免费沟通不收费。原型起价和整套报价，以谈清范围后的书面约定为准。未约定不开工收款。</p>
+        </article>
+        <article>
+          <h3>同一范围同一价</h3>
+          <p class="muted">不因新客户或小团队事后加价。范围变了，再谈金额。</p>
+        </article>
+        <article>
+          <h3>付款节点写进约定</h3>
+          <p class="muted">金额、币种、何时付款写进约定。约定节点未到账，对应工作先停下。</p>
+        </article>
+        <article>
+          <h3>网站标价是美元</h3>
+          <p class="muted">国内银行转账用人民币。汇率在付款前书面确认，按确认结果打款。</p>
+        </article>
+        <article>
+          <h3>请核对户名</h3>
+          <p class="muted">经营主体是个体工商户，收款户名是经营者崔丛昆，不是公司对公户。户名对不上请不要打款。</p>
+        </article>
+      </div>
+      <div class="pay-account">
+        <h3>转账账户</h3>
+        <p class="muted">打款前请与邮件约定核对。</p>
+      </div>
+      <dl class="pay-book">
+        <div class="pay-row">
+          <dt>公司名</dt>
+          <dd>两江新区涅智维网络科技工作室 <button class="pay-copy" type="button" data-copy="两江新区涅智维网络科技工作室">复制</button></dd>
+        </div>
+        <div class="pay-row">
+          <dt>统一社会信用代码</dt>
+          <dd>92500157MAKD81B01T <button class="pay-copy" type="button" data-copy="92500157MAKD81B01T">复制</button></dd>
+        </div>
+        <div class="pay-row">
+          <dt>收款人</dt>
+          <dd>崔丛昆 <button class="pay-copy" type="button" data-copy="崔丛昆">复制</button>
+            <span class="pay-hint">工作室法人</span>
+          </dd>
+        </div>
+        <div class="pay-row">
+          <dt>银行账号</dt>
+          <dd>6217 0011 4000 2950 548 <button class="pay-copy" type="button" data-copy="6217001140002950548">复制</button></dd>
+        </div>
+        <div class="pay-row">
+          <dt>开户行</dt>
+          <dd>中国建设银行股份有限公司哈尔滨田地支行 <button class="pay-copy" type="button" data-copy="中国建设银行股份有限公司哈尔滨田地支行">复制</button></dd>
+        </div>
+        <div class="pay-row">
+          <dt>联行号</dt>
+          <dd>105261000773 <button class="pay-copy" type="button" data-copy="105261000773">复制</button></dd>
+        </div>
+      </dl>
+      <p class="pay-note">转账请备注项目名称。需要发票请在开工前说明，我们按个体户能开的票据处理。</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap center">
+      <h2>有项目想讨论？</h2>
+      <p class="lead">发送邮件即可。是否适合合作，我们会明确告知。</p>
+      <div class="mail-need">
+        <p>来信请尽量写清下面几项。信息越具体，回复越有针对性。</p>
+        <ol>
+          <li>怎么称呼；公司或团队（选填）</li>
+          <li>想先免费沟通、做原型、整套上线，还是尚不确定</li>
+          <li>现在怎么运作、卡在哪里、希望 AI 接手哪一块</li>
+          <li>希望做成什么、给谁用、怎样算完成</li>
+          <li>必须具备的条件（权限、数据、必须接上的现有系统等）</li>
+          <li>希望何时用上</li>
+          <li>现有系统或部署环境（有则写）</li>
+          <li>预算大致区间（选填）</li>
+        </ol>
+        <p class="hint">知道多少写多少。紧急事项请在邮件标题写「紧急」。</p>
+      </div>
+      <a class="btn btn-orange" href="mailto:kenjiginjo@gmail.com?subject=%E9%A1%B9%E7%9B%AE%E5%92%A8%E8%AF%A2&body=%E7%A7%B0%E5%91%BC%20/%20%E5%85%AC%E5%8F%B8%EF%BC%9A%0A%0A%E6%83%B3%E8%B0%88%EF%BC%88%E5%85%8D%E8%B4%B9%E6%B2%9F%E9%80%9A%20/%20%E5%8E%9F%E5%9E%8B%20/%20%E6%95%B4%E5%A5%97%E4%B8%8A%E7%BA%BF%20/%20%E5%B0%9A%E4%B8%8D%E7%A1%AE%E5%AE%9A%EF%BC%89%EF%BC%9A%0A%0A%E7%8E%B0%E5%9C%A8%E6%80%8E%E4%B9%88%E8%BF%90%E4%BD%9C%E3%80%81%E5%8D%A1%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9A%0A%0A%E5%B8%8C%E6%9C%9B%E5%81%9A%E6%88%90%E4%BB%80%E4%B9%88%E3%80%81%E7%BB%99%E8%B0%81%E7%94%A8%EF%BC%9A%0A%0A%E5%BF%85%E9%A1%BB%E5%85%B7%E5%A4%87%E7%9A%84%E6%9D%A1%E4%BB%B6%EF%BC%9A%0A%0A%E5%B8%8C%E6%9C%9B%E4%BD%95%E6%97%B6%E7%94%A8%E4%B8%8A%EF%BC%9A%0A%0A%E7%8E%B0%E6%9C%89%E7%B3%BB%E7%BB%9F%E6%88%96%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83%EF%BC%88%E6%9C%89%E5%88%99%E5%86%99%EF%BC%89%EF%BC%9A%0A%0A%E9%A2%84%E7%AE%97%E5%A4%A7%E8%87%B4%E5%8C%BA%E9%97%B4%EF%BC%88%E9%80%89%E5%A1%AB%EF%BC%89%EF%BC%9A%0A">按模板写邮件</a>
+      <div class="contact-meta">
+        <span><a href="mailto:kenjiginjo@gmail.com">kenjiginjo@gmail.com</a></span>
+        <span>周一至周五 9:00–18:00（UTC+8）</span>
+        <span>工作日通常 12 小时内回复</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a class="brand" href="#top" style="margin-bottom:12px">
+            <span class="brand-mark">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="m15.142 2.818-2.04 1.13L12 3.311 4.5 7.652v.006L12 12v8.69l7.5-4.343V11.5l2-1.17v7.17L12 23l-9.5-5.5v-11L12 1zm3.387-.499a.507.507 0 0 1 .942 0l.253.612a4.37 4.37 0 0 0 2.25 2.326l.718.32a.53.53 0 0 1 0 .962l-.76.338a4.36 4.36 0 0 0-2.218 2.25l-.247.566a.506.506 0 0 1-.934 0l-.246-.565a4.36 4.36 0 0 0-2.22-2.251l-.76-.338a.53.53 0 0 1 0-.963l.718-.32a4.37 4.37 0 0 0 2.251-2.325z"/></svg>
+            </span>
+            <span class="brand-text">
+              <span class="brand-name" style="color:#fff;background:none;-webkit-text-fill-color:#fff">涅智维</span>
+              <span class="brand-tag">把 AI 做成可上线系统的工作室</span>
+            </span>
+          </a>
+          <p>将 AI 做成可上线运行的系统。范围确认后，交付到您的环境。</p>
+        </div>
+        <div>
+          <h3>服务</h3>
+          <ul>
+            <li><a href="#services">免费沟通</a></li>
+            <li><a href="#services">原型</a></li>
+            <li><a href="#services">整套上线</a></li>
+            <li><a href="#services">上线后支持</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>联系</h3>
+          <ul>
+            <li><a href="mailto:kenjiginjo@gmail.com">kenjiginjo@gmail.com</a></li>
+            <li><a href="#payment">收款说明</a></li>
+            <li>两江新区涅智维网络科技工作室（个体工商户）</li>
+          </ul>
+        </div>
+      </div>
+      <p class="copy">© 2026 涅智维 · <span>两江新区涅智维网络科技工作室</span></p>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('top')
+    const menuBtn = document.getElementById('menuBtn')
+    menuBtn.addEventListener('click', () => header.classList.toggle('open'))
+    document.querySelectorAll('#mobilePanel a').forEach((a) => {
+      a.addEventListener('click', () => header.classList.remove('open'))
+    })
+    document.querySelectorAll('.pay-copy').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const text = btn.getAttribute('data-copy') || ''
+        try {
+          await navigator.clipboard.writeText(text)
+          const prev = btn.textContent
+          btn.textContent = '已复制'
+          setTimeout(() => { btn.textContent = prev }, 1600)
+        } catch {}
+      })
+    })
+  </script>
+</body>
+</html>

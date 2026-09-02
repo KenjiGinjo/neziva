@@ -30,7 +30,7 @@ export function ContactMethods() {
               <Clock className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Response Time</h3>
-            <p className="text-[#4F46E5] font-medium text-lg">Within 24 hours</p>
+            <p className="text-[#4F46E5] font-medium text-lg">Within 12 hours</p>
             <p className="text-gray-600 mt-2 text-sm">Mon – Fri, UTC+8</p>
           </div>
 

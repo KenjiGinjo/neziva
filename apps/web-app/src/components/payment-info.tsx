@@ -13,10 +13,12 @@ function CopyRow({
   label,
   value,
   copyValue,
+  note,
 }: {
   label: string
   value: string
   copyValue?: string
+  note?: string
 }) {
   const { m } = useI18n()
   const [copied, setCopied] = useState(false)
@@ -35,15 +37,18 @@ function CopyRow({
   return (
     <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6 py-4 border-b border-gray-200 last:border-0">
       <dt className="sm:w-32 shrink-0 text-gray-500">{label}</dt>
-      <dd className="flex-1 flex flex-wrap items-center gap-3">
-        <span className="text-gray-900 font-medium break-all">{value}</span>
-        <button
-          type="button"
-          onClick={copy}
-          className="text-sm text-[#4F46E5] hover:underline"
-        >
-          {copied ? m.payment.copied : m.payment.copy}
-        </button>
+      <dd className="flex-1 min-w-0">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="text-gray-900 font-medium break-all">{value}</span>
+          <button
+            type="button"
+            onClick={copy}
+            className="text-sm text-[#4F46E5] hover:underline"
+          >
+            {copied ? m.payment.copied : m.payment.copy}
+          </button>
+        </div>
+        {note && <p className="text-sm text-gray-500 mt-1">{note}</p>}
       </dd>
     </div>
   )
@@ -63,7 +68,7 @@ export function PaymentInfo() {
         <dl className="max-w-3xl border border-gray-200 rounded-2xl px-6 md:px-8">
           <CopyRow label={p.legalLabel} value={LEGAL} />
           <CopyRow label={p.usccLabel} value={USCC} />
-          <CopyRow label={p.payeeLabel} value={PAYEE} />
+          <CopyRow label={p.payeeLabel} value={PAYEE} note={p.payeeNote} />
           <CopyRow label={p.accountLabel} value={ACCOUNT_DISPLAY} copyValue={ACCOUNT_PLAIN} />
           <CopyRow label={p.bankLabel} value={BANK} />
           <CopyRow label={p.cnapsLabel} value={CNAPS} />

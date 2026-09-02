@@ -150,8 +150,6 @@ export const en = {
     aboutTitle: 'About Neziva',
     aboutP1: 'Neziva delivers AI systems that run in daily work and stay in production.',
     aboutP2: 'From confirmed scope to code, model integration, and deploy. React, Vue, Node, TypeScript — chosen for the project.',
-    aboutP3: 'Led by Kenji Ginjo, who has delivered frontend, backend, and model integration himself.',
-    aboutFounder: 'Founder and background',
     aboutDirectTitle: 'Direct contact',
     aboutDirectBody: 'You speak with the developers. There is no account manager in between.',
     aboutHandsOnTitle: 'We do the work',
@@ -174,7 +172,7 @@ export const en = {
     contactEmailTitle: 'Email',
     contactEmailDesc: 'Projects or general questions — either is fine.',
     contactResponseTitle: 'Response Time',
-    contactResponseBody: 'We typically respond within 24 hours on business days. For urgent matters, please mention it in your subject line.',
+    contactResponseBody: 'We typically respond within 12 hours on business days. For urgent matters, please mention it in your subject line.',
     contactHours: 'Monday - Friday, 9:00 AM - 6:00 PM (UTC+8)',
   },
   process: {
@@ -333,8 +331,6 @@ export const en = {
       { title: 'You work with us, not a desk in between.', body: 'No account manager. Development is not outsourced.' },
       { title: 'One team the whole way.', body: 'From conversation to go-live — the same people.' },
     ],
-    ledBy: 'Led by Kenji Ginjo. He has delivered frontend, backend, and model integration himself.',
-    founder: 'Founder and background',
     registeredTitle: 'Registered business',
     registeredLegal: '两江新区涅智维网络科技工作室（个体工商户）',
     registeredMeta: 'Registered: May 14, 2026 · Chongqing, China',
@@ -387,8 +383,8 @@ export const en = {
     heroTitle: 'Send an email',
     heroSubtitle: 'Use the form or write to us directly. A free 30-minute conversation is available if you want one.',
     formTitle: 'Send a message',
-    formSubtitle: 'We reply within 24 hours on business days.',
-    success: 'Thank you! We\'ll get back to you within 24 hours.',
+    formSubtitle: 'We reply within 12 hours on business days.',
+    success: 'Thank you! We\'ll get back to you within 12 hours.',
     name: 'Name',
     namePlaceholder: 'Your name',
     company: 'Company Name',
@@ -423,7 +419,7 @@ export const en = {
     emailDirectBody: 'Prefer email? Send us a message anytime — same response time as the form.',
     mailSubject: 'Project Inquiry',
     responseTitle: 'Response Time',
-    responseBody: 'We typically respond within 24 hours on business days.',
+    responseBody: 'We typically respond within 12 hours on business days.',
     hours: 'Monday – Friday, 9:00 AM – 6:00 PM (UTC+8)',
     nextTitle: 'What happens next',
     nextSteps: [
@@ -432,7 +428,7 @@ export const en = {
       'Optional: 30 minutes on a call, free',
     ] as string[],
     trust: [
-      { label: '24h reply', desc: 'On business days (UTC+8)' },
+      { label: '12h reply', desc: 'On business days (UTC+8)' },
       { label: 'Free conversation', desc: '30 min, no commitment' },
       { label: 'We write it', desc: 'Development is not outsourced' },
       { label: 'Registered', desc: 'Sole proprietorship, China' },
@@ -453,7 +449,7 @@ export const en = {
     faqs: [
       {
         question: 'How quickly will you respond?',
-        answer: 'We typically respond within 24 hours on business days (Monday – Friday, UTC+8). For urgent matters, mention it in your subject line.',
+        answer: 'We typically respond within 12 hours on business days (Monday – Friday, UTC+8). For urgent matters, mention it in your subject line.',
       },
       {
         question: 'What should I include in my message?',
@@ -672,6 +668,7 @@ export const en = {
     legalLabel: 'Registered name',
     usccLabel: 'USCC',
     payeeLabel: 'Account name',
+    payeeNote: 'Legal representative of the studio',
     accountLabel: 'Account number',
     bankLabel: 'Bank',
     cnapsLabel: 'CNAPS code',

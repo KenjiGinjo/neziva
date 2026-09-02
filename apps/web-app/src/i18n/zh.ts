@@ -152,8 +152,6 @@ export const zh: Messages = {
     aboutTitle: '关于 Neziva',
     aboutP1: 'Neziva 交付可上线的 AI 系统，嵌入日常流程并保持运行。',
     aboutP2: '从确认范围，到编写代码、接入模型、完成部署。React、Vue、Node、TypeScript——按项目需要选用。',
-    aboutP3: '由 Kenji Ginjo 带领。前端、后端与模型接入均亲自交付过。',
-    aboutFounder: '创始人与背景',
     aboutDirectTitle: '直接对接',
     aboutDirectBody: '与开发者直接沟通，中间没有客户经理。',
     aboutHandsOnTitle: '自行完成',
@@ -176,7 +174,7 @@ export const zh: Messages = {
     contactEmailTitle: '邮箱',
     contactEmailDesc: '项目咨询与一般问题均可。',
     contactResponseTitle: '回复时间',
-    contactResponseBody: '工作日通常 24 小时内回复。紧急事项请在邮件标题中注明。',
+    contactResponseBody: '工作日通常 12 小时内回复。紧急事项请在邮件标题中注明。',
     contactHours: '周一至周五 9:00–18:00（UTC+8）',
   },
   process: {
@@ -335,8 +333,6 @@ export const zh: Messages = {
       { title: '直接合作，中间不隔一层。', body: '没有客户经理，开发也不转包。' },
       { title: '同一团队跟到底。', body: '从沟通到上线，始终是同一批人。' },
     ],
-    ledBy: '由 Kenji Ginjo 带领。前端、后端与模型接入均亲自交付过。',
-    founder: '创始人与背景',
     registeredTitle: '已注册经营',
     registeredLegal: '两江新区涅智维网络科技工作室（个体工商户）',
     registeredMeta: '注册日期：2026 年 5 月 14 日 · 中国重庆',
@@ -389,8 +385,8 @@ export const zh: Messages = {
     heroTitle: '发送邮件',
     heroSubtitle: '可填写表单，也可直接来信。如需预约，免费沟通 30 分钟。',
     formTitle: '发送消息',
-    formSubtitle: '工作日 24 小时内回复。',
-    success: '已收到，我们将在 24 小时内回复。',
+    formSubtitle: '工作日 12 小时内回复。',
+    success: '已收到，我们将在 12 小时内回复。',
     name: '姓名',
     namePlaceholder: '您的姓名',
     company: '公司名称',
@@ -425,7 +421,7 @@ export const zh: Messages = {
     emailDirectBody: '更习惯邮件？随时发送——回复时限与表单相同。',
     mailSubject: '项目咨询',
     responseTitle: '回复时间',
-    responseBody: '工作日通常 24 小时内回复。',
+    responseBody: '工作日通常 12 小时内回复。',
     hours: '周一至周五 9:00–18:00（UTC+8）',
     nextTitle: '接下来',
     nextSteps: [
@@ -434,7 +430,7 @@ export const zh: Messages = {
       '可选：30 分钟免费沟通',
     ],
     trust: [
-      { label: '24 小时回复', desc: '工作日（UTC+8）' },
+      { label: '12 小时回复', desc: '工作日（UTC+8）' },
       { label: '免费沟通', desc: '30 分钟，无需承诺' },
       { label: '自行开发', desc: '开发不转包' },
       { label: '已注册', desc: '个体工商户' },
@@ -455,7 +451,7 @@ export const zh: Messages = {
     faqs: [
       {
         question: '多久会回复？',
-        answer: '工作日（周一至周五，UTC+8）通常 24 小时内回复。紧急事项请在邮件标题中注明。',
+        answer: '工作日（周一至周五，UTC+8）通常 12 小时内回复。紧急事项请在邮件标题中注明。',
       },
       {
         question: '留言应包含哪些内容？',
@@ -672,6 +668,7 @@ export const zh: Messages = {
     legalLabel: '公司名',
     usccLabel: '统一社会信用代码',
     payeeLabel: '收款人',
+    payeeNote: '工作室法人',
     accountLabel: '银行账号',
     bankLabel: '开户行',
     cnapsLabel: '联行号',
