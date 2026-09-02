@@ -1,4 +1,6 @@
+import { EnumNewsletterStatus } from '@neziva/enums'
 import { z } from 'zod'
+import { zQueryIntEnum } from './_utils'
 
 export const vNewsletterSubscribe = z.object({
   email: z.string().email('Invalid email address'),
@@ -7,9 +9,11 @@ export const vNewsletterSubscribe = z.object({
 export type vNewsletterSubscribe = z.infer<typeof vNewsletterSubscribe>
 
 export const vNewsletterSubscribersQuery = z.object({
-  status: z.string().optional(),
+  status: zQueryIntEnum(EnumNewsletterStatus),
   source: z.string().optional(),
   search: z.string().optional(),
+  page: z.coerce.number().optional(),
+  pageSize: z.coerce.number().optional(),
 })
 export type vNewsletterSubscribersQuery = z.infer<typeof vNewsletterSubscribersQuery>
 

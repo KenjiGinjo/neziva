@@ -16,10 +16,9 @@ export const newsletter = new Hono()
     const { status, source, search } = c.req.valid('query')
     let query = db.newsletter
 
-    // 构建基础筛选条件
     const baseConditions: any = {}
-    if (status) {
-      baseConditions.status = Number(status) as EnumNewsletterStatus
+    if (status !== undefined) {
+      baseConditions.status = status as EnumNewsletterStatus
     }
     if (source) {
       baseConditions.source = source

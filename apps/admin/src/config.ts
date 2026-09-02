@@ -10,7 +10,7 @@ export const config = observable({
   tokenBaseURL: baseURL,
   tokenProvider: async () => $state.token.get() || getStorageToken(),
 
-  loginPagePath: '/',
+  loginPagePath: '/login',
 
   timezone: '+08:00',
 })

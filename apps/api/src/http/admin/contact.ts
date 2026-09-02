@@ -16,10 +16,9 @@ export const contact = new Hono()
     const { status, projectType, search } = c.req.valid('query')
     let query = db.contactForm
 
-    // 构建基础筛选条件
     const baseConditions: any = {}
-    if (status) {
-      baseConditions.status = Number(status) as EnumContactFormStatus
+    if (status !== undefined) {
+      baseConditions.status = status as EnumContactFormStatus
     }
     if (projectType) {
       baseConditions.projectType = projectType

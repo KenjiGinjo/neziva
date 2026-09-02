@@ -36,3 +36,9 @@ export async function signin(meta?: { token: string, type: string }) {
   setStorageToken(meta.token)
   $state.token.set(meta.token)
 }
+
+export function signout() {
+  window.localStorage.removeItem(STORAGE_KEY.AUTH_TOKEN)
+  $state.token.set('')
+  $state.isSignin.set(false)
+}

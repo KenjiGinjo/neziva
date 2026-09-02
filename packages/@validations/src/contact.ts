@@ -1,5 +1,6 @@
 import { EnumContactFormStatus } from '@neziva/enums'
 import { z } from 'zod'
+import { zQueryIntEnum } from './_utils'
 
 export const vContactSubmit = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -13,9 +14,11 @@ export const vContactSubmit = z.object({
 export type vContactSubmit = z.infer<typeof vContactSubmit>
 
 export const vContactFormsQuery = z.object({
-  status: z.nativeEnum(EnumContactFormStatus).optional(),
+  status: zQueryIntEnum(EnumContactFormStatus),
   projectType: z.string().optional(),
   search: z.string().optional(),
+  page: z.coerce.number().optional(),
+  pageSize: z.coerce.number().optional(),
 })
 export type vContactFormsQuery = z.infer<typeof vContactFormsQuery>
 

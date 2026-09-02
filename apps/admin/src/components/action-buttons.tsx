@@ -21,7 +21,7 @@ export function ActionButtons({
       {children}
       {editUrl && (
         <Button variant="ghost" size="icon" asChild>
-          <Link to={editUrl}>
+          <Link href={editUrl}>
             <Pencil className="text-gray-400" />
           </Link>
         </Button>

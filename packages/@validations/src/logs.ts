@@ -5,5 +5,7 @@ export const vLogsQuery = z.object({
   startDate: z.string().optional(),
   endDate: z.string().optional(),
   search: z.string().optional(),
+  page: z.coerce.number().optional(),
+  pageSize: z.coerce.number().optional(),
 })
 export type vLogsQuery = z.infer<typeof vLogsQuery>

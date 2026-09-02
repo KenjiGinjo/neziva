@@ -16,7 +16,10 @@ export const blog = new Hono()
 
     await ds.blogPost.checkSlug(dto.slug)
 
-    const post = await db.blogPost.create(dto)
+    const post = await db.blogPost.create({
+      ...dto,
+      publishedAt: Number(dto.status) === EnumBlogPostStatus.Published ? new Date() : undefined,
+    })
 
     return c.json({
       data: { id: post.id },
@@ -30,12 +33,16 @@ export const blog = new Hono()
 
     const post = await db.blogPost.where({ id }).take()
 
-    // 如果更新 slug，检查是否已存在
     if (dto.slug && dto.slug !== post.slug) {
       await ds.blogPost.checkSlug(dto.slug)
     }
 
-    await db.blogPost.where({ id }).update(dto)
+    const updateData: Record<string, unknown> = { ...dto }
+    if (Number(dto.status) === EnumBlogPostStatus.Published && !post.publishedAt) {
+      updateData['publishedAt'] = new Date()
+    }
+
+    await db.blogPost.where({ id }).update(updateData)
 
     return c.body(null, 204)
   })

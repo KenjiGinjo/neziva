@@ -13,7 +13,7 @@ export const blogRoute = new Hono()
   /** 获取博客文章列表 */
   .get('/posts', pagination(), validate('query', vBlogPostsQuery), async (c): Promise<HonoResponse<{ data: ResBlogPostList[], pagination: ResPagination }>> => {
     const { where } = c.get('page')
-    const { category, tag, featured } = c.req.valid('query')
+    const { category, tag, featured } = c.req.valid('query') 
 
     const query = dr.blogPost.selectForList({
       category,
@@ -56,7 +56,7 @@ export const blogRoute = new Hono()
   .get('/search', pagination(), validate('query', vBlogSearch), async (c): Promise<HonoResponse<{ data: ResBlogPostList[], query?: string, pagination: ResPagination }>> => {
     const { where } = c.get('page')
     const { keyword } = c.req.valid('query')
-    const query = dr.blogPost.selectForList({ keyword: keyword || '__EMPTY__' })
+    const query = dr.blogPost.selectForList({ keyword: keyword || '__EMPTY__', status: EnumBlogPostStatus.Published })
 
     const total = await query.count()
     const data = await query

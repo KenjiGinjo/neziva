@@ -30,12 +30,8 @@ export const blogPost = createRepo(db.blogPost, {
 
       const query = selectForDefault(q)
       const defaultWhere: any = { }
-      // status 处理：如果未指定，默认使用 Published；如果明确指定（包括 undefined），则使用指定值
       if (status !== undefined) {
         defaultWhere.status = status
-      }
-      else {
-        defaultWhere.status = EnumBlogPostStatus.Published
       }
 
       if (category) {

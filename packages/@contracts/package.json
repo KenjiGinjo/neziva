@@ -15,6 +15,6 @@
     "@neziva/validations": "workspace:*",
     "@packages/ts-rest-react-query": "workspace:*",
     "@ts-rest/core": "3.51.0",
-    "zod": "3.23.8"
+    "zod": "3.25.76"
   }
 }

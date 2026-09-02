@@ -5,6 +5,7 @@ import { FormImages } from './images'
 import { Input } from './input'
 import { InputStep } from './input-step'
 import { Radio } from './radio'
+import { FormSelect } from './select'
 import { Submit } from './submit'
 import { Switch } from './switch'
 import { Tags } from './tags'
@@ -22,6 +23,7 @@ export const Form = {
   InputStep,
   DateTimePicker: FormDateTimePicker,
   Radio,
+  Select: FormSelect,
   Tags,
   Textarea,
   Switch,

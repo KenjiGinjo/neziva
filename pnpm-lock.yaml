@@ -203,10 +203,10 @@ importers:
         version: 2.11.5
       '@ts-rest/core':
         specifier: 3.51.0
-        version: 3.51.0(@types/node@25.0.7)(zod@3.23.8)
+        version: 3.51.0(@types/node@25.0.7)(zod@3.25.76)
       '@ts-rest/react-query':
         specifier: 3.51.0
-        version: 3.51.0(@tanstack/react-query@4.36.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@ts-rest/core@3.51.0(@types/node@25.0.7)(zod@3.23.8))(react@19.2.3)(zod@3.23.8)
+        version: 3.51.0(@tanstack/react-query@4.36.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@ts-rest/core@3.51.0(@types/node@25.0.7)(zod@3.25.76))(react@19.2.3)(zod@3.25.76)
       axios:
         specifier: ^1.7.9
         version: 1.13.2
@@ -277,8 +277,8 @@ importers:
         specifier: ^3.3.5
         version: 3.9.0(react@19.2.3)
       zod:
-        specifier: 3.23.8
-        version: 3.23.8
+        specifier: 3.25.76
+        version: 3.25.76
       zustand:
         specifier: ^5.0.0-rc.2
         version: 5.0.10(@types/react@19.2.8)(immer@10.2.0)(react@19.2.3)(use-sync-external-store@1.6.0(react@19.2.3))
@@ -417,10 +417,10 @@ importers:
         version: 3.4.8
       znv:
         specifier: 0.4.0
-        version: 0.4.0(zod@3.23.8)
+        version: 0.4.0(zod@3.25.76)
       zod:
-        specifier: 3.23.8
-        version: 3.23.8
+        specifier: 3.25.76
+        version: 3.25.76
     devDependencies:
       chalk:
         specifier: 5.3.0
@@ -689,10 +689,10 @@ importers:
         version: link:../ts-rest-react-query
       '@ts-rest/core':
         specifier: 3.51.0
-        version: 3.51.0(@types/node@25.0.7)(zod@3.23.8)
+        version: 3.51.0(@types/node@25.0.7)(zod@3.25.76)
       zod:
-        specifier: 3.23.8
-        version: 3.23.8
+        specifier: 3.25.76
+        version: 3.25.76
 
   packages/@enums: {}
 
@@ -744,8 +744,8 @@ importers:
         specifier: workspace:*
         version: link:../@enums
       zod:
-        specifier: 3.23.8
-        version: 3.23.8
+        specifier: 3.25.76
+        version: 3.25.76
 
   packages/honojs:
     dependencies:
@@ -756,6 +756,9 @@ importers:
         specifier: ^26.0.0
         version: 26.0.0
     devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.4.0
       '@types/lodash.merge':
         specifier: ^4.6.9
         version: 4.6.9
@@ -2998,6 +3001,9 @@ packages:
   '@types/bun@1.3.5':
     resolution: {integrity: sha512-RnygCqNrd3srIPEWBd5LFeUYG7plCoH2Yw9WaZGyNmdTEei+gWaHqydbaIRkIkcbXwhBT94q78QljxN0Sk838w==}
 
+  '@types/bun@1.4.0':
+    resolution: {integrity: sha512-K+lZULY23vRgK/CfTjFIV+tyifaNdSMlPh9j+6mQ/cLfpOznLyAuzgV/JQysyECpkBQLVMSyvjlr2fBUSA9wFQ==}
+
   '@types/d3-color@3.1.3':
     resolution: {integrity: sha512-iO90scth9WAbmgv7ogoq57O9YpKmFBbmoEoCHDB2xMBY0+/KVrqAaCDyCE16dUspeOvIxFFRI+0sEtqDqy2b4A==}
 
@@ -3421,6 +3427,9 @@ packages:
 
   bun-types@1.3.5:
     resolution: {integrity: sha512-inmAYe2PFLs0SUbFOWSVD24sg1jFlMPxOjOSSCYqUgn4Hsc3rDc7dFvfVYjFPNHtov6kgUeulV4SxbuIV/stPw==}
+
+  bun-types@1.4.0:
+    resolution: {integrity: sha512-iIKw23BspnQQYd3prITOBxeUsxBHnwzX6YJfGMuNOZzeNcMmVqzIIVGRm1l69ogaPQmb4wB6BN8mA5bE9YuC5Q==}
 
   bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
@@ -5966,9 +5975,6 @@ packages:
     peerDependencies:
       zod: ^3.25.28 || ^4
 
-  zod@3.23.8:
-    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
-
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
@@ -8094,18 +8100,18 @@ snapshots:
     optionalDependencies:
       zod: 3.25.76
 
-  '@ts-rest/core@3.51.0(@types/node@25.0.7)(zod@3.23.8)':
+  '@ts-rest/core@3.51.0(@types/node@25.0.7)(zod@3.25.76)':
     optionalDependencies:
       '@types/node': 25.0.7
-      zod: 3.23.8
+      zod: 3.25.76
 
-  '@ts-rest/react-query@3.51.0(@tanstack/react-query@4.36.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@ts-rest/core@3.51.0(@types/node@25.0.7)(zod@3.23.8))(react@19.2.3)(zod@3.23.8)':
+  '@ts-rest/react-query@3.51.0(@tanstack/react-query@4.36.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@ts-rest/core@3.51.0(@types/node@25.0.7)(zod@3.25.76))(react@19.2.3)(zod@3.25.76)':
     dependencies:
       '@tanstack/react-query': 4.36.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@ts-rest/core': 3.51.0(@types/node@25.0.7)(zod@3.23.8)
+      '@ts-rest/core': 3.51.0(@types/node@25.0.7)(zod@3.25.76)
       react: 19.2.3
     optionalDependencies:
-      zod: 3.23.8
+      zod: 3.25.76
 
   '@turf/area@7.3.1':
     dependencies:
@@ -8162,6 +8168,10 @@ snapshots:
   '@types/bun@1.3.5':
     dependencies:
       bun-types: 1.3.5
+
+  '@types/bun@1.4.0':
+    dependencies:
+      bun-types: 1.4.0
 
   '@types/d3-color@3.1.3': {}
 
@@ -8527,6 +8537,10 @@ snapshots:
   buffer-from@1.1.2: {}
 
   bun-types@1.3.5:
+    dependencies:
+      '@types/node': 25.0.7
+
+  bun-types@1.4.0:
     dependencies:
       '@types/node': 25.0.7
 
@@ -11544,11 +11558,6 @@ snapshots:
       css-what: 6.2.2
       entities: 5.0.0
 
-  znv@0.4.0(zod@3.23.8):
-    dependencies:
-      colorette: 2.0.20
-      zod: 3.23.8
-
   znv@0.4.0(zod@3.25.76):
     dependencies:
       colorette: 2.0.20
@@ -11557,8 +11566,6 @@ snapshots:
   zod-to-json-schema@3.25.2(zod@3.25.76):
     dependencies:
       zod: 3.25.76
-
-  zod@3.23.8: {}
 
   zod@3.25.76: {}
 
