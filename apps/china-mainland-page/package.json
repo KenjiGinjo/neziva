@@ -1,0 +1,9 @@
+{
+  "name": "china-mainland-page",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "bun run ./scripts/deploy.ts"
+  }
+}
