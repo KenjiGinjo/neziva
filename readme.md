@@ -1,31 +1,36 @@
 # Neziva
 
-重庆小工作室官网与配套后台。定位：先把范围谈清楚，再把能上线跑的 AI 系统交到客户现有环境里；客户直接对开发，不外包。
+[neziva.com](https://neziva.com) 的源码：公开站点、管理后台、API。
 
-本仓库是 **pnpm + Turbo** 单体仓：公开站点、管理后台、Hono API、PostgreSQL。
+定位：先把范围谈清楚，再把能上线跑的 AI 系统交到客户现有环境里。客户直接对开发，不转包。
+
+Studio site, admin, and API for shipping AI systems that run in the client's existing environment.
 
 ## 仓库结构
 
+pnpm + Turbo 单体仓。
+
 ```
 apps/
-  web-app/   公开站点（Vite + React，端口 20003）
-  admin/     管理后台（Vite + React，端口 20004）
-  api/       HTTP API（Bun + Hono，默认 10001）
-  db/        Prisma schema、seed、备份恢复
+  web-app/               公开站点（Vite + React，端口 20003）
+  admin/                 管理后台（Vite + React，端口 20004）
+  api/                   HTTP API（Bun + Hono，默认 10001）
+  db/                    Prisma schema、seed、备份恢复
+  china-mainland-page/   大陆落地页（eain.cn）
 packages/
-  @contracts     ts-rest 契约（前后端共用）
-  @validations   Zod 校验
+  @contracts             ts-rest 契约（前后端共用）
+  @validations           Zod 校验
   @enums @interfaces @constants @tools
-  @svg           图标
-  request        前端请求层
+  @svg                   图标
+  request                前端请求层
   ts-rest-react-query
-  honojs         从路由生成契约等脚手架
-bruno/           API 请求集
+  honojs                 从路由生成契约
+bruno/                   API 请求集
 ```
 
-站点页面：首页、服务、作品、关于、招聘、付款说明、联系、博客、隐私政策。中英切换。
+站点：首页、服务、作品、关于、招聘、付款说明、联系、博客、隐私政策。中英切换。
 
-业务数据（Prisma / PostgreSQL）：管理员、联系表单、博客、作品集、Newsletter、错误日志。
+数据：管理员、联系表单、博客、作品集、Newsletter、错误日志。
 
 ## 技术栈
 
@@ -39,17 +44,18 @@ bruno/           API 请求集
 
 ## 本地开发
 
-前置：Node 18+、pnpm 9、Bun、本机 PostgreSQL。
+需要：Node 18+、[pnpm 9](https://pnpm.io)、[Bun](https://bun.sh)、本机 PostgreSQL。
 
 ```bash
 pnpm install
 ```
 
-环境文件（按 example 复制，勿提交真实密钥）：
+环境文件（按 example 复制，**不要提交真实密钥**）：
 
 - `apps/api/.env.example` → `apps/api/.env`
 - `apps/db/.env.example` → `apps/db/.env`
 - `apps/web-app/.env.example` → `apps/web-app/.env`
+- `apps/admin/.env.example` → `apps/admin/.env`
 
 库名默认 `neziva`。初始化：
 
@@ -59,6 +65,8 @@ pnpm db:generate
 pnpm db:push
 pnpm db:seed
 ```
+
+seed 会创建一个本地管理员：`admin` / `123456`。只用于开发，不要用到生产。
 
 起全部：
 
@@ -74,7 +82,7 @@ pnpm --filter admin dev      # http://localhost:20004
 pnpm --filter api dev        # http://localhost:10001
 ```
 
-`apps/api/.env.example` 里的 `URI_CLIENT` / `URI_ADMIN` 端口（10003 / 10002）与 Vite 实际端口可能不一致，本地联调时改成与前端一致。
+`apps/api/.env` 里的 `URI_CLIENT` / `URI_ADMIN` 默认端口（10003 / 10002）和 Vite 实际端口不一致，本地联调时改成 `20003` / `20004`。
 
 ## 常用命令
 
@@ -85,3 +93,8 @@ pnpm --filter api dev        # http://localhost:10001
 `apps/api`：`gen:contract`（根据路由生成契约）、`cron`
 
 接口调试用仓库根目录 `bruno/`。
+
+## 相关链接
+
+- 站点：https://neziva.com
+- 联系：kenjiginjo@gmail.com
