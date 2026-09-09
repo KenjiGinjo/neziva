@@ -98,3 +98,7 @@ pnpm --filter api dev        # http://localhost:10001
 
 - 站点：https://neziva.com
 - 联系：kenjiginjo@gmail.com
+
+## License
+
+[MIT](./LICENSE)
