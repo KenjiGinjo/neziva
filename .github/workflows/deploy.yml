@@ -1,0 +1,98 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/api/**'
+      - 'apps/admin/**'
+      - 'apps/web-app/**'
+      - 'apps/db/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'bun.lock'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy ${{ matrix.app }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: api
+            filter: api
+            needs_frontend_env: false
+          - app: admin
+            filter: admin
+            needs_frontend_env: true
+          - app: web-app
+            filter: web-app
+            needs_frontend_env: true
+    env:
+      SERVER_IP: ${{ secrets.SERVER_IP }}
+      SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+      SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+      SERVER_PORT: ${{ secrets.SERVER_PORT }}
+      VITE_API_URL: ${{ secrets.VITE_API_URL }}
+      VITE_GA4_MEASUREMENT_ID: ${{ secrets.VITE_GA4_MEASUREMENT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Check secrets
+        run: |
+          missing=
+          [ -n "$SERVER_IP" ] || missing="$missing SERVER_IP"
+          [ -n "$SERVER_USERNAME" ] || missing="$missing SERVER_USERNAME"
+          [ -n "$SERVER_PASSWORD" ] || missing="$missing SERVER_PASSWORD"
+          if [ "${{ matrix.needs_frontend_env }}" = "true" ] && [ -z "$VITE_API_URL" ]; then
+            missing="$missing VITE_API_URL"
+          fi
+          if [ -n "$missing" ]; then
+            echo "Missing GitHub Actions secrets:$missing"
+            exit 1
+          fi
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf 'Host *\n  StrictHostKeyChecking accept-new\n' > ~/.ssh/config
+          chmod 600 ~/.ssh/config
+          port="${SERVER_PORT:-22}"
+          ssh-keyscan -p "$port" -H "$SERVER_IP" >> ~/.ssh/known_hosts || true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm --filter "${{ matrix.filter }}" build
+
+      - name: Deploy
+        if: matrix.app != 'api'
+        run: pnpm --filter "${{ matrix.filter }}" deploy

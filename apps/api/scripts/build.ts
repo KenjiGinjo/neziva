@@ -50,9 +50,11 @@ const usePassword = Boolean(password)
 if (usePassword) {
   await $`sshpass -p ${password} ssh -p ${port} ${username}@${host} mkdir -p ${remotePath}`
   await $`sshpass -p ${password} scp -r -P ${port} .malagu/app.js ${remoteSpec}`
+  await $`sshpass -p ${password} ssh -p ${port} ${username}@${host} pm2 restart neziva_api`
 } else {
   await $`ssh -p ${port} ${username}@${host} mkdir -p ${remotePath}`
   await $`scp -r -P ${port} .malagu/app.js ${remoteSpec}`
+  await $`ssh -p ${port} ${username}@${host} pm2 restart neziva_api`
 }
 
 await $`rm -rf .malagu`
