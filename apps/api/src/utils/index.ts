@@ -1,4 +1,5 @@
 export * from './error-handler'
 export * from './jwt'
+export * from './login-rate-limit'
 export * from './pagination'
 export * from './validate'

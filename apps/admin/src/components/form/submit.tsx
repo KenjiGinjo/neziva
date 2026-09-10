@@ -41,7 +41,7 @@ export function Submit<TFieldValues extends FieldValues = FieldValues>(props: Su
               () => resolve(true),
               (errors) => {
                 const description = extractErrorMessages(errors)
-                toast.warning(description || 'Form validation failed.', {
+                toast.warning(description || '表单校验失败', {
                   position: 'top-center',
                 })
                 resolve(false)
@@ -54,9 +54,9 @@ export function Submit<TFieldValues extends FieldValues = FieldValues>(props: Su
           }
         }
         catch (e) {
-          const errorMessage = e instanceof Error ? e.message : typeof e === 'string' ? e : 'Something went wrong, please try again.'
+          const errorMessage = e instanceof Error ? e.message : typeof e === 'string' ? e : '出错了，请重试'
           showModal({
-            title: 'Form Validation Error',
+            title: '表单校验失败',
             description: errorMessage,
             showCancel: false,
           })

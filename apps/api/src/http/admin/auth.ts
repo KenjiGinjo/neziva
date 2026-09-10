@@ -7,7 +7,7 @@ import { db } from 'db'
 import { Hono } from 'hono'
 import { ENV } from '../../env'
 import { authAd } from '../../middleware/authAd'
-import { generateToken, jwtExtractToken, jwtResponse, removeToken, validate } from '../../utils'
+import { assertLoginAllowed, clearLoginFailures, generateToken, getClientIp, jwtExtractToken, jwtResponse, recordLoginFailure, removeToken, validate } from '../../utils'
 
 export const authRoute = new Hono()
   .basePath('/auth')
@@ -15,17 +15,23 @@ export const authRoute = new Hono()
   /** 管理员登录 */
   .post('/login', validate('json', vAdminLogin), async (c): Promise<HonoResponse<{ data: ResAdminLogin }>> => {
     const { username, password } = c.req.valid('json')
+    const ip = getClientIp(c)
+    assertLoginAllowed(ip, username)
 
     const admin = await db.admin.where({ username }).takeOptional()
 
     if (!admin) {
-      throw new Exception.UnauthorizedException('Invalid credentials')
+      recordLoginFailure(ip, username)
+      throw new Exception.BadRequestException('账号或密码错误')
     }
 
     const isValid = await verifyPassword(password, admin.password)
     if (!isValid) {
-      throw new Exception.UnauthorizedException('Invalid credentials')
+      recordLoginFailure(ip, username)
+      throw new Exception.BadRequestException('账号或密码错误')
     }
+
+    clearLoginFailures(ip, username)
 
     // 生成并存储 token（管理员 token）
     const token = await generateToken({
@@ -48,7 +54,7 @@ export const authRoute = new Hono()
     }
 
     return c.json({
-      data: { message: 'Logged out successfully' },
+      data: { message: '已退出登录' },
     })
   })
 

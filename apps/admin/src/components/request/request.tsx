@@ -6,7 +6,8 @@ import { observer } from '@legendapp/state/react'
 import { get } from 'radash'
 import { cloneElement, isValidElement, useState } from 'react'
 import { toast } from 'sonner'
-import { showModalAuth, showModal as showModalBase } from '@/components/extend'
+import { handleUnauthorized, isLoginPath } from '@/components/auth/signin'
+import { showModal as showModalBase } from '@/components/extend'
 import { auth } from '../auth/state'
 import { GuardAuthAction } from '../guard'
 import { Loading } from '../loading'
@@ -21,18 +22,18 @@ type BaseException = InstanceType<typeof Exception.BaseException>
 function handleErrorBaseException(e: BaseException): ErrorHandler {
   const message = e.getFirstMessage()
 
-  if (e instanceof Exception.UnauthorizedException) {
-    showModalAuth({ description: message })
+  if (e instanceof Exception.UnauthorizedException && !isLoginPath()) {
+    handleUnauthorized()
+    return
   }
-  else {
-    console.warn('BaseRequest::BaseExceptionMessage: ', message)
-    showModalBase({
-      title: '操作失败',
-      description: message,
-      showCancel: false,
-      confirmText: '知道了',
-    })
-  }
+
+  console.warn('BaseRequest::BaseExceptionMessage: ', message)
+  showModalBase({
+    title: '操作失败',
+    description: message,
+    showCancel: false,
+    confirmText: '知道了',
+  })
 }
 
 function handleErrorUnknown(e: unknown): ErrorHandler {

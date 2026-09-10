@@ -47,15 +47,13 @@ export function PageContacts() {
     projectType: projectType || undefined,
   })
 
-  const { data, isLoading, error } = $qc.admin.contact.forms.$get.useQuery({ query })
+  const { data, isLoading, isFetching, error } = $qc.admin.contact.forms.$get.useQuery({ query }, { keepPreviousData: true })
 
-  if (isLoading)
-    return <Loading.Card />
-  if (error || !data)
+  if (error && !data)
     return <Loading.Error error={error} />
 
-  const rows = (data.body.data ?? []) as ResAdminContactFormList[]
-  const total = data.body.pagi?.total ?? 0
+  const rows = (data?.body.data ?? []) as ResAdminContactFormList[]
+  const total = data?.body.pagi?.total ?? 0
 
   return (
     <PageShell title="咨询" description="官网和聊天提交的联系表单。">
@@ -115,6 +113,7 @@ export function PageContacts() {
         pageSize={PAGE_SIZE}
         onPageChange={setPage}
         empty="还没有咨询"
+        loading={isLoading || isFetching}
       />
     </PageShell>
   )

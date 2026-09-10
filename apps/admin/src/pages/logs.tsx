@@ -34,15 +34,13 @@ export function PageLogs() {
     level: level || undefined,
   })
 
-  const { data, isLoading, error } = $qc.admin.logs.$get.useQuery({ query })
+  const { data, isLoading, isFetching, error } = $qc.admin.logs.$get.useQuery({ query }, { keepPreviousData: true })
 
-  if (isLoading)
-    return <Loading.Card />
-  if (error || !data)
+  if (error && !data)
     return <Loading.Error error={error} />
 
-  const rows = (data.body.data ?? []) as ResAdminLogList[]
-  const total = data.body.pagi?.total ?? 0
+  const rows = (data?.body.data ?? []) as ResAdminLogList[]
+  const total = data?.body.pagi?.total ?? 0
 
   return (
     <PageShell title="日志" description="接口和应用错误。">
@@ -94,6 +92,7 @@ export function PageLogs() {
         pageSize={PAGE_SIZE}
         onPageChange={setPage}
         empty="暂无错误日志"
+        loading={isLoading || isFetching}
       />
     </PageShell>
   )

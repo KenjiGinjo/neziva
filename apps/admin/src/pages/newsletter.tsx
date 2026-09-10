@@ -52,18 +52,16 @@ export function PageNewsletter() {
     source: source || undefined,
   })
 
-  const { data, isLoading, error, refetch } = $qc.admin.newsletter.subscribers.$get.useQuery({ query })
+  const { data, isLoading, isFetching, error, refetch } = $qc.admin.newsletter.subscribers.$get.useQuery({ query }, { keepPreviousData: true })
 
-  if (isLoading)
-    return <Loading.Card />
-  if (error || !data)
+  if (error && !data)
     return <Loading.Error error={error} />
 
-  const rows = (data.body.data ?? []) as ResAdminNewsletterList[]
-  const total = data.body.pagi?.total ?? 0
+  const rows = (data?.body.data ?? []) as ResAdminNewsletterList[]
+  const total = data?.body.pagi?.total ?? 0
 
   return (
-    <PageShell title="订阅" description="Newsletter 订阅者。">
+    <PageShell title="订阅" description="邮件订阅者。">
       <FilterBar>
         <FilterSearch value={search} onChange={setSearch} placeholder="搜索邮箱" />
         <FilterSelect value={status} onChange={setStatus} options={NEWSLETTER_STATUS_OPTIONS} placeholder="全部状态" />
@@ -145,6 +143,7 @@ export function PageNewsletter() {
         pageSize={PAGE_SIZE}
         onPageChange={setPage}
         empty="还没有订阅者"
+        loading={isLoading || isFetching}
       />
     </PageShell>
   )

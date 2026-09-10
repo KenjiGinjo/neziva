@@ -2,8 +2,9 @@ import { APP } from '@neziva/constants'
 import { vAdminLogin } from '@neziva/validations'
 import { get } from 'radash'
 import React from 'react'
+import { useSearch } from 'wouter'
 import { navigate } from 'wouter/use-browser-location'
-import { signin } from '@/components/auth/signin'
+import { getSafeRedirect, signin } from '@/components/auth/signin'
 import { auth } from '@/components/auth/state'
 import { Form } from '@/components/form'
 import { Button } from '@/components/ui/button'
@@ -21,12 +22,13 @@ export function PageLogin() {
   const { form, patch } = useSchemaPatch(vAdminLogin, { username: '', password: '' })
   const { refetch } = useUserState()
   const { isSignin } = auth.useSignin()
+  const search = useSearch()
+  const redirectTo = getSafeRedirect(search)
 
   React.useEffect(() => {
-    if (isSignin) {
-      navigate('/a', { replace: true })
-    }
-  }, [isSignin])
+    if (isSignin)
+      navigate(redirectTo, { replace: true })
+  }, [isSignin, redirectTo])
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-muted/40">
@@ -56,7 +58,7 @@ export function PageLogin() {
               const meta = get(res, 'body.data') as { token: string, type: string } | undefined
               await signin(meta)
               await refetch()
-              navigate('/a', { replace: true })
+              navigate(redirectTo, { replace: true })
             }}
           >
             <Button className="mt-2 w-full">登录</Button>

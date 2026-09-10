@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import { cloneElement } from 'react'
-import { showModalAuth } from '@/components/extend'
+import { handleUnauthorized } from '@/components/auth/signin'
 import { auth } from '../auth/state'
 
 // TODO: 看看 observer 不使用 启用的get是否有效
@@ -21,7 +21,7 @@ export function GuardAuthAction({ children, onClick }: { children: ReactElement,
       ...props,
       onClick: (e: MouseEvent) => {
         e.stopPropagation()
-        showModalAuth()
+        handleUnauthorized()
       },
     } as any)
   }

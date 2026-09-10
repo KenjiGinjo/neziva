@@ -1,8 +1,9 @@
 import { IconErrorWarningFill } from '@neziva/svg'
 import { Exception } from '@neziva/tools/exception'
 import { Loader2Icon } from 'lucide-react'
+import { useEffect } from 'react'
+import { handleUnauthorized } from '@/components/auth/signin'
 import { Empty } from './empty'
-import { AuthSection } from './guard/auth-section'
 
 const ErrorIcon = <IconErrorWarningFill width={80} height={80} color="#ffffff" className="text-gray-400" />
 export interface LoadingProps {
@@ -27,25 +28,32 @@ Loading.Card = ({ className = '' }: LoadingCardProps) => {
   return (
     <div className={`h-160 flex w-full items-center justify-center flex-col ${className}`}>
       <Loading />
-      <p className="text-sm text-gray-500">Loading...</p>
+      <p className="text-sm text-gray-500">加载中...</p>
     </div>
   )
 }
 
+function RedirectToLogin() {
+  useEffect(() => {
+    handleUnauthorized()
+  }, [])
+  return <Loading.Card />
+}
+
 Loading.Error = ({ error }: LoadingErrorProps) => {
   if (error instanceof Exception.NotFoundException) {
-    return <Empty.Icon message="Data does not exist or has been deleted" />
+    return <Empty.Icon message="数据不存在或已被删除" />
   }
 
   if (error instanceof Exception.UnauthorizedException) {
-    return <AuthSection message="You need to log in to access this data" />
+    return <RedirectToLogin />
   }
 
   if (error instanceof Exception.ForbiddenException) {
     return (
       <Empty.Icon
         icon={ErrorIcon}
-        message="You are not authorized to access this data"
+        message="没有权限访问该数据"
       />
     )
   }
@@ -71,7 +79,7 @@ Loading.Error = ({ error }: LoadingErrorProps) => {
   return (
     <Empty.Icon
       icon={ErrorIcon}
-      message="An error occurred while fetching data, please try again later"
+      message="加载失败，请稍后重试"
     />
   )
 }

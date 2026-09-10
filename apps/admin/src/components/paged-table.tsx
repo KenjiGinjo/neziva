@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { Empty } from '@/components/empty'
 import { TablePagination } from '@/components/table-pagination'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
 
@@ -20,6 +21,7 @@ export function PagedTable<T extends { id: string }>({
   onPageChange,
   empty = '暂无数据',
   onRowClick,
+  loading = false,
 }: {
   columns: PagedColumn<T>[]
   data: T[]
@@ -29,7 +31,20 @@ export function PagedTable<T extends { id: string }>({
   onPageChange: (page: number) => void
   empty?: string
   onRowClick?: (item: T) => void
+  loading?: boolean
 }) {
+  if (loading && data.length === 0) {
+    return (
+      <div className="overflow-hidden rounded-xl border bg-card p-4">
+        <div className="space-y-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-12 w-full" />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   if (data.length === 0) {
     return (
       <div className="rounded-xl border bg-card">
@@ -39,7 +54,7 @@ export function PagedTable<T extends { id: string }>({
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border bg-card">
+    <div className={cn('overflow-hidden rounded-xl border bg-card', loading && 'pointer-events-none opacity-60')}>
       <Table>
         <TableHeader>
           <TableRow>

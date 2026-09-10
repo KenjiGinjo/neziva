@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import { Link, useLocation } from 'wouter'
 import { signout } from '@/components/auth/signin'
-import { Request } from '@/components/request'
+import { Request, RequestSymbol } from '@/components/request'
 import {
   Sidebar,
   SidebarContent,
@@ -79,6 +79,7 @@ export const AppSidebar = observer(function AppSidebar(props: React.ComponentPro
             <div className="truncate text-xs text-muted-foreground">{user?.id ? '已登录' : ''}</div>
           </div>
           <Request
+            onErrorHandle={() => RequestSymbol.CancelErrorHandle}
             request={async () => {
               try {
                 await $qc.admin.auth.logout.$post.mutation()

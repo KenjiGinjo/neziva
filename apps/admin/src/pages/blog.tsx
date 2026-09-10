@@ -53,15 +53,13 @@ export function PageBlog() {
     category: category || undefined,
   })
 
-  const { data, isLoading, error, refetch } = $qc.admin.blog.posts.$get.useQuery({ query })
+  const { data, isLoading, isFetching, error, refetch } = $qc.admin.blog.posts.$get.useQuery({ query }, { keepPreviousData: true })
 
-  if (isLoading)
-    return <Loading.Card />
-  if (error || !data)
+  if (error && !data)
     return <Loading.Error error={error} />
 
-  const rows = (data.body.data ?? []) as ResAdminBlogPostList[]
-  const total = data.body.pagi?.total ?? 0
+  const rows = (data?.body.data ?? []) as ResAdminBlogPostList[]
+  const total = data?.body.pagi?.total ?? 0
 
   return (
     <PageShell
@@ -158,6 +156,7 @@ export function PageBlog() {
         pageSize={PAGE_SIZE}
         onPageChange={setPage}
         empty="还没有文章"
+        loading={isLoading || isFetching}
       />
     </PageShell>
   )

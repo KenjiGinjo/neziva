@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useRef, useState } from 'react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -51,18 +51,28 @@ export function showModal(options: ModalOptions): Promise<boolean> {
 export function ModalProvider({ children }: ModalProviderProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [options, setOptions] = useState<ModalOptions>({})
-  const [resolvePromise, setResolvePromise] = useState<((value: boolean) => void) | null>(null)
+  const resolveRef = useRef<((value: boolean) => void) | null>(null)
+
+  const settle = (value: boolean) => {
+    const resolve = resolveRef.current
+    if (!resolve)
+      return
+    resolveRef.current = null
+    if (value)
+      options.onConfirm?.()
+    else
+      options.onCancel?.()
+    resolve(value)
+  }
 
   const showModal = (modalOptions: ModalOptions): Promise<boolean> => {
     return new Promise((resolve) => {
-      // 移除当前焦点，避免 aria-hidden 错误
       const buttonElement = document.activeElement as HTMLElement
-      if (buttonElement) {
+      if (buttonElement)
         buttonElement.blur()
-      }
 
       setOptions(modalOptions)
-      setResolvePromise(() => resolve)
+      resolveRef.current = resolve
       setIsOpen(true)
     })
   }
@@ -70,15 +80,19 @@ export function ModalProvider({ children }: ModalProviderProps) {
   globalShowModal = showModal
 
   const handleConfirm = () => {
-    options.onConfirm?.()
-    resolvePromise?.(true)
+    settle(true)
     setIsOpen(false)
   }
 
   const handleCancel = () => {
-    options.onCancel?.()
-    resolvePromise?.(false)
+    settle(false)
     setIsOpen(false)
+  }
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open)
+      settle(false)
+    setIsOpen(open)
   }
 
   const {
@@ -92,7 +106,7 @@ export function ModalProvider({ children }: ModalProviderProps) {
   return (
     <ModalContext.Provider value={{ showModal }}>
       {children}
-      <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{title}</AlertDialogTitle>

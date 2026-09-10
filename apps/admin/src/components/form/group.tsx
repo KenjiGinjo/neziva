@@ -1,7 +1,7 @@
 import { Exception } from '@neziva/tools/exception'
 import { toast } from 'sonner'
 import { ZodError } from 'zod'
-import { checkAuth, showModalAuth } from '@/lib/auth'
+import { getStorageToken, handleUnauthorized } from '@/components/auth/signin'
 import { cn } from '@/lib/utils'
 import { Form } from '../ui/form'
 
@@ -17,8 +17,8 @@ export function FormGroup({ form, onSubmit, children, className, authGuard }: Fo
   async function handleSubmit(data: any) {
     try {
       if (authGuard) {
-        if (!checkAuth()) {
-          showModalAuth()
+        if (!getStorageToken()) {
+          handleUnauthorized()
           return
         }
       }
