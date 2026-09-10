@@ -43,7 +43,6 @@ jobs:
     env:
       SERVER_IP: ${{ secrets.SERVER_IP }}
       SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
-      SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
       SERVER_PORT: ${{ secrets.SERVER_PORT }}
       VITE_API_URL: ${{ secrets.VITE_API_URL }}
       VITE_GA4_MEASUREMENT_ID: ${{ secrets.VITE_GA4_MEASUREMENT_ID }}
@@ -60,11 +59,14 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - name: Check secrets
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           missing=
           [ -n "$SERVER_IP" ] || missing="$missing SERVER_IP"
           [ -n "$SERVER_USERNAME" ] || missing="$missing SERVER_USERNAME"
-          [ -n "$SERVER_PASSWORD" ] || missing="$missing SERVER_PASSWORD"
+          [ -n "$SERVER_PORT" ] || missing="$missing SERVER_PORT"
+          [ -n "$SSH_PRIVATE_KEY" ] || missing="$missing SSH_PRIVATE_KEY"
           if [ "${{ matrix.needs_frontend_env }}" = "true" ] && [ -z "$VITE_API_URL" ]; then
             missing="$missing VITE_API_URL"
           fi
@@ -73,17 +75,17 @@ jobs:
             exit 1
           fi
 
-      - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
-
       - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf 'Host *\n  StrictHostKeyChecking accept-new\n' > ~/.ssh/config
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          printf 'Host *\n  StrictHostKeyChecking accept-new\n  IdentityFile ~/.ssh/id_rsa\n  IdentitiesOnly yes\n  BatchMode yes\n' > ~/.ssh/config
           chmod 600 ~/.ssh/config
-          port="${SERVER_PORT:-22}"
-          ssh-keyscan -p "$port" -H "$SERVER_IP" >> ~/.ssh/known_hosts || true
+          ssh-keyscan -p "$SERVER_PORT" -H "$SERVER_IP" >> ~/.ssh/known_hosts || true
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

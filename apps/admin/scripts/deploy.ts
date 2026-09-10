@@ -11,8 +11,14 @@ if (!host) {
 }
 
 const remoteSpec = `${username}@${host}:${remotePath}/`
+const usePassword = Boolean(password)
 
-await $`sshpass -p ${password} ssh -p ${port} ${username}@${host} mkdir -p ${remotePath}`
-await $`sshpass -p ${password} scp -r -P ${port} ./dist/* ${remoteSpec}`
+if (usePassword) {
+  await $`sshpass -p ${password} ssh -p ${port} ${username}@${host} mkdir -p ${remotePath}`
+  await $`sshpass -p ${password} scp -r -P ${port} ./dist/* ${remoteSpec}`
+} else {
+  await $`ssh -p ${port} ${username}@${host} mkdir -p ${remotePath}`
+  await $`scp -r -P ${port} ./dist/* ${remoteSpec}`
+}
 
 console.log('Deployment completed!')
