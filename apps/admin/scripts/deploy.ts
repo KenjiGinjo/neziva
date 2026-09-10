@@ -4,7 +4,7 @@ const host = process.env.SERVER_IP?.trim()
 const username = process.env.SERVER_USERNAME?.trim() || 'root'
 const password = process.env.SERVER_PASSWORD?.trim()
 const port = process.env.SERVER_PORT?.trim() || '22'
-const remotePath = '/www/wwwroot/neziva-admin'
+const remotePath = '/var/www/neziva-admin'
 
 if (!host) {
   throw new Error('SERVER_IP is missing')
