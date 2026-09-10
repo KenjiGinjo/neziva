@@ -14,7 +14,7 @@ pnpm + Turbo 单体仓。
 apps/
   web-app/               公开站点（Vite + React，端口 20003）
   admin/                 管理后台（Vite + React，端口 20004）
-  api/                   HTTP API（Bun + Hono，默认 10001）
+  api/                   HTTP API（Bun + Hono，默认 20001）
   db/                    Prisma schema、seed、备份恢复
   china-mainland-page/   大陆落地页（eain.cn）
 packages/
@@ -79,10 +79,8 @@ pnpm dev
 ```bash
 pnpm --filter web-app dev    # http://localhost:20003
 pnpm --filter admin dev      # http://localhost:20004
-pnpm --filter api dev        # http://localhost:10001
+pnpm --filter api dev        # http://localhost:20001
 ```
-
-`apps/api/.env` 里的 `URI_CLIENT` / `URI_ADMIN` 默认端口（10003 / 10002）和 Vite 实际端口不一致，本地联调时改成 `20003` / `20004`。
 
 ## 常用命令
 
