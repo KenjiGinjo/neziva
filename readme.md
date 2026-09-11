@@ -1,63 +1,61 @@
 # Neziva
 
-[neziva.com](https://neziva.com) 的源码：公开站点、管理后台、API。
+Source for [neziva.com](https://neziva.com): public site, admin, and API.
 
-定位：先把范围谈清楚，再把能上线跑的 AI 系统交到客户现有环境里。客户直接对开发，不转包。
+Scope first, then ship AI systems that run in the client’s existing environment. Clients work with the developer directly — no subcontracting.
 
-Studio site, admin, and API for shipping AI systems that run in the client's existing environment.
+## Layout
 
-## 仓库结构
-
-pnpm + Turbo 单体仓。
+pnpm + Turbo monorepo.
 
 ```
 apps/
-  web-app/               公开站点（Vite + React，端口 20003）
-  admin/                 管理后台（Vite + React，端口 20004）
-  api/                   HTTP API（Bun + Hono，默认 20001）
-  db/                    Prisma schema、seed、备份恢复
-  china-mainland-page/   大陆落地页（eain.cn）
+  web-app/               public site (Vite + React, port 20003)
+  admin/                 admin app (Vite + React, port 20004)
+  api/                   HTTP API (Bun + Hono, default 20001)
+  db/                    Prisma schema, seed, backup/restore
+  china-mainland-page/   China landing page (eain.cn)
 packages/
-  @contracts             ts-rest 契约（前后端共用）
-  @validations           Zod 校验
+  @contracts             ts-rest contracts (shared)
+  @validations           Zod schemas
   @enums @interfaces @constants @tools
-  @svg                   图标
-  request                前端请求层
+  @svg                   icons
+  request                frontend request layer
   ts-rest-react-query
-  honojs                 从路由生成契约
-bruno/                   API 请求集
+  honojs                 generate contracts from routes
+bruno/                   API request collection
 ```
 
-站点：首页、服务、作品、关于、招聘、付款说明、联系、博客、隐私政策。中英切换。
+Site: home, services, work, about, careers, payment, contact, blog, privacy. EN/ZH.
 
-数据：管理员、联系表单、博客、作品集、Newsletter、错误日志。
+Data: admins, contact form, blog, portfolio, newsletter, error logs.
 
-## 技术栈
+## Stack
 
-| 层 | 选型 |
+| Layer | Choice |
 | --- | --- |
-| 运行时 / 包管理 | Node ≥ 18、pnpm 9、Bun（API / 脚本） |
-| 前端 | React 19、Vite 7、Wouter、Tailwind 4、Radix |
-| API | Hono、Zod、Stripe / PayPal、Resend、Google / GitHub OAuth |
-| 数据 | PostgreSQL、Prisma 5 |
-| 契约 | ts-rest + workspace `@neziva/contracts` |
+| Runtime / packages | Node ≥ 18, pnpm 9, Bun (API / scripts) |
+| Frontend | React 19, Vite 7, Wouter, Tailwind 4, Radix |
+| API | Hono, Zod, Stripe / PayPal, Resend, Google / GitHub OAuth |
+| Data | PostgreSQL, Prisma 5 |
+| Contracts | ts-rest + workspace `@neziva/contracts` |
 
-## 本地开发
+## Local setup
 
-需要：Node 18+、[pnpm 9](https://pnpm.io)、[Bun](https://bun.sh)、本机 PostgreSQL。
+Needs Node 18+, [pnpm 9](https://pnpm.io), [Bun](https://bun.sh), and local PostgreSQL.
 
 ```bash
 pnpm install
 ```
 
-环境文件（按 example 复制，**不要提交真实密钥**）：
+Env files (copy from examples; **do not commit real secrets**):
 
 - `apps/api/.env.example` → `apps/api/.env`
 - `apps/db/.env.example` → `apps/db/.env`
 - `apps/web-app/.env.example` → `apps/web-app/.env`
 - `apps/admin/.env.example` → `apps/admin/.env`
 
-库名默认 `neziva`。初始化：
+Default database name: `neziva`. Init:
 
 ```bash
 cd apps/db
@@ -66,15 +64,15 @@ pnpm db:push
 pnpm db:seed
 ```
 
-seed 会创建一个本地管理员：`admin` / `123456`。只用于开发，不要用到生产。
+Seed creates a local admin: `admin` / `123456`. Dev only — never use in production.
 
-起全部：
+Start everything:
 
 ```bash
 pnpm dev
 ```
 
-或单独：
+Or one app:
 
 ```bash
 pnpm --filter web-app dev    # http://localhost:20003
@@ -82,20 +80,20 @@ pnpm --filter admin dev      # http://localhost:20004
 pnpm --filter api dev        # http://localhost:20001
 ```
 
-## 常用命令
+## Commands
 
-根目录：`pnpm build` / `pnpm lint` / `pnpm lint:fix` / `pnpm check-types` / `pnpm format`
+Root: `pnpm build` / `pnpm lint` / `pnpm lint:fix` / `pnpm check-types` / `pnpm format`
 
-`apps/db`：`db:client`（Prisma Studio）、`db:backup` / `db:restore`、`db:test`
+`apps/db`: `db:client` (Prisma Studio), `db:backup` / `db:restore`, `db:test`
 
-`apps/api`：`gen:contract`（根据路由生成契约）、`cron`
+`apps/api`: `gen:contract` (generate contracts from routes), `cron`
 
-接口调试用仓库根目录 `bruno/`。
+API debugging: `bruno/` at the repo root.
 
-## 相关链接
+## Links
 
-- 站点：https://neziva.com
-- 联系：kenjiginjo@gmail.com
+- Site: https://neziva.com
+- Contact: kenjiginjo@gmail.com
 
 ## License
 
