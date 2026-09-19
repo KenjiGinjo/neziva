@@ -3,7 +3,10 @@ import { orchidDriver } from 'bentocache/drivers/orchid'
 import { createDb } from 'orchid-orm/node-postgres'
 import { ENV } from './env'
 
-const cacheDb = createDb({ databaseURL: ENV.DATABASE_URL })
+const cacheDb = createDb({
+  databaseURL: ENV.DATABASE_URL,
+  idleTimeoutMillis: 20_000,
+})
 
 export const Cache = new BentoCache({
   default: 'cache',

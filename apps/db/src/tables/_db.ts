@@ -12,6 +12,7 @@ export const db = orchidORM(
   {
     log: ENV.DATABASE_LOG,
     databaseURL: ENV.DATABASE_URL,
+    idle_timeout: 20,
   },
   {
     admin: TableAdmin,
