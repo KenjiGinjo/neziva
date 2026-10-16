@@ -3,8 +3,7 @@ import { Cache } from '../cache'
 
 export const cache = {
   /**
-   * 检查并增加限流计数
-   * 使用 BentoCache，自动处理过期值的清理
+   * 检查并增加限流计数。过期记录在读取时删掉。
    */
   async checkAndIncrement({ key, limit, expiresAt, errorMessage }: {
     key: string
@@ -26,7 +25,7 @@ export const cache = {
     const existing = await Cache.get({ key })
     
     if (existing !== undefined) {
-      // 已存在且未过期（BentoCache 会自动处理过期），检查提交次数
+      // 已存在且未过期，检查提交次数
       const count = typeof existing === 'number' ? existing : parseInt(String(existing) || '0', 10)
       
       if (count >= limit) {

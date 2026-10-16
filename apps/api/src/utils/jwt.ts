@@ -58,7 +58,6 @@ export async function isTokenStored(token: string, isAdmin = false): Promise<boo
   const key = getTokenCacheKey(token, isAdmin)
   const cached = await Cache.get({ key })
 
-  // BentoCache 会自动处理过期，如果返回 undefined 说明不存在或已过期
   return cached !== undefined
 }
 
@@ -72,7 +71,6 @@ export async function generateToken({ secret, sub, exp, isAdmin = false }: { sec
   // 存储到 cache
   const key = getTokenCacheKey(token, isAdmin)
 
-  // 使用 BentoCache 存储，值可以是任意值，我们只关心 key 是否存在
   await Cache.set({
     key,
     value: 1,
