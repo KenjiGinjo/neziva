@@ -59,6 +59,23 @@ export const chatRoute = new Hono()
           description: 'Save a qualified project inquiry once name, email, and a clear need summary are known.',
           parameters: saveLeadSchema,
           execute: async (lead) => {
+            if (ipAddress) {
+              try {
+                await ds.cache.checkAndIncrement({
+                  key: `chat_save_lead:${ipAddress}`,
+                  limit: 3,
+                  expiresAt: endOfDay(new Date()),
+                  errorMessage: 'Daily lead save limit reached.',
+                })
+              }
+              catch {
+                return {
+                  ok: false,
+                  message: 'Lead save limit reached for today. Ask the visitor to email kenjiginjo@gmail.com.',
+                }
+              }
+            }
+
             await db.contactForm.create({
               name: lead.name,
               email: lead.email,

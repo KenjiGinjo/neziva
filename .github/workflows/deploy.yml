@@ -5,7 +5,6 @@ on:
     branches: [main]
     paths:
       - 'apps/api/**'
-      - 'apps/admin/**'
       - 'apps/web-app/**'
       - 'apps/db/**'
       - 'packages/**'
@@ -34,9 +33,6 @@ jobs:
           - app: api
             filter: api
             needs_frontend_env: false
-          - app: admin
-            filter: admin
-            needs_frontend_env: true
           - app: web-app
             filter: web-app
             needs_frontend_env: true
