@@ -1,7 +1,7 @@
 {
-  "name": "Neziva | Practical AI Solutions",
+  "name": "Neziva | AI systems that run in production",
   "short_name": "Neziva",
-  "description": "We build working AI systems for businesses. From ideas to working code—real solutions that transform your operations.",
+  "description": "We confirm scope first, then deliver software that runs in your existing environment. You work directly with the developers.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
