@@ -25,7 +25,8 @@ permissions:
 jobs:
   deploy:
     name: Deploy ${{ matrix.app }}
-    runs-on: ubuntu-latest
+    # Pin 24.04: ubuntu-latest is 26.04; Playwright 1.56 has no chromium build for it
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
