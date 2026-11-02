@@ -14,11 +14,11 @@
     <link rel="apple-touch-icon" href="/favicon.svg" />
 
     <!-- Primary Meta Tags -->
-    <title>Neziva | AI systems that run in production</title>
-    <meta name="title" content="Neziva | AI systems that run in production" />
-    <meta name="description" content="We confirm scope first, then deliver software that runs in your existing environment. You work directly with the developers. No outsourcing." />
-    <meta name="keywords" content="AI development, AI systems, production AI, prototype, Neziva" />
-    <meta name="author" content="Neziva" />
+    <title>Neziva | AI systems that run in production · Kenji Ginjo</title>
+    <meta name="title" content="Neziva | AI systems that run in production · Kenji Ginjo" />
+    <meta name="description" content="Neziva is Kenji Ginjo's studio. Scope first, then AI systems delivered into your environment. Product: Vocalace, US English pronunciation for Chinese speakers." />
+    <meta name="keywords" content="AI development, AI systems, production AI, prototype, Neziva, Kenji Ginjo, Vocalace" />
+    <meta name="author" content="Kenji Ginjo" />
     <meta name="robots" content="index, follow" />
 
     <!-- Canonical URL -->
@@ -27,8 +27,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://neziva.com/" />
-    <meta property="og:title" content="Neziva | AI systems that run in production" />
-    <meta property="og:description" content="We confirm scope first, then deliver software that runs in your existing environment. You work directly with the developers. No outsourcing." />
+    <meta property="og:title" content="Neziva | AI systems that run in production · Kenji Ginjo" />
+    <meta property="og:description" content="Neziva is Kenji Ginjo's studio. Scope first, then AI systems delivered into your environment. Product: Vocalace, US English pronunciation for Chinese speakers." />
     <meta property="og:image" content="https://neziva.com/og-image.png" />
     <meta property="og:site_name" content="Neziva" />
     <meta property="og:locale" content="en_US" />
@@ -36,12 +36,72 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://neziva.com/" />
-    <meta name="twitter:title" content="Neziva | AI systems that run in production" />
-    <meta name="twitter:description" content="We confirm scope first, then deliver software that runs in your existing environment. You work directly with the developers. No outsourcing." />
+    <meta name="twitter:title" content="Neziva | AI systems that run in production · Kenji Ginjo" />
+    <meta name="twitter:description" content="Neziva is Kenji Ginjo's studio. Scope first, then AI systems delivered into your environment. Product: Vocalace, US English pronunciation for Chinese speakers." />
     <meta name="twitter:image" content="https://neziva.com/og-image.png" />
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://neziva.com/#organization",
+          "name": "Neziva",
+          "alternateName": ["涅智维", "两江新区涅智维网络科技工作室"],
+          "legalName": "两江新区涅智维网络科技工作室",
+          "url": "https://neziva.com/",
+          "email": "kenjiginjo@gmail.com",
+          "foundingDate": "2026-05-14",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Chongqing",
+            "addressCountry": "CN"
+          },
+          "founder": { "@id": "https://neziva.com/#kenji" }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://neziva.com/#website",
+          "url": "https://neziva.com/",
+          "name": "Neziva",
+          "inLanguage": ["en", "zh"],
+          "publisher": { "@id": "https://neziva.com/#organization" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://neziva.com/#kenji",
+          "name": "Kenji Ginjo",
+          "url": "https://kenjiginjo.com/",
+          "email": "kenjiginjo@gmail.com",
+          "jobTitle": "Founder",
+          "worksFor": { "@id": "https://neziva.com/#organization" },
+          "sameAs": [
+            "https://x.com/KenjiGinjo",
+            "https://kenjiginjo.com/",
+            "https://github.com/KenjiGinjo",
+            "https://dev.to/kenjiginjo"
+          ]
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://www.vocalace.com/#app",
+          "name": "Vocalace",
+          "url": "https://www.vocalace.com/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "Web",
+          "inLanguage": ["zh", "en"],
+          "description": "American English pronunciation practice for Chinese speakers, with phoneme-level feedback.",
+          "creator": { "@id": "https://neziva.com/#kenji" },
+          "publisher": { "@id": "https://neziva.com/#organization" },
+          "isRelatedTo": { "@id": "https://neziva.com/#organization" }
+        }
+      ]
+    }
+    </script>
   </head>
   <body class="antialiased">
     <div id="root"></div>

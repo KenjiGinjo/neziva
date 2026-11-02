@@ -13,7 +13,7 @@ export const en = {
     switchToZh: '中文',
   },
   footer: {
-    tagline: 'AI systems that run in production. Scope first, then delivery into your environment.',
+    tagline: 'Neziva is Kenji Ginjo\'s studio for AI systems that go live. We also ship Vocalace (vocalace.com): US English pronunciation for Chinese speakers.',
     services: 'Services',
     company: 'Company',
     contactInfo: 'Contact Info',
@@ -63,10 +63,10 @@ export const en = {
   },
   meta: {
     siteName: 'Neziva',
-    defaultTitle: 'Neziva | AI systems that run in production',
-    defaultDescription: 'We confirm scope first, then deliver software that runs in your existing environment. You work directly with the developers. No outsourcing.',
-    homeTitle: 'Neziva | AI systems that run in production',
-    homeDescription: 'A small studio. When the process is defined, we take it through go-live. You work directly with the developers.',
+    defaultTitle: 'Neziva | AI systems that run in production · Kenji Ginjo',
+    defaultDescription: 'Neziva is Kenji Ginjo\'s studio. Scope first, then AI systems delivered into your environment. Product: Vocalace, US English pronunciation for Chinese speakers.',
+    homeTitle: 'Neziva | AI systems that run in production · Kenji Ginjo',
+    homeDescription: 'Neziva is Kenji Ginjo\'s studio. Scope first, then AI systems delivered into your environment. Product: Vocalace, US English pronunciation for Chinese speakers.',
     servicesTitle: 'Services | Neziva',
     servicesDescription: 'A free half-hour talk, a prototype, or a full build through go-live. Price once the scope is clear.',
     portfolioTitle: 'Work | Neziva',
@@ -345,7 +345,7 @@ export const en = {
   about: {
     heroEyebrow: 'AI systems, delivered to production',
     heroTitle: 'About Neziva',
-    heroBody: 'We deliver AI systems that run in production. A small studio. You work directly with the developers.',
+    heroBody: 'Neziva is Kenji Ginjo\'s studio for AI systems that go live. We also ship Vocalace (vocalace.com): US English pronunciation for Chinese speakers.',
     whatWeDo: 'What we do',
     points: [
       { title: 'We deliver systems that run.', body: 'Write the code, connect the model, deploy. That is the work.' },

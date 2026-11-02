@@ -15,7 +15,7 @@ export const zh: Messages = {
     switchToZh: '中文',
   },
   footer: {
-    tagline: '将 AI 做成可上线运行的系统。范围确认后，交付到您的环境。',
+    tagline: 'Neziva 是 Kenji Ginjo 的工作室，做能上线跑的 AI 系统。自研产品 Vocalace（vocalace.com）：给中文母语者的美式发音练习。',
     services: '服务',
     company: '公司',
     contactInfo: '联系方式',
@@ -65,10 +65,10 @@ export const zh: Messages = {
   },
   meta: {
     siteName: 'Neziva',
-    defaultTitle: 'Neziva | 可上线运行的 AI 系统',
-    defaultDescription: '先确认需求范围，再交付可在您现有环境中运行的系统。由开发者直接对接，不转包。',
-    homeTitle: 'Neziva | 可上线运行的 AI 系统',
-    homeDescription: '小型工作室。业务流程已经清楚的，我们接到上线。您直接与开发者沟通。',
+    defaultTitle: 'Neziva｜可上线运行的 AI 系统 · Kenji Ginjo 工作室',
+    defaultDescription: '两江新区涅智维网络科技工作室（Neziva），创始人 Kenji Ginjo。先确认范围，再把 AI 系统交到你现有环境里跑。自研产品 Vocalace：给中文母语者的美式发音练习。',
+    homeTitle: 'Neziva｜可上线运行的 AI 系统 · Kenji Ginjo 工作室',
+    homeDescription: '两江新区涅智维网络科技工作室（Neziva），创始人 Kenji Ginjo。先确认范围，再把 AI 系统交到你现有环境里跑。自研产品 Vocalace：给中文母语者的美式发音练习。',
     servicesTitle: '服务 | Neziva',
     servicesDescription: '免费沟通 30 分钟，或开发原型，或整套上线。范围确认后再报价。',
     portfolioTitle: '案例 | Neziva',
@@ -347,7 +347,7 @@ export const zh: Messages = {
   about: {
     heroEyebrow: 'AI 系统交付',
     heroTitle: '关于 Neziva',
-    heroBody: '交付可上线运行的 AI 系统。小型工作室。您直接与开发者沟通。',
+    heroBody: 'Neziva 是 Kenji Ginjo 的工作室，做能上线跑的 AI 系统。自研产品 Vocalace（vocalace.com）：给中文母语者的美式发音练习。',
     whatWeDo: '我们做什么',
     points: [
       { title: '交付可运行的系统。', body: '编写代码、接入模型、部署上线。这就是工作本身。' },

@@ -1,5 +1,6 @@
 # neziva - robots.txt
 # https://neziva.com
+# Also see: https://neziva.com/llms.txt
 
 User-agent: *
 Allow: /
