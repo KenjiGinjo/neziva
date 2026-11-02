@@ -86,6 +86,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # web-app build runs Playwright prerender (SSG); Chromium only needed for that job
+      - name: Install Playwright Chromium
+        if: matrix.app == 'web-app'
+        run: pnpm --filter web-app exec playwright install --with-deps chromium
+
       - name: Build
         run: pnpm --filter "${{ matrix.filter }}" build
 
