@@ -4,7 +4,7 @@
  */
 import { createServer } from 'node:http'
 import { existsSync, createReadStream, statSync } from 'node:fs'
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright'
@@ -171,10 +171,30 @@ async function prerenderRoute(browser, route) {
   console.log(`  ✓ ${route} → ${rel}`)
 }
 
+/** Align sitemap hreflang with page DocumentMeta (`zh-CN`, not plugin's `zh`). */
+async function alignSitemapHreflang() {
+  const sitemapPath = path.join(DIST, 'sitemap.xml')
+  if (!existsSync(sitemapPath)) {
+    console.warn('  ! sitemap.xml missing, skip hreflang align')
+    return
+  }
+  const before = await readFile(sitemapPath, 'utf8')
+  const after = before.replaceAll('hreflang="zh"', 'hreflang="zh-CN"')
+  if (after === before) {
+    console.warn('  ! no hreflang="zh" found in sitemap.xml')
+    return
+  }
+  await writeFile(sitemapPath, after, 'utf8')
+  const n = (after.match(/hreflang="zh-CN"/g) || []).length
+  console.log(`  ✓ sitemap hreflang zh → zh-CN (${n})`)
+}
+
 async function main() {
   if (!existsSync(path.join(DIST, 'index.html'))) {
     throw new Error(`Missing ${path.join(DIST, 'index.html')}; run vite build first`)
   }
+
+  await alignSitemapHreflang()
 
   console.log(`Prerender ${ROUTES.length} routes from ${DIST}`)
   const server = await startStaticServer()

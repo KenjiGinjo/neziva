@@ -11,7 +11,9 @@ export default defineConfig({
     tailwindcss(),
     Sitemap({
       hostname: 'https://neziva.com',
-      // EN paths only; i18n.prefix emits /zh… + xhtml:link hreflang (en / zh / x-default)
+      // EN paths only; i18n.prefix emits /zh… + xhtml:link.
+      // Plugin uses language codes as both hreflang and URL prefix, so keep `zh` here;
+      // prerender.mjs rewrites hreflang to `zh-CN` to match DocumentMeta.
       dynamicRoutes: [
         '/services',
         '/portfolio',
