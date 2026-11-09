@@ -11,7 +11,8 @@ import { chromium } from 'playwright'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const DIST = path.resolve(__dirname, '../dist')
-const SITE = 'https://neziva.com'
+/** Must match DocumentMeta / index.html / vite sitemap hostname. */
+const SITE = 'https://www.neziva.com'
 const HOST = '127.0.0.1'
 const PORT = 4179
 
@@ -138,27 +139,41 @@ async function prerenderRoute(browser, route) {
   const canonical = expectedCanonical(route)
   const expectZh = route === '/zh' || route.startsWith('/zh/')
 
-  await page.waitForFunction(
-    ({ canonicalHref, expectZh: zh }) => {
-      const h1 = document.querySelector('#root h1')
-      const link = document.querySelector('link[rel="canonical"]')
-      const lang = document.documentElement.lang
-      if (!h1 || !link)
-        return false
-      if (link.getAttribute('href') !== canonicalHref)
-        return false
-      if (zh && lang !== 'zh-CN')
-        return false
-      if (!zh && lang !== 'en')
-        return false
-      const en = document.querySelector('link[rel="alternate"][hreflang="en"]')
-      const zhCn = document.querySelector('link[rel="alternate"][hreflang="zh-CN"]')
-      const xDef = document.querySelector('link[rel="alternate"][hreflang="x-default"]')
-      return Boolean(en && zhCn && xDef)
-    },
-    { canonicalHref: canonical, expectZh },
-    { timeout: 60_000 },
-  )
+  try {
+    await page.waitForFunction(
+      ({ canonicalHref, expectZh: zh }) => {
+        const h1 = document.querySelector('#root h1')
+        const link = document.querySelector('link[rel="canonical"]')
+        const lang = document.documentElement.lang
+        if (!h1 || !link)
+          return false
+        if (link.getAttribute('href') !== canonicalHref)
+          return false
+        if (zh && lang !== 'zh-CN')
+          return false
+        if (!zh && lang !== 'en')
+          return false
+        const en = document.querySelector('link[rel="alternate"][hreflang="en"]')
+        const zhCn = document.querySelector('link[rel="alternate"][hreflang="zh-CN"]')
+        const xDef = document.querySelector('link[rel="alternate"][hreflang="x-default"]')
+        return Boolean(en && zhCn && xDef)
+      },
+      { canonicalHref: canonical, expectZh },
+      { timeout: 60_000 },
+    )
+  }
+  catch (err) {
+    const snap = await page.evaluate(() => ({
+      lang: document.documentElement.lang,
+      canonical: document.querySelector('link[rel="canonical"]')?.getAttribute('href') ?? null,
+      hreflang: [...document.querySelectorAll('link[rel="alternate"]')].map(el => el.getAttribute('hreflang')),
+      h1: document.querySelector('#root h1')?.textContent?.trim() ?? null,
+    })).catch(() => null)
+    throw new Error(
+      `Prerender timeout on ${route}; expected canonical ${canonical} lang ${expectZh ? 'zh-CN' : 'en'}; got ${JSON.stringify(snap)}`,
+      { cause: err },
+    )
+  }
 
   const html = await page.content()
   const out = outFileForRoute(route)
