@@ -1,10 +1,4 @@
 /** Placeholder marketing records. Hidden even if a database still has them. */
-export const withheldPortfolioSlugs = new Set([
-  'ai-workflow-automation-platform',
-  'smart-data-analytics-tool',
-  'ai-content-generation-assistant',
-])
-
 export const withheldBlogSlugs = new Set([
   'how-to-build-first-ai-app',
   'ai-customer-service-best-practices',

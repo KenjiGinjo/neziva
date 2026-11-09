@@ -3,7 +3,6 @@ import { initAdmin } from './admin'
 import { initBlogPosts } from './blog-post'
 import { initContactForms } from './contact-form'
 import { initNewsletter } from './newsletter'
-import { initPortfolioProjects } from './portfolio-project'
 
 async function main() {
   console.log('🚀 Starting database seeding...\n')
@@ -24,10 +23,6 @@ async function main() {
     // 初始化 Newsletter 订阅
     const newsletterSubscribers = await initNewsletter()
     console.log(`   - Newsletter Subscribers: ${newsletterSubscribers.length}`)
-
-    // 初始化作品集项目
-    const portfolioProjects = await initPortfolioProjects()
-    console.log(`   - Portfolio Projects: ${portfolioProjects.length}`)
 
     console.log('\n✨ Database seeding completed successfully!')
   }

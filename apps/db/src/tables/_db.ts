@@ -6,7 +6,6 @@ import { TableCache } from './cache'
 import { TableContactForm } from './contact-form'
 import { TableErrorLog } from './error-log'
 import { TableNewsletter } from './newsletter'
-import { TablePortfolioProject } from './portfolio-project'
 
 export const db = orchidORM(
   {
@@ -20,7 +19,6 @@ export const db = orchidORM(
     errorLog: TableErrorLog,
     contactForm: TableContactForm,
     blogPost: TableBlogPost,
-    portfolioProject: TablePortfolioProject,
     newsletter: TableNewsletter,
   },
 )

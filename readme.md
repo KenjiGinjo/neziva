@@ -26,9 +26,9 @@ packages/
 bruno/                   API request collection
 ```
 
-Site: home, services, work, about, careers, payment, contact, blog, privacy. EN/ZH.
+Site: home, services, about, careers, payment, contact, blog, privacy. EN/ZH.
 
-Data: admins, contact form, blog, portfolio, newsletter, error logs.
+Data: admins, contact form, blog, newsletter, error logs.
 
 ## Stack
 

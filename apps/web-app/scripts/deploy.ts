@@ -46,13 +46,20 @@ if (!host) {
 const remoteSpec = `${username}@${host}:${remotePath}/`
 const usePassword = Boolean(password)
 
+/** Old SSG directories. scp does not remove files that are no longer in dist. */
+const staleDirs = ['portfolio', 'zh/portfolio']
+
 // ssh uses -p PORT; scp uses -P PORT (capital P). Destination must be user@host:path in one piece.
 if (usePassword) {
   await $`sshpass -p ${password} ssh -p ${port} ${username}@${host} mkdir -p ${remotePath}`
+  for (const rel of staleDirs)
+    await $`sshpass -p ${password} ssh -p ${port} ${username}@${host} rm -rf ${`${remotePath}/${rel}`}`
   await $`sshpass -p ${password} scp -r -P ${port} ./dist/* ${remoteSpec}`
 }
 else {
   await $`ssh -p ${port} ${username}@${host} mkdir -p ${remotePath}`
+  for (const rel of staleDirs)
+    await $`ssh -p ${port} ${username}@${host} rm -rf ${`${remotePath}/${rel}`}`
   await $`scp -r -P ${port} ./dist/* ${remoteSpec}`
 }
 

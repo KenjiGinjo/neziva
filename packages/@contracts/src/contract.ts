@@ -9,8 +9,6 @@ import type {
   ResBlogPostList,
   ResNewsletterSubscribe,
   ResPagination,
-  ResPortfolioProjectDetail,
-  ResPortfolioProjectList,
   ResSystemSetting,
 } from '@neziva/interfaces'
 import {
@@ -32,8 +30,6 @@ import {
   vNewsletterSubscribe,
   vNewsletterSubscribersQuery,
   vNewsletterSubscriberStatus,
-  vPortfolioProjectsQuery,
-  vPortfolioRelated,
 } from '@neziva/validations'
 import { initContract } from '@packages/ts-rest-react-query/ts-rest-core'
 const c = initContract()
@@ -104,36 +100,6 @@ export const contract = {
         query: c.type<undefined>(),
         body: c.type<vNewsletterSubscribe>(),
         responses: { 200: c.type<{data:ResNewsletterSubscribe}>() },
-      },
-    }),
-  },
-  "portfolio": {
-    "related": {
-      ":id": c.router({
-        "$get": {
-          method: 'GET',
-          path: 'portfolio/related/:id',
-          pathParams: c.type<{id:string}>(),
-          query: c.type<vPortfolioRelated>(),
-          responses: { 200: c.type<{data:ResPortfolioProjectDetail[]}>() },
-        },
-      }),
-    },
-    "projects": c.router({
-      ":id": c.router({
-        "$get": {
-          method: 'GET',
-          path: 'portfolio/projects/:id',
-          pathParams: c.type<{id:string}>(),
-          query: c.type<undefined>(),
-          responses: { 200: c.type<{data:ResPortfolioProjectDetail}>() },
-        },
-      }),
-      "$get": {
-        method: 'GET',
-        path: 'portfolio/projects',
-        query: c.type<vPortfolioProjectsQuery>(),
-        responses: { 200: c.type<{data:ResPortfolioProjectList[],pagination:ResPagination}>() },
       },
     }),
   },

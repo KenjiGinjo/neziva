@@ -1,7 +1,6 @@
 import { HomeAbout } from '@/components/home-about'
 import { HomeContact } from '@/components/home-contact'
 import { HomeHero } from '@/components/home-hero'
-import { HomePortfolio } from '@/components/home-portfolio'
 import { HomeServices } from '@/components/home-services'
 import { HomeWhyChoose } from '@/components/home-why-choose'
 import { SectionProcess } from '@/components/section-process'
@@ -13,7 +12,6 @@ export function PageHome() {
       <HomeHero />
       <HomeWhyChoose />
       <HomeServices />
-      <HomePortfolio />
       <SectionProcess />
       <SectionTechnologies />
       <HomeAbout />
