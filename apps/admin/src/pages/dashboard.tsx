@@ -39,7 +39,7 @@ export function PageDashboard() {
   const health = healthLabel[stats.systemHealth] ?? healthLabel.healthy
 
   return (
-    <PageShell title="总览" description="工作室站点运营数据。">
+    <PageShell title="总览" description="站点运营数据。">
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           href={`/contacts?status=${EnumContactFormStatus.Pending}`}

@@ -47,6 +47,11 @@ export function PagePrivacy() {
                 {' '}
                 {p.s2AutoBody}
               </li>
+              <li>
+                <strong>{p.s2Chat}</strong>
+                {' '}
+                {p.s2ChatBody}
+              </li>
             </ul>
           </section>
 
@@ -116,8 +121,8 @@ export function PagePrivacy() {
             <p className="text-gray-600 leading-relaxed mt-4">
               {p.s7Contact}
               {' '}
-              <a href="mailto:kenjiginjo@gmail.com" className="text-[#4F46E5] hover:underline">
-                kenjiginjo@gmail.com
+              <a href="mailto:hello@neziva.com" className="text-[#4F46E5] hover:underline">
+                hello@neziva.com
               </a>
               .
             </p>
@@ -143,8 +148,8 @@ export function PagePrivacy() {
             <p className="text-gray-600 leading-relaxed">
               {p.s11Body}
               {' '}
-              <a href="mailto:kenjiginjo@gmail.com" className="text-[#4F46E5] hover:underline">
-                kenjiginjo@gmail.com
+              <a href="mailto:hello@neziva.com" className="text-[#4F46E5] hover:underline">
+                hello@neziva.com
               </a>
               .
             </p>

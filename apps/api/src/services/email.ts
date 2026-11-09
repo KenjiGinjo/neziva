@@ -126,7 +126,7 @@ export const email = {
     const template = contactUsTemplate(type, email, name, content, images)
 
     return sendEmailViaResend({
-      to: 'q1218605102@gmail.com',
+      to: 'hello@neziva.com',
       subject: template.subject,
       html: template.html,
       text: template.text,

@@ -3,11 +3,6 @@ import { useI18n } from '@/i18n'
 
 const LEGAL = '两江新区涅智维网络科技工作室'
 const USCC = '92500157MAKD81B01T'
-const PAYEE = '崔丛昆'
-const ACCOUNT_DISPLAY = '6217 0011 4000 2950 548'
-const ACCOUNT_PLAIN = '6217001140002950548'
-const BANK = '中国建设银行股份有限公司哈尔滨田地支行'
-const CNAPS = '105261000773'
 
 function CopyRow({
   label,
@@ -68,10 +63,6 @@ export function PaymentInfo() {
         <dl className="max-w-3xl border border-gray-200 rounded-2xl px-6 md:px-8">
           <CopyRow label={p.legalLabel} value={LEGAL} />
           <CopyRow label={p.usccLabel} value={USCC} />
-          <CopyRow label={p.payeeLabel} value={PAYEE} note={p.payeeNote} />
-          <CopyRow label={p.accountLabel} value={ACCOUNT_DISPLAY} copyValue={ACCOUNT_PLAIN} />
-          <CopyRow label={p.bankLabel} value={BANK} />
-          <CopyRow label={p.cnapsLabel} value={CNAPS} />
         </dl>
         <p className="max-w-3xl mt-6 text-gray-600 leading-relaxed">{p.note}</p>
       </div>

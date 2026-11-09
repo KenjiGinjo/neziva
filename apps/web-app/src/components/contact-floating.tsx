@@ -44,7 +44,7 @@ export function ContactFloating() {
                 Get In Touch
               </DialogTitle>
               <p className="text-indigo-100 text-sm mt-1">
-                We typically respond within 12 hours
+                We reply on business days, with no fixed response time
               </p>
             </DialogHeader>
           </div>

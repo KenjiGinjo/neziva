@@ -1,6 +1,6 @@
 # Neziva
 
-Source for [neziva.com](https://neziva.com): public site, admin, and API.
+Source for [neziva.com](https://www.neziva.com): public site, admin, and API.
 
 Scope first, then ship AI systems that run in the client’s existing environment. Clients work with the developer directly — no subcontracting.
 
@@ -92,8 +92,8 @@ API debugging: `bruno/` at the repo root.
 
 ## Links
 
-- Site: https://neziva.com
-- Contact: kenjiginjo@gmail.com
+- Site: https://www.neziva.com
+- Contact: hello@neziva.com
 
 ## License
 

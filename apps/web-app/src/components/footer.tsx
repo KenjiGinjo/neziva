@@ -84,11 +84,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio" className="hover:text-white transition-colors">
-                  {m.nav.portfolio}
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" className="hover:text-white transition-colors">
                   {m.nav.contact}
                 </Link>
@@ -101,8 +96,8 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-[#4F46E5]" />
-                <a href="mailto:kenjiginjo@gmail.com" className="hover:text-white transition-colors">
-                  kenjiginjo@gmail.com
+                <a href="mailto:hello@neziva.com" className="hover:text-white transition-colors">
+                  hello@neziva.com
                 </a>
               </li>
             </ul>

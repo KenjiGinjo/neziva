@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { formatDate, useI18n } from '@/i18n'
 import { Loading } from './loading'
 
-const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
+const CONTACT_EMAIL = 'hello@neziva.com'
 
 interface BlogListProps {
   posts: ResBlogPostList[]

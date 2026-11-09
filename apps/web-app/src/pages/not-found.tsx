@@ -44,9 +44,6 @@ export function PageNotFound() {
               <Link href="/services" className="text-[#4F46E5] font-medium hover:text-[#7C3AED] transition-colors">
                 {m.nav.services}
               </Link>
-              <Link href="/portfolio" className="text-[#4F46E5] font-medium hover:text-[#7C3AED] transition-colors">
-                {m.nav.portfolio}
-              </Link>
               <Link href="/about" className="text-[#4F46E5] font-medium hover:text-[#7C3AED] transition-colors">
                 {m.nav.about}
               </Link>

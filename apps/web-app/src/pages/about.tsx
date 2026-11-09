@@ -2,7 +2,6 @@ import { AboutApproach } from '@/components/about-approach'
 import { AboutHero } from '@/components/about-hero'
 import { AboutIndustries } from '@/components/about-industries'
 import { AboutMain } from '@/components/about-main'
-// import { AboutTestimonials } from '@/components/about-testimonials'
 import { AboutValues } from '@/components/about-values'
 import { AboutWhyDifferent } from '@/components/about-why-different'
 import { SectionCTA } from '@/components/section-cta'
@@ -17,7 +16,6 @@ export function PageAbout() {
       <AboutApproach />
       <AboutValues />
       <SectionCTA variant="about" />
-      {/* <AboutTestimonials /> */}
     </div>
   )
 }

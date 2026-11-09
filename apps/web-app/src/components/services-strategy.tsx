@@ -79,7 +79,7 @@ export function ServicesStrategy() {
                 <p className="text-gray-600">{s.priceNote}</p>
               </div>
 
-              <a href={`mailto:kenjiginjo@gmail.com?subject=${encodeURIComponent(s.mailSubject)}`}>
+              <a href={`mailto:hello@neziva.com?subject=${encodeURIComponent(s.mailSubject)}`}>
                 <Button className="w-full bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all mb-6">
                   {s.cta}
                 </Button>

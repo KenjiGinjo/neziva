@@ -1,9 +1,6 @@
 # Neziva
 
-Neziva (legal name: 两江新区涅智维网络科技工作室) is Kenji Ginjo's studio.
-We build AI systems that go live: confirm scope, then deliver into your existing environment.
-Founder: Kenji Ginjo — https://kenjiginjo.com · X @KenjiGinjo · GitHub https://github.com/KenjiGinjo
-Product: Vocalace — American English pronunciation practice for Chinese speakers — https://www.vocalace.com
-Related course site: https://course.vocalace.com
-Contact: kenjiginjo@gmail.com
-Site: https://neziva.com (Chinese UI: https://neziva.com/zh)
+Neziva provides enterprise AI implementation. Legal name: 两江新区涅智维网络科技工作室, an individual business in Chongqing. Developers you talk to do the work. We do not publish a headcount.
+Confirm scope, then deliver into your existing environment.
+Contact: hello@neziva.com
+Site: https://www.neziva.com (Chinese UI: https://www.neziva.com/zh)

@@ -40,7 +40,7 @@ export const chatRoute = new Hono()
         key: `chat_message:${ipAddress}`,
         limit: 40,
         expiresAt: endOfDay(new Date()),
-        errorMessage: 'Daily chat limit reached. Please email kenjiginjo@gmail.com or try again tomorrow.',
+        errorMessage: 'Daily chat limit reached. Please email hello@neziva.com or try again tomorrow.',
       })
     }
 
@@ -71,7 +71,7 @@ export const chatRoute = new Hono()
               catch {
                 return {
                   ok: false,
-                  message: 'Lead save limit reached for today. Ask the visitor to email kenjiginjo@gmail.com.',
+                  message: 'Lead save limit reached for today. Ask the visitor to email hello@neziva.com.',
                 }
               }
             }

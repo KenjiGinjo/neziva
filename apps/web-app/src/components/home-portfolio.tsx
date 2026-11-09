@@ -3,7 +3,7 @@ import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
 
-const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
+const CONTACT_EMAIL = 'hello@neziva.com'
 
 export function HomePortfolio() {
   const { m } = useI18n()

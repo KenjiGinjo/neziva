@@ -1,4 +1,3 @@
-import { IconAiGenerate3DLine } from '@neziva/svg'
 import { Link } from 'wouter'
 import { cn } from '@/lib/utils'
 
@@ -44,9 +43,13 @@ export function Logo({
   const boxSize = boxSizeMap[size]
 
   const icon = (
-    <IconAiGenerate3DLine
+    <svg
+      viewBox="0 0 32 32"
+      aria-hidden="true"
       className={cn(iconSize, withBox ? 'text-white' : 'text-[#4F46E5]')}
-    />
+    >
+      <path fill="currentColor" d="M8.5 24V8h3.2l8.3 10.2V8H23.5v16h-3.2l-8.3-10.2V24z" />
+    </svg>
   )
 
   const content = withBox ? (

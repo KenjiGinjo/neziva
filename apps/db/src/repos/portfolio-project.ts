@@ -25,8 +25,8 @@ const selectForDefault = db.portfolioProject.makeHelper(q => q.select(
 export const portfolioProject = createRepo(db.portfolioProject, {
   queryMethods: {
     selectForDefault: q => selectForDefault(q),
-    selectForList: (q, options?: { type?: string, tag?: string, featured?: boolean }) => {
-      const { type, tag, featured } = options || {}
+    selectForList: (q, options?: { type?: string, tag?: string, featured?: boolean, excludeSlugs?: string[] }) => {
+      const { type, tag, featured, excludeSlugs } = options || {}
       const query = selectForDefault(q)
       const defaultWhere: Record<string, any> = {}
 
@@ -40,6 +40,10 @@ export const portfolioProject = createRepo(db.portfolioProject, {
 
       if (featured !== undefined) {
         defaultWhere['featured'] = featured
+      }
+
+      if (excludeSlugs?.length) {
+        defaultWhere['slug'] = { notIn: excludeSlugs }
       }
 
       if (Object.keys(defaultWhere).length > 0) {

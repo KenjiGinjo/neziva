@@ -1,5 +1,4 @@
 import {
-  Activity,
   Brain,
   Cloud,
   Code,
@@ -9,7 +8,6 @@ import {
   Link,
   Package,
   Server,
-  TrendingUp,
   Zap,
 } from 'lucide-react'
 import { useI18n } from '@/i18n'
@@ -24,8 +22,6 @@ const technologies = [
   { name: 'LangChain', icon: Link },
   { name: 'Vector DBs', icon: Layers },
   { name: 'AWS', icon: Cloud },
-  { name: 'TensorFlow', icon: TrendingUp },
-  { name: 'PyTorch', icon: Activity },
   { name: 'FastAPI', icon: Zap },
 ]
 

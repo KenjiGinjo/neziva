@@ -3,7 +3,9 @@ import type { HonoResponse } from '../types'
 import { EnumBlogPostStatus } from '@neziva/enums'
 import { vBlogPostsQuery, vBlogRelated, vBlogSearch, vIds } from '@neziva/validations'
 import { dr, ds } from 'db'
+import { withheldBlogSlugs } from '../services/withheld-public'
 import { Hono } from 'hono'
+import { HTTPException } from 'hono/http-exception'
 import { ip } from '../middleware'
 import { pagination, validate } from '../utils'
 
@@ -20,6 +22,7 @@ export const blogRoute = new Hono()
       tag,
       featured,
       status: EnumBlogPostStatus.Published,
+      excludeSlugs: [...withheldBlogSlugs],
     })
       .limit(where.limit)
       .offset(where.offset)
@@ -43,6 +46,8 @@ export const blogRoute = new Hono()
     const ipAddress = c.get('ipAddress')
 
     const post = await dr.blogPost.where({ id, status: EnumBlogPostStatus.Published }).take()
+    if (withheldBlogSlugs.has(post.slug))
+      throw new HTTPException(404, { message: 'Not found' })
 
     // 记录浏览量（基于 IP 去重）
     await ds.blogPost.recordView(id, ipAddress)
@@ -56,7 +61,11 @@ export const blogRoute = new Hono()
   .get('/search', pagination(), validate('query', vBlogSearch), async (c): Promise<HonoResponse<{ data: ResBlogPostList[], query?: string, pagination: ResPagination }>> => {
     const { where } = c.get('page')
     const { keyword } = c.req.valid('query')
-    const query = dr.blogPost.selectForList({ keyword: keyword || '__EMPTY__', status: EnumBlogPostStatus.Published })
+    const query = dr.blogPost.selectForList({
+      keyword: keyword || '__EMPTY__',
+      status: EnumBlogPostStatus.Published,
+      excludeSlugs: [...withheldBlogSlugs],
+    })
 
     const total = await query.count()
     const data = await query
@@ -81,6 +90,8 @@ export const blogRoute = new Hono()
     const { limit } = c.req.valid('query')
 
     const post = await dr.blogPost.selectForDefault().where({ id }).take()
+    if (withheldBlogSlugs.has(post.slug))
+      throw new HTTPException(404, { message: 'Not found' })
 
     const related = await ds.blogPost.getRelated({
       id,
@@ -90,6 +101,6 @@ export const blogRoute = new Hono()
     })
 
     return c.json({
-      data: related,
+      data: related.filter(item => !withheldBlogSlugs.has(item.slug)),
     })
   })

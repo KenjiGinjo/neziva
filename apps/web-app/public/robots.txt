@@ -1,11 +1,11 @@
 # neziva - robots.txt
-# https://neziva.com
-# Also see: https://neziva.com/llms.txt
+# https://www.neziva.com
+# Also see: https://www.neziva.com/llms.txt
 
 User-agent: *
 Allow: /
 
-Sitemap: https://neziva.com/sitemap.xml
+Sitemap: https://www.neziva.com/sitemap.xml
 
 # Crawl-delay is not standard; most crawlers ignore it.
 # Use only if you need to throttle specific bots.

@@ -3,7 +3,7 @@ import { useLocation } from 'wouter'
 import { useI18n } from './context'
 import { withLocalePrefix } from './locale'
 
-const SITE = 'https://neziva.com'
+const SITE = 'https://www.neziva.com'
 
 function upsertMeta(selector: string, attrs: Record<string, string>) {
   let el = document.head.querySelector(selector)
@@ -21,8 +21,6 @@ function metaForPath(path: string, m: ReturnType<typeof useI18n>['m']) {
     return { title: m.meta.homeTitle, desc: m.meta.homeDescription }
   if (path.startsWith('/services'))
     return { title: m.meta.servicesTitle, desc: m.meta.servicesDescription }
-  if (path.startsWith('/portfolio'))
-    return { title: m.meta.portfolioTitle, desc: m.meta.portfolioDescription }
   if (path.startsWith('/about'))
     return { title: m.meta.aboutTitle, desc: m.meta.aboutDescription }
   if (path.startsWith('/careers'))

@@ -25,8 +25,8 @@ const selectForDefault = db.blogPost.makeHelper(q => q.select(
 export const blogPost = createRepo(db.blogPost, {
   queryMethods: {
     selectForDefault: q => selectForDefault(q),
-    selectForList: (q, options?: { category?: string, tag?: string, featured?: boolean, status?: EnumBlogPostStatus, keyword?: string }) => {
-      const { category, tag, featured, status, keyword } = options || {}
+    selectForList: (q, options?: { category?: string, tag?: string, featured?: boolean, status?: EnumBlogPostStatus, keyword?: string, excludeSlugs?: string[] }) => {
+      const { category, tag, featured, status, keyword, excludeSlugs } = options || {}
 
       const query = selectForDefault(q)
       const defaultWhere: any = { }
@@ -44,6 +44,10 @@ export const blogPost = createRepo(db.blogPost, {
 
       if (featured !== undefined) {
         defaultWhere.featured = featured
+      }
+
+      if (excludeSlugs?.length) {
+        defaultWhere.slug = { notIn: excludeSlugs }
       }
 
       const searchWhere: any = []

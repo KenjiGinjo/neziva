@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
 import { $qc } from '@/query-client'
 
-const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
+const CONTACT_EMAIL = 'hello@neziva.com'
 
 interface ContactMainProps<T extends FieldValues> {
   form: UseFormReturn<T>

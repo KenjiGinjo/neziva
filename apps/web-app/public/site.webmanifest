@@ -1,7 +1,7 @@
 {
-  "name": "Neziva | AI systems that run in production · Kenji Ginjo",
+  "name": "Neziva | Enterprise AI implementation",
   "short_name": "Neziva",
-  "description": "Neziva is Kenji Ginjo's studio. Scope first, then AI systems delivered into your environment. Product: Vocalace, US English pronunciation for Chinese speakers.",
+  "description": "Neziva provides enterprise AI implementation and delivers systems into your existing environment.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

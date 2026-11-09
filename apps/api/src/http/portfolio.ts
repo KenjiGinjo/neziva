@@ -2,7 +2,9 @@ import type { ResPagination, ResPortfolioProjectDetail, ResPortfolioProjectList 
 import type { HonoResponse } from '../types'
 import { vIds, vPortfolioProjectsQuery, vPortfolioRelated } from '@neziva/validations'
 import { dr, ds } from 'db'
+import { withheldPortfolioSlugs } from '../services/withheld-public'
 import { Hono } from 'hono'
+import { HTTPException } from 'hono/http-exception'
 import { pagination, validate } from '../utils'
 
 export const portfolioRoute = new Hono()
@@ -16,6 +18,7 @@ export const portfolioRoute = new Hono()
       type,
       tag,
       featured,
+      excludeSlugs: [...withheldPortfolioSlugs],
     })
       .limit(where.limit)
       .offset(where.offset)
@@ -38,6 +41,8 @@ export const portfolioRoute = new Hono()
     const { id } = c.req.valid('param')
 
     const data = await dr.portfolioProject.find(id).selectForDefault()
+    if (withheldPortfolioSlugs.has(data.slug))
+      throw new HTTPException(404, { message: 'Not found' })
 
     return c.json({ data })
   })
@@ -48,6 +53,8 @@ export const portfolioRoute = new Hono()
     const { limit } = c.req.valid('query')
 
     const project = await dr.portfolioProject.find(id).selectForDefault()
+    if (withheldPortfolioSlugs.has(project.slug))
+      throw new HTTPException(404, { message: 'Not found' })
 
     const data = await ds.portfolioProject.getRelated({
       id,
@@ -56,5 +63,5 @@ export const portfolioRoute = new Hono()
       limit,
     })
 
-    return c.json({ data })
+    return c.json({ data: data.filter(item => !withheldPortfolioSlugs.has(item.slug)) })
   })

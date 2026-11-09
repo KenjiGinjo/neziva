@@ -3,7 +3,7 @@ import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
 
-const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
+const CONTACT_EMAIL = 'hello@neziva.com'
 
 const SERVICE_META = [
   { href: '/services#strategy', icon: Lightbulb, iconColor: 'text-[#F97316]', featured: false },

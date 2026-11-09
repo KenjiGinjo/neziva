@@ -3,9 +3,9 @@ import { Link } from 'wouter'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
 
-const CONTACT_EMAIL = 'kenjiginjo@gmail.com'
+const CONTACT_EMAIL = 'hello@neziva.com'
 
-type CTAVariant = 'home' | 'portfolio' | 'blog' | 'about' | 'contact' | 'services'
+type CTAVariant = 'home' | 'blog' | 'about' | 'contact' | 'services'
 
 interface SectionCTAProps {
   variant: CTAVariant
@@ -23,16 +23,6 @@ export function SectionCTA({ variant }: SectionCTAProps) {
       footerText: undefined as string | undefined,
       showSecondaryButton: false,
       secondaryAsLink: false,
-      gradient: 'from-[#4F46E5] to-[#7C3AED]',
-      compact: false,
-    },
-    portfolio: {
-      title: cta.portfolioTitle,
-      description: cta.portfolioDescription,
-      features: cta.portfolioFeatures,
-      footerText: undefined as string | undefined,
-      showSecondaryButton: true,
-      secondaryAsLink: true,
       gradient: 'from-[#4F46E5] to-[#7C3AED]',
       compact: false,
     },
@@ -78,7 +68,7 @@ export function SectionCTA({ variant }: SectionCTAProps) {
     },
   }[variant]
 
-  const hasBlur = variant === 'home' || variant === 'portfolio'
+  const hasBlur = variant === 'home'
   const hasIcon = variant === 'blog'
 
   return (

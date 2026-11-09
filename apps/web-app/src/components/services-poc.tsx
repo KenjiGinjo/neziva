@@ -75,7 +75,7 @@ export function ServicesPOC() {
                 <p className="text-gray-600">{s.priceNote}</p>
               </div>
 
-              <a href={`mailto:kenjiginjo@gmail.com?subject=${encodeURIComponent(s.mailSubject)}`}>
+              <a href={`mailto:hello@neziva.com?subject=${encodeURIComponent(s.mailSubject)}`}>
                 <Button className="w-full bg-gradient-to-r from-[#7C3AED] to-[#10B981] text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all mb-6">
                   {s.cta}
                 </Button>

@@ -19,7 +19,6 @@ const PORT = 4179
 const EN_ROUTES = [
   '/',
   '/services',
-  '/portfolio',
   '/about',
   '/careers',
   '/payment',
